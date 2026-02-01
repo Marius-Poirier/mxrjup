@@ -24,25 +24,41 @@
 
 .hero-text {
     font-size: clamp(3rem, 15vw, 12rem);
-    line-height: 0.8;
+    line-height: 0.85;
+    /* Slight increase for box spacing */
     font-weight: 900;
     text-transform: uppercase;
     display: flex;
     flex-direction: column;
-    mix-blend-mode: difference;
+    /* color: var(--color-text); Removed default color */
 }
 
 .line {
     display: block;
     letter-spacing: -0.05em;
+    background-color: #FFF400;
+    /* Yellow Box */
+    color: black;
+    /* Black Text */
+    width: fit-content;
+    /* Box wraps text */
+    padding: 0 0.1em;
+    /* Tight padding */
+    z-index: 10;
 
     &.indent {
         margin-left: 20vw;
         font-style: italic;
-        color: transparent;
-        -webkit-text-stroke: 2px var(--color-text);
+        z-index: 11;
+        /* margin-top: -0.1em; Overlap effect if desired, but clean stack is safer first */
     }
 }
+
+/* ... existing code ... */
+
+
+
+
 
 /* Marquee */
 .marquee-container {
@@ -96,13 +112,36 @@
     transition: all 0.3s var(--ease-out-expo);
 
     &:hover {
-        background: var(--color-accent);
         color: var(--color-bg);
 
         .placeholder {
             transform: scale(1.1);
         }
     }
+
+    /* Primary Colors Cycle: Red, Yellow, Blue */
+    &:nth-child(1):hover {
+        background: #0004ff;
+    }
+
+    /* Music = Blue */
+    &:nth-child(2):hover {
+        background: #FF0000;
+    }
+
+    /* Flashy Red */
+    &:nth-child(3):hover {
+        background: #FFF400;
+        color: black;
+    }
+
+    /* Yellow */
+    &:nth-child(4):hover {
+        background: #FFF400;
+        color: black;
+    }
+
+    /* Blue again */
 
     &.large {
         grid-column: span 6;

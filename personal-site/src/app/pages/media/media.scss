@@ -92,9 +92,36 @@
         /* Changed to main font */
         font-weight: 900;
         font-size: 4rem;
-        color: var(--color-text);
-        /* Filled text */
-        /* -webkit-text-stroke: 2px var(--color-text); Removed outline */
+        color: white;
+        /* Default white text */
+    }
+}
+
+/* Color Cycle for Media Gallery MP3s */
+.media-item:nth-child(3n+1) .audio-placeholder {
+    background: #0004ff;
+
+    /* Blue */
+    .format-text {
+        color: white;
+    }
+}
+
+.media-item:nth-child(3n+2) .audio-placeholder {
+    background: #FF0000;
+
+    /* Flashy Red */
+    .format-text {
+        color: white;
+    }
+}
+
+.media-item:nth-child(3n+3) .audio-placeholder {
+    background: #FFF400;
+
+    /* Yellow */
+    .format-text {
+        color: black;
     }
 }
 

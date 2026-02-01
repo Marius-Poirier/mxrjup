@@ -122,25 +122,55 @@
 .extract-box {
     width: 100%;
     aspect-ratio: 1;
-    border: 1px solid var(--color-text);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: transparent;
+    background: #0004ff;
+    /* Default Blue */
     cursor: pointer;
     transition: all 0.2s;
 
     &:hover {
-        background: #f5f5f5;
         transform: scale(1.05);
+        filter: brightness(1.2);
     }
 
     .format-text {
         font-family: var(--font-main);
         font-weight: 900;
         font-size: 2.5rem;
-        color: var(--color-text);
+        color: white;
+    }
+}
+
+/* Color Cycle for Extracts */
+.extract-item:nth-child(3n+1) .extract-box {
+    background: #FF0000;
+
+    /* Flashy Red */
+    .format-text {
+        color: white;
+    }
+}
+
+.extract-item:nth-child(3n+2) .extract-box {
+    background: #FFF400;
+
+    /* Yellow */
+    .format-text {
+        color: black;
+    }
+
+    /* Black text on yellow */
+}
+
+.extract-item:nth-child(3n+3) .extract-box {
+    background: #0004ff;
+
+    /* Blue */
+    .format-text {
+        color: white;
     }
 }
 

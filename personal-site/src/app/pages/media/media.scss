@@ -29,6 +29,8 @@
     gap: 10vw;
     /* Huge gap for that sparse product look */
     padding: 5vw;
+    align-items: center;
+    /* Center items vertically in their grid cells */
 }
 
 .media-item {
@@ -41,43 +43,72 @@
     &:hover {
         transform: scale(1.05);
 
-        .image-wrapper img {
+        .image-wrapper img,
+        .image-wrapper .audio-placeholder {
             filter: grayscale(100%) contrast(120%);
         }
 
-        .meta {
-            opacity: 1;
-        }
+        /* Removed .meta opacity change since it's now permanent */
     }
 }
 
 .image-wrapper {
     width: 100%;
-    aspect-ratio: 1;
-    /* Square or consistent aspect ratio */
+    /* Removed fixed aspect-ratio to let images dictate height,
+       or keep it but transparent. User mentioned orientation variation.
+       Let's allow natural height but constrain max-height for consistency if needed.
+       For a true "product on white" look, we usually just let them sit naturally. */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     margin-bottom: var(--spacing-md);
+    background: transparent;
+    /* Removed grey background */
 
     img {
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: auto;
+        display: block;
         object-fit: contain;
         transition: filter 0.3s;
+    }
+}
+
+.audio-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1;
+    /* Keep Audio square */
+    background: transparent;
+    /* Transparent background */
+    border: 1px solid var(--color-text);
+    /* Minimal border instead */
+    transition: filter 0.3s;
+
+    .format-text {
+        font-family: var(--font-main);
+        /* Changed to main font */
+        font-weight: 900;
+        font-size: 4rem;
+        color: var(--color-text);
+        /* Filled text */
+        /* -webkit-text-stroke: 2px var(--color-text); Removed outline */
     }
 }
 
 .meta {
     font-family: var(--font-mono);
     font-size: 0.8rem;
-    opacity: 0;
-    /* Hidden by default for clean look, shown on hover */
+    opacity: 1;
+    /* Permanent visibility */
     transition: opacity 0.3s;
     display: flex;
     gap: var(--spacing-sm);
     text-transform: uppercase;
+    margin-top: var(--spacing-sm);
+    /* Added margin for spacing */
 }
 
 /* Lightbox */
@@ -88,7 +119,6 @@
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.95);
-    /* White overlay for "raw" feel */
     z-index: 100;
     display: flex;
     align-items: center;
@@ -104,13 +134,44 @@
     align-items: center;
     cursor: default;
 
-    img {
+    img,
+    video {
         max-width: 100%;
         max-height: 85vh;
         object-fit: contain;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 }
+
+.audio-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl);
+    background: white;
+    border: 1px solid var(--color-text);
+
+    .audio-icon {
+        width: 150px;
+        height: 150px;
+        color: #000;
+    }
+
+    audio {
+        width: 300px;
+    }
+}
+
+/* @keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+} Removed animation keyframes */
 
 .lightbox-meta {
     margin-top: var(--spacing-md);
@@ -142,6 +203,5 @@
 
     .meta {
         opacity: 1;
-        /* Always show meta on mobile */
     }
 }

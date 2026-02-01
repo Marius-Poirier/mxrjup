@@ -4,9 +4,9 @@ import { UpperCasePipe } from '@angular/common';
 
 export interface MediaItem {
   id: string;
-  type: 'image' | 'video';
+  type: 'image' | 'video' | 'audio';
   url: string;
-  thumbnail: string;
+  thumbnail?: string; // Audio might not have a thumbnail
   title: string;
 }
 
@@ -24,42 +24,41 @@ export class MediaComponent {
       id: '1',
       type: 'image',
       url: 'https://picsum.photos/seed/awge1/1920/1080',
-      thumbnail: 'https://picsum.photos/seed/awge1/600/600',
+      thumbnail: 'https://picsum.photos/seed/awge1/800/600', // Landscape
       title: 'CHAOS_01'
     },
     {
       id: '2',
-      type: 'image',
-      url: 'https://picsum.photos/seed/awge2/1920/1080',
-      thumbnail: 'https://picsum.photos/seed/awge2/600/800',
-      title: 'ENTROPY'
+      type: 'video',
+      url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      thumbnail: 'https://picsum.photos/seed/video1/600/600', // Square
+      title: 'MOTION_TEST'
     },
     {
       id: '3',
       type: 'image',
-      url: 'https://picsum.photos/seed/awge3/1920/1080',
-      thumbnail: 'https://picsum.photos/seed/awge3/600/600',
+      url: 'https://picsum.photos/seed/awge3/1080/1920',
+      thumbnail: 'https://picsum.photos/seed/awge3/600/900', // Portrait
       title: 'VOID'
     },
     {
       id: '4',
-      type: 'image',
-      url: 'https://picsum.photos/seed/awge4/1920/1080',
-      thumbnail: 'https://picsum.photos/seed/awge4/800/600',
-      title: 'STATIC'
+      type: 'audio',
+      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+      title: 'AUDIO_LOG_01'
     },
     {
       id: '5',
       type: 'image',
       url: 'https://picsum.photos/seed/awge5/1920/1080',
-      thumbnail: 'https://picsum.photos/seed/awge5/600/900',
+      thumbnail: 'https://picsum.photos/seed/awge5/900/400', // Wide
       title: 'NOISE'
     },
     {
       id: '6',
       type: 'image',
-      url: 'https://picsum.photos/seed/awge6/1920/1080',
-      thumbnail: 'https://picsum.photos/seed/awge6/600/600',
+      url: 'https://picsum.photos/seed/awge6/1080/1920',
+      thumbnail: 'https://picsum.photos/seed/awge6/500/800', // Portrait
       title: 'SIGNAL'
     }
   ]);

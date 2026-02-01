@@ -1,0 +1,19 @@
+<div class="container">
+    <header class="header">
+        <a routerLink="/music" class="back-link">&larr; MUSIC</a>
+        <div class="title">LISTENING LOG</div>
+    </header>
+
+    <div class="list">
+        @for (item of history(); track item.id) {
+        <div class="list-item">
+            <span class="index">{{ item.id }}.</span>
+            <div class="info">
+                <span class="artist">{{ item.artist }}</span>
+                <span class="album">{{ item.title }}</span>
+            </div>
+            <span class="date">{{ item.date }}</span>
+        </div>
+        }
+    </div>
+</div>

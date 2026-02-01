@@ -1,0 +1,37 @@
+<div class="container">
+    <header class="header">
+        <a routerLink="/" class="back-link">&larr; INDEX</a>
+        <div class="title">MUSIC REVIEWS</div>
+        <nav class="sub-nav">
+            <a routerLink="/music/timeline">TIMELINE</a>
+            <a routerLink="/music/history">HISTORY</a>
+        </nav>
+    </header>
+
+    <div class="reviews-feed">
+        @for (review of reviews(); track review.id) {
+        <article class="review-card" [routerLink]="['/music/review', review.id]">
+            <div class="content">
+                <div class="meta-top">
+                    <span class="genre">{{ review.genre }}</span>
+                    <!-- Score removed from list view as requested -->
+                </div>
+
+                <h1 class="album-title">{{ review.album }}</h1>
+                <h2 class="artist-name">{{ review.artist }}</h2>
+
+                <p class="summary">{{ review.summary }}</p>
+
+                <div class="meta-bottom">
+                    <span>By {{ review.author }}</span>
+                </div>
+            </div>
+
+            <div class="artwork">
+                <img [src]="review.cover" [alt]="review.album">
+            </div>
+        </article>
+        <hr class="divider">
+        }
+    </div>
+</div>

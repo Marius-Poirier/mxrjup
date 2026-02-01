@@ -1,0 +1,154 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+    min-height: 100vh;
+}
+
+/* Matching Media Header Style */
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xl);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    border-bottom: 1px solid var(--color-text);
+    padding-bottom: var(--spacing-sm);
+    align-items: center;
+}
+
+.back-link {
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 14px;
+    /* Explicit size to match */
+
+    &:hover {
+        font-style: italic;
+    }
+}
+
+.title {
+    text-transform: uppercase;
+}
+
+/* Sub-nav stays, but styled to fit */
+.sub-nav {
+    display: flex;
+    gap: var(--spacing-lg);
+
+    a {
+        font-family: var(--font-mono);
+        text-decoration: none;
+        color: var(--color-text);
+        font-size: 14px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+/* Review Card - Pitchfork Style */
+.review-card {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg) 0;
+    cursor: pointer;
+    /* Clickable */
+
+    &:hover {
+        .album-title {
+            color: var(--color-accent);
+        }
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.meta-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    font-weight: bold;
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+}
+
+.album-title {
+    font-family: 'Times New Roman', serif;
+    /* Classic Pitchfork serif */
+    font-style: italic;
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: var(--spacing-sm);
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.artist-name {
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-md);
+    font-weight: normal;
+}
+
+.summary {
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+}
+
+.meta-bottom {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+.artwork {
+    width: 100%;
+    aspect-ratio: 1;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 1px solid #eee;
+    }
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .review-card {
+        grid-template-columns: 1fr;
+
+        .artwork {
+            order: -1;
+            /* Image first on mobile */
+            max-width: 100%;
+        }
+
+        .album-title {
+            font-size: 2rem;
+        }
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}

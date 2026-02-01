@@ -1,0 +1,75 @@
+@if (review(); as r) {
+<div class="container">
+    <header class="review-header">
+        <div class="header-content">
+            <div class="meta">
+                <span class="genre">{{ r.genre }}</span>
+                <span class="date">{{ r.date }}</span>
+            </div>
+            <h1 class="album-title">{{ r.album }}</h1>
+            <h2 class="artist-name">{{ r.artist }}</h2>
+        </div>
+        <div class="cover-art">
+            <img [src]="r.cover" [alt]="r.album">
+            <!-- Score removed -->
+        </div>
+    </header>
+
+    <div class="review-body">
+        <div class="byline">
+            <span class="author">By <strong>{{ r.author }}</strong></span>
+        </div>
+
+        <div class="main-content">
+            <div class="article-text" [innerHTML]="r.content"></div>
+
+            @if (r.extracts) {
+            <div class="extracts-section">
+                <h3>SOUNDS EXTRAITS</h3>
+                <div class="extracts-grid">
+                    @for (extract of r.extracts; track extract.title) {
+                    <div class="extract-item" (click)="openLightbox(extract)">
+                        <div class="extract-box">
+                            <span class="format-text">MP3</span>
+                        </div>
+                        <span class="extract-title">{{ extract.title }}</span>
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <div class="footer">
+        <a routerLink="/music" class="back-link">&larr; BACK TO REVIEWS</a>
+    </div>
+
+    @if (activeExtract(); as active) {
+    <div class="lightbox" (click)="closeLightbox()">
+        <div class="lightbox-content" (click)="$event.stopPropagation()">
+            <div class="audio-player">
+                <div class="audio-icon">
+                    <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 5L6 9H2V15H6L11 19V5Z" fill="black" stroke="black" stroke-width="2"
+                            stroke-linejoin="round" />
+                        <path
+                            d="M15.54 8.46C16.4774 9.39764 17.004 10.6692 17.004 11.995C17.004 13.3208 16.4774 14.5924 15.54 15.53"
+                            stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M19.07 4.93C20.9447 6.80527 21.998 9.34836 21.998 12C21.998 14.6516 20.9447 17.1947 19.07 19.07"
+                            stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <audio [src]="active.url" controls autoplay></audio>
+            </div>
+
+            <div class="lightbox-meta">
+                <span>{{ active.title }}</span>
+                <button (click)="closeLightbox()">CLOSE [X]</button>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+}

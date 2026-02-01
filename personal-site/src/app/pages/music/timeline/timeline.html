@@ -1,0 +1,33 @@
+<div class="container">
+    <header class="header">
+        <a routerLink="/music" class="back-link">&larr; MUSIC</a>
+        <div class="title">TIMELINE</div>
+    </header>
+
+    <div class="timeline-container">
+        <div class="spine"></div>
+
+        @for (group of groupedAlbums(); track group.year) {
+        <div class="year-section">
+            <div class="year-marker">{{ group.year }}</div>
+
+            <div class="cluster">
+                @for (album of group.items; track album.title; let i = $index) {
+                <div class="album-entry" [style.--offset]="i" [class.left]="i % 2 === 0" [class.right]="i % 2 !== 0">
+
+                    <div class="connector"></div>
+                    <div class="card">
+                        <img [src]="album.cover" [alt]="album.title" loading="lazy">
+                        <div class="info">
+                            <span class="date">{{ album.date }}</span>
+                            <span class="title">{{ album.title }}</span>
+                        </div>
+                    </div>
+
+                </div>
+                }
+            </div>
+        </div>
+        }
+    </div>
+</div>

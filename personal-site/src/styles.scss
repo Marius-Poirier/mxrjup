@@ -1,0 +1,68 @@
+/* Global Resets */
+:root {
+  /* Colors */
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-accent: #0000ff; /* Digital Blue */
+  --color-gray: #f0f0f0;
+  
+  /* Typography */
+  --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+  
+  /* Spacing */
+  --spacing-unit: 8px;
+  --spacing-sm: calc(var(--spacing-unit) * 1);
+  --spacing-md: calc(var(--spacing-unit) * 2);
+  --spacing-lg: calc(var(--spacing-unit) * 4);
+  --spacing-xl: calc(var(--spacing-unit) * 8);
+
+  /* Animation */
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar hiding for that 'app' feel */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+/* Selection style */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Utility Classes */
+.mono {
+    font-family: var(--font-mono);
+}
+
+.screen-reader-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

@@ -10,6 +10,7 @@ import { TimelineComponent } from './pages/music/timeline/timeline';
 import { HistoryComponent } from './pages/music/history/history';
 
 import { ReviewDetailComponent } from './pages/music/review-detail/review-detail';
+import { CoolStuffComponent } from './pages/cool-stuff/cool-stuff';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -19,5 +20,6 @@ export const routes: Routes = [
     { path: 'music/timeline', component: TimelineComponent },
     { path: 'music/history', component: HistoryComponent },
     { path: 'music/review/:id', component: ReviewDetailComponent },
+    { path: 'cool-stuff', component: CoolStuffComponent },
     { path: 'post/:id', component: PostDetailComponent },
 ];

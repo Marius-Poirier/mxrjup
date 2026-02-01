@@ -1,0 +1,31 @@
+<div class="container">
+    <header class="header">
+        <a routerLink="/" class="back-link">&larr; BACK</a>
+        <div class="page-title">COOL STUFF</div>
+        <div class="count">7 ITEMS</div>
+    </header>
+
+    <div class="grid">
+        @for (item of items(); track item.id) {
+        <a [href]="item.link" target="_blank" class="grid-item" [style.grid-column]="'span ' + (item.colSpan || 1)"
+            [style.grid-row]="'span ' + (item.rowSpan || 1)">
+
+            <div class="image-container">
+                <img [src]="item.image" [alt]="item.title">
+                <div class="overlay" [style.background-color]="item.tagColor"></div>
+            </div>
+
+            <div class="content">
+                <div class="tag" [style.background-color]="item.tagColor"
+                    [style.color]="item.tagColor === '#FFF400' ? 'black' : 'white'">
+                    {{ item.type }}
+                </div>
+                <h2 class="title">{{ item.title }}</h2>
+                @if (item.subtitle) {
+                <p class="subtitle">{{ item.subtitle }}</p>
+                }
+            </div>
+        </a>
+        }
+    </div>
+</div>

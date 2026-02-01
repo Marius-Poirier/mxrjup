@@ -1,0 +1,32 @@
+<div class="container">
+    <header class="header">
+        <a routerLink="/" class="back-link">&larr; INDEX</a>
+        <div class="title">MEDIA ARCHIVE</div>
+    </header>
+
+    <div class="media-grid">
+        @for (item of items(); track item.id) {
+        <div class="media-item" (click)="openLightbox(item)">
+            <div class="image-wrapper">
+                <img [src]="item.thumbnail" [alt]="item.title" loading="lazy">
+            </div>
+            <div class="meta">
+                <span class="file-name">{{ item.title }}</span>
+                <span class="file-type">[{{ item.type | uppercase }}]</span>
+            </div>
+        </div>
+        }
+    </div>
+
+    @if (activeItem(); as active) {
+    <div class="lightbox" (click)="closeLightbox()">
+        <div class="lightbox-content" (click)="$event.stopPropagation()">
+            <img [src]="active.url" [alt]="active.title">
+            <div class="lightbox-meta">
+                <span>{{ active.title }}</span>
+                <button (click)="closeLightbox()">CLOSE [X]</button>
+            </div>
+        </div>
+    </div>
+    }
+</div>

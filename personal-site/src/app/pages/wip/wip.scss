@@ -1,0 +1,122 @@
+/* Typical Organization Clone - "Less Structured" */
+
+:host {
+    display: block;
+    min-height: 100vh;
+    background: white;
+    color: black;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+.swiss-container {
+    padding: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.back-link {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    /* Reference often has nav on corners */
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    z-index: 100;
+    background: white;
+    /* Keep this readable */
+    padding: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+
+    &:hover {
+        background: black;
+        color: white;
+    }
+}
+
+/* Header - TRANSPARENT & FIXED for CHAOS SCROLL */
+.grid-header {
+    display: flex;
+    position: fixed;
+    top: 50px;
+    /* Space from top */
+    left: 20px;
+    right: 20px;
+    z-index: 50;
+    pointer-events: none;
+    /* Let scroll pass through if mouse is over whitespace */
+    background: transparent;
+    /* KEY: Content scrolls BEHIND this */
+    padding-bottom: 20px;
+    mix-blend-mode: difference;
+    /* Optional: ensures visibility if black on black, or just let it clash */
+    color: black;
+    /* Or difference mode for contrast */
+}
+
+/* Body - Scrollable Area */
+.grid-body {
+    margin-top: 100px;
+    /* Space for fixed header */
+    padding: 0 20px 100px 20px;
+}
+
+/* Grid Rows - NO BORDERS, just placement */
+.grid-row {
+    display: flex;
+    text-decoration: none;
+    color: black;
+    padding: 5px 0;
+    align-items: flex-start;
+    transition: opacity 0.2s;
+
+    /* Reveal effect on hover? Reference is cleaner. */
+    &:hover {
+        color: #0004ff;
+    }
+}
+
+/* Columns */
+.col-date {
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.col-object {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.col-subject {
+    flex: 1;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .swiss-container {
+        font-size: 1rem;
+    }
+
+    .col-date {
+        width: 100px;
+    }
+
+    .col-object {
+        width: 100px;
+    }
+
+    .grid-header {
+        position: sticky;
+        background: white;
+        /* On mobile, chaos might be unusable */
+        top: 0;
+    }
+
+    .grid-body {
+        margin-top: 0;
+    }
+}

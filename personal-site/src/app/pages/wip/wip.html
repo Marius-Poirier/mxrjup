@@ -1,0 +1,28 @@
+<div class="swiss-container">
+    <!-- Fixed Elements -->
+    <div class="grid-header">
+        <div class="col-date">Date</div>
+        <div class="col-object">Object</div>
+        <div class="col-subject">Subject</div>
+    </div>
+    <a routerLink="/" class="back-link">CLOSE [X]</a>
+
+    <!-- Scrollable Body containing rows -->
+    <div class="grid-body">
+        @for (exp of experiments(); track exp.id) {
+        <a [href]="exp.link" class="grid-row">
+            <div class="col-date">{{ exp.date }}</div>
+            <div class="col-object">{{ exp.object }}</div>
+            <div class="col-subject">{{ exp.subject }}</div>
+        </a>
+        }
+        <!-- Repeat data to ensure scrolling for the effect -->
+        @for (exp of experiments(); track exp.id + '_dup') {
+        <a [href]="exp.link" class="grid-row">
+            <div class="col-date">{{ exp.date }}</div>
+            <div class="col-object">{{ exp.object }}</div>
+            <div class="col-subject">{{ exp.subject }} copy</div>
+        </a>
+        }
+    </div>
+</div>

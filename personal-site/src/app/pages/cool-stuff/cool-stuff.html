@@ -1,31 +1,32 @@
-<div class="container">
-    <header class="header">
-        <a routerLink="/" class="back-link">&larr; BACK</a>
-        <div class="page-title">COOL STUFF</div>
-        <div class="count">7 ITEMS</div>
+<div class="brutalist-container">
+    <header class="directory-header">
+        <a routerLink="/" class="back-link">← BACK TO CHAOS</a>
+        <h1 class="page-title">COOL STUFF_DIRECTORY</h1>
+        <div class="count">[{{ items().length }} ENTRIES]</div>
     </header>
 
-    <div class="grid">
-        @for (item of items(); track item.id) {
-        <a [href]="item.link" target="_blank" class="grid-item" [style.grid-column]="'span ' + (item.colSpan || 1)"
-            [style.grid-row]="'span ' + (item.rowSpan || 1)">
-
-            <div class="image-container">
-                <img [src]="item.image" [alt]="item.title">
-                <div class="overlay" [style.background-color]="item.tagColor"></div>
+    <div class="directory-list">
+        @for (item of items(); track item.id; let i = $index) {
+        <a [href]="item.link" target="_blank" class="directory-item" (mouseenter)="hoveredItem = item"
+            (mouseleave)="hoveredItem = null">
+            <div class="item-index">0{{ i + 1 }}</div>
+            <div class="item-info">
+                <span class="item-type" [style.color]="item.tagColor">[{{ item.type }}]</span>
+                <h2 class="item-title">{{ item.title }}</h2>
+                <span class="item-subtitle">{{ item.subtitle }}</span>
             </div>
-
-            <div class="content">
-                <div class="tag" [style.background-color]="item.tagColor"
-                    [style.color]="item.tagColor === '#FFF400' ? 'black' : 'white'">
-                    {{ item.type }}
-                </div>
-                <h2 class="title">{{ item.title }}</h2>
-                @if (item.subtitle) {
-                <p class="subtitle">{{ item.subtitle }}</p>
-                }
-            </div>
+            <div class="item-arrow">→</div>
         </a>
         }
     </div>
+
+    <!-- Image Reveal Container (Fixed) -->
+    @if (hoveredItem) {
+    <div class="reveal-image-container">
+        <img [src]="hoveredItem.image" [alt]="hoveredItem.title">
+        <div class="reveal-caption" [style.background]="hoveredItem.tagColor">
+            {{ hoveredItem.title }} // {{ hoveredItem.type }}
+        </div>
+    </div>
+    }
 </div>

@@ -21,6 +21,7 @@ interface CoolThing {
   styleUrl: './cool-stuff.scss'
 })
 export class CoolStuffComponent {
+  hoveredItem: CoolThing | null = null;
   items = signal<CoolThing[]>([
     {
       id: '1',

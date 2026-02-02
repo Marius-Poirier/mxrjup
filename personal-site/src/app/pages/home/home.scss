@@ -109,12 +109,33 @@
     color: white;
     /* With difference mode, this inverts against background */
 
-    .large-korean {
-        font-size: 2rem;
-        font-weight: bold;
-        line-height: 1.4;
+    .large-multilingual {
+        font-size: 2.5rem;
+        /* Slightly larger */
+        font-weight: 900;
+        line-height: 1.2;
         margin-bottom: 2rem;
         word-break: keep-all;
+        text-transform: uppercase;
+
+        .serif {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+
+        .highlight-text {
+            background: #FF0000;
+            /* Red as requested */
+            color: black;
+            padding: 0 5px;
+        }
+
+        .block-inverse {
+            background: black;
+            color: white;
+            padding: 0 5px;
+            font-family: sans-serif;
+        }
     }
 
     .explanation {
@@ -127,6 +148,39 @@
     }
 }
 
+.secondary-text-block {
+    position: absolute;
+    bottom: 25%;
+    right: 5%;
+    /* Positioned opposite to the main text or scattered */
+    text-align: right;
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.1;
+    z-index: 10;
+    pointer-events: none;
+    mix-blend-mode: hard-light;
+
+    .serif {
+        font-family: 'Times New Roman', serif;
+        font-style: italic;
+    }
+
+    .highlight-text {
+        background: #0004ff;
+        /* Blue highlight for variety */
+        color: white;
+        padding: 0 5px;
+    }
+
+    .block-inverse {
+        background: black;
+        color: white;
+        padding: 0 5px;
+    }
+}
+
 /* --- 4. Navigation Stickers/Badges --- */
 .nav-badge {
     position: absolute;
@@ -134,7 +188,8 @@
     /* Bright Green */
     border: 1px solid black;
     color: black;
-    padding: 15px 5px;
+    padding: 25px 15px;
+    /* Bigger padding */
     text-decoration: none;
     font-weight: bold;
     box-shadow: 3px 3px 0px black;
@@ -143,21 +198,24 @@
     z-index: 30;
 
     &:hover {
-        transform: translate(-2px, -2px);
+        transform: scale(1.1);
+        /* No rotation, just scale */
         box-shadow: 5px 5px 0px black;
     }
 
     .vertical-text {
         writing-mode: vertical-lr;
         text-orientation: upright;
-        letter-spacing: 2px;
-        font-size: 1.2rem;
+        letter-spacing: 5px;
+        /* Spaced out */
+        font-size: 2rem;
+        /* Bigger Font */
     }
 }
 
 .music-badge {
     top: 50%;
-    left: 5%;
+    left: 2%;
     transform: translateY(-50%);
 
     &:hover {
@@ -167,7 +225,7 @@
 
 .cool-badge {
     top: 50%;
-    right: 5%;
+    right: 2%;
     transform: translateY(-50%);
 
     &:hover {
@@ -178,33 +236,86 @@
 .nav-sticker {
     position: absolute;
     background: white;
-    border: 2px solid black;
-    padding: 1rem;
-    font-weight: bold;
+    border: 3px solid black;
+    /* Thicker border */
+    padding: 1.5rem 2rem;
+    /* Bigger */
+    font-weight: 900;
     text-transform: uppercase;
+    font-size: 1.5rem;
+    /* Bigger Font */
     cursor: pointer;
     z-index: 30;
     transition: transform 0.2s;
 
     &:hover {
-        transform: rotate(-2deg) scale(1.05);
+        transform: scale(1.05);
+        /* No rotation */
         background: #FFF400;
     }
 }
 
 .media-sticker {
-    bottom: 20%;
-    left: 20%;
-    transform: rotate(5deg);
+    bottom: 15%;
+    left: 15%;
+    transform: none;
+    /* No rotation */
 }
 
 .project-sticker {
-    top: 20%;
-    right: 20%;
-    transform: rotate(-3deg);
+    top: 15%;
+    right: 15%;
+    transform: none;
+    /* No rotation */
     background: #0004ff;
     color: white;
     border: none;
+}
+
+/* --- 6. Decor Images --- */
+.decor-image {
+    position: absolute;
+    z-index: 5;
+    /* No border */
+    /* No rotation */
+    pointer-events: none;
+    mix-blend-mode: normal;
+}
+
+/* Flashy Image 1 (Top Right) */
+.img-1 {
+    top: 150px;
+    right: 0;
+    width: 350px;
+    /* Bigger */
+    height: auto;
+    filter: contrast(1.5) saturate(2) hue-rotate(90deg);
+}
+
+/* Flashy Image 2 (Bottom Left) */
+.img-2 {
+    bottom: 0;
+    left: 0;
+    width: 400px;
+    /* Bigger */
+    filter: contrast(1.2) saturate(3) hue-rotate(-45deg);
+}
+
+/* Flashy Image 3 (Random) */
+.img-3 {
+    top: 25%;
+    left: 15%;
+    width: 250px;
+    /* Bigger */
+    opacity: 0.9;
+    filter: invert(1);
+}
+
+/* Mobile: Hide or stack images */
+@media (max-width: 768px) {
+    .decor-image {
+        display: none;
+    }
 }
 
 /* --- 5. Marquee --- */

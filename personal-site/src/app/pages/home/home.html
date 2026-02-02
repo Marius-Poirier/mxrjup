@@ -1,38 +1,62 @@
-<div class="container">
-    <header class="header">
-        <div class="logo">MARIUS.ARCHIVE</div>
-        <div class="timestamp">EST. 2026</div>
+<div class="brutalist-container">
+    <!-- Full Screen Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Floating Top Bar -->
+    <header class="floating-header">
+        <div class="sticker-logo">MARIUS.ARCHIVE</div>
+        <div class="sticker-est">MTP34 / EST. 2026</div>
     </header>
 
-    <section class="hero">
-        <h1 class="hero-text">
-            <span class="line">MXRJUP</span>
-            <span class="line indent">DIGITAL</span>
-            <span class="line">PLACE</span>
+    <main class="chaos-content">
+        <!-- Massive Title -->
+        <h1 class="giant-text">
+            I WILL <br>
+            <span class="outline">MXRJUP</span>
         </h1>
-    </section>
 
-    <div class="marquee-container">
+        <!-- MTP34 Manifesto Block -->
+        <div class="manifesto-block">
+            <p class="large-korean">
+                MTP34 출신의 마이클 혹은 上海의 천명
+                화가가 갑작스레 SEOUL the
+                SPECIAL CITY(서울特別市)를 찾아
+            </p>
+            <p class="explanation">
+                THIS SITE IS A <span class="highlight">DIGITAL / GARDEN</span> FOR
+                THE PRESERVATION OF <br>
+                THOUGHTS, MEDIA, AND SOUNDS.
+            </p>
+        </div>
+
+        <!-- Navigation Stickers -->
+
+        <!-- Music: Green Vertical Badge -->
+        <a routerLink="/music" class="nav-badge music-badge">
+            <div class="vertical-text">소개 MUSIC</div>
+        </a>
+
+        <!-- Media: Floating Box -->
+        <a routerLink="/media" class="nav-sticker media-sticker">
+            MEDIA <br> (ARCHIVE)
+        </a>
+
+        <!-- Cool Stuff: Another Badge -->
+        <a routerLink="/cool-stuff" class="nav-badge cool-badge">
+            <div class="vertical-text">소개 COOL</div>
+        </a>
+
+        <!-- Project A / Placeholder -->
+        <div class="nav-sticker project-sticker">
+            PROJECT A
+        </div>
+    </main>
+
+    <!-- Marquee at bottom -->
+    <div class="marquee-bottom">
         <div class="marquee-content">
-            <span>// WELCOME TO THE ARCHIVE // CONSUME CONTENT // DO NOT TOUCH //</span>
-            <span>// WELCOME TO THE ARCHIVE // CONSUME CONTENT // DO NOT TOUCH //</span>
-            <span>// WELCOME TO THE ARCHIVE // CONSUME CONTENT // DO NOT TOUCH //</span>
-            <span>// WELCOME TO THE ARCHIVE // CONSUME CONTENT // DO NOT TOUCH //</span>
+            <span>// MTP34 // WELCOME TO THE ARCHIVE // CONSUME CONTENT // DO NOT TOUCH //</span>
+            <span>// MTP34 // WELCOME TO THE ARCHIVE // CONSUME CONTENT // DO NOT TOUCH //</span>
         </div>
     </div>
-
-    <section class="grid-layout">
-        <div class="grid-item large" routerLink="/music" style="cursor: pointer;">
-            <div class="placeholder">MUSIC</div>
-        </div>
-        <div class="grid-item">
-            <div class="placeholder">PROJECT A</div>
-        </div>
-        <div class="grid-item" routerLink="/cool-stuff" style="cursor: pointer;">
-            <div class="placeholder">COOL STUFF</div>
-        </div>
-        <div class="grid-item wide" routerLink="/media" style="cursor: pointer;">
-            <div class="placeholder">MEDIA</div>
-        </div>
-    </section>
 </div>

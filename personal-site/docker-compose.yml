@@ -6,3 +6,14 @@ services:
     volumes:
       - ./src:/app/src
     restart: always
+
+  backend:
+    build: ./server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server/data:/app/data
+      - ./server/uploads:/app/uploads
+    env_file:
+      - ./server/.env
+    restart: always

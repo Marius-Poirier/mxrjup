@@ -5,9 +5,14 @@
 /tmp
 /out-tsc
 /bazel-out
+.env
+
 
 # Node
-/node_modules
+# Node
+node_modules/
+/server/uploads/*
+!/server/uploads/.gitkeep
 npm-debug.log
 yarn-error.log
 

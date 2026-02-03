@@ -23,5 +23,12 @@ export const routes: Routes = [
     { path: 'music/review/:id', component: ReviewDetailComponent },
     { path: 'cool-stuff', component: CoolStuffComponent },
     { path: 'wip', component: WipComponent },
+    { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
+    {
+        path: 'add',
+        loadComponent: () => import('./pages/admin/admin.component').then(m => m.AdminComponent),
+        canActivate: [authGuard]
+    },
     { path: 'post/:id', component: PostDetailComponent },
 ];
+import { authGuard } from './guards/auth.guard';

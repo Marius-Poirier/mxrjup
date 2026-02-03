@@ -64,6 +64,7 @@
               "buildTarget": "personal-site:build:production"
             },
             "development": {
+              "proxyConfig": "proxy.conf.json",
               "buildTarget": "personal-site:build:development"
             }
           },

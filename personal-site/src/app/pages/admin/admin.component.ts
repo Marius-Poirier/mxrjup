@@ -1,4 +1,6 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Observable, forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../../services/data.service';
@@ -148,10 +150,77 @@ export class AdminComponent implements OnInit {
   }
 
   deleteItem(index: number) {
-    if (confirm('Are you sure?')) {
+    if (confirm('Are you sure? This will permanently delete the item and its files.')) {
+      const itemToDelete = this.currentData[index];
+      const backup = [...this.currentData];
+
       this.currentData.splice(index, 1);
-      this.dataService.saveData(this.activeTab, this.currentData).subscribe();
+
+      // 1. Save the new list first (Optimistic UI)
+      this.dataService.saveData(this.activeTab, this.currentData).subscribe({
+        next: () => {
+          // 2. If save successful, cleanup files and WAIT for them
+          this.cleanupFiles(itemToDelete).subscribe({
+            next: () => {
+              alert('Item and files deleted. Reloading...');
+              window.location.reload();
+            },
+            error: (err) => {
+              console.error('File cleanup error', err);
+              // Even if file deletion fails, the item is gone from DB, so we reload.
+              // Maybe warn user but still reload.
+              alert('Item deleted, but some files could not be removed.');
+              window.location.reload();
+            }
+          });
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Failed to delete item (Server Error)');
+          this.currentData = backup;
+          this.cdr.detectChanges();
+        }
+      });
     }
+  }
+
+  cleanupFiles(item: any): Observable<any> {
+    const filesToDelete: string[] = [];
+
+    // Gather file URLs based on known fields
+    if (item.cover) filesToDelete.push(item.cover);
+    if (item.image) filesToDelete.push(item.image);
+    if (item.thumbnail) filesToDelete.push(item.thumbnail);
+
+    // Media url
+    if (item.url && item.url.startsWith('/uploads/')) {
+      filesToDelete.push(item.url);
+    }
+
+    // Review extracts
+    if (item.extracts && Array.isArray(item.extracts)) {
+      item.extracts.forEach((ex: any) => {
+        if (ex.url && ex.url.startsWith('/uploads/')) {
+          filesToDelete.push(ex.url);
+        }
+      });
+    }
+
+    if (filesToDelete.length === 0) {
+      return of([]); // Return immediate observable if no files
+    }
+
+    // Execute deletions in parallel and wait for all
+    const deleteObs = filesToDelete.map(url =>
+      this.dataService.deleteFile(url).pipe(
+        catchError(err => {
+          console.warn('Failed to delete file ' + url, err);
+          return of(null); // Continue even if one fails
+        })
+      )
+    );
+
+    return forkJoin(deleteObs);
   }
 
   cancelEdit() {

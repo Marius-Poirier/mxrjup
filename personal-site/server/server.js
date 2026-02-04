@@ -119,15 +119,36 @@ app.post('/api/data/:type', authenticate, async (req, res) => {
 });
 
 // File Upload
+// File Upload
 app.post('/api/upload', authenticate, upload.single('file'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
-    // Return the URL to access the file
-    // Assuming deployed at root or similar, we return relative path or full path?
-    // Let's return the relative path that can be used with the base URL.
+    // Return relative path
     const fileUrl = `/uploads/${req.file.filename}`;
     res.json({ url: fileUrl });
+});
+
+app.post('/api/delete-file', authenticate, async (req, res) => {
+    const { url } = req.body;
+    console.log('[API] /api/delete-file requested with URL:', url);
+
+    if (!url) return res.status(400).json({ error: 'No url provided' });
+
+    // Sanitize and resolve path
+    const filename = path.basename(url);
+    const filePath = path.join(UPLOADS_DIR, filename);
+    console.log('[API] resolving path:', filePath);
+
+    try {
+        await fs.unlink(filePath);
+        console.log('[API] File deleted successfully');
+        res.json({ success: true });
+    } catch (err) {
+        console.error('[API] Error deleting file:', err);
+        // We generally return success even if file not found to avoid blocking UI
+        res.json({ success: true, message: 'File could not be deleted or not found' });
+    }
 });
 
 app.listen(PORT, () => {

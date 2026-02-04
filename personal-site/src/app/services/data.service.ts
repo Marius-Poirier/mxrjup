@@ -28,6 +28,13 @@ export class DataService {
         });
     }
 
+    deleteFile(url: string): Observable<any> {
+        console.log('DataService: deleteFile called for:', url);
+        return this.http.post(`${this.apiUrl}/delete-file`, { url }, {
+            headers: { 'Authorization': localStorage.getItem('adminPayload') || '' }
+        });
+    }
+
     login(password: string): Observable<any> {
         return this.http.post(`${this.apiUrl}/login`, { password }).pipe(
             tap(() => localStorage.setItem('adminPayload', password))

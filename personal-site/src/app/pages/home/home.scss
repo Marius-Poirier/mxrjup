@@ -288,8 +288,11 @@
     right: 0;
     width: 350px;
     /* Bigger */
+    /* Bigger */
+    /* Bigger */
     height: auto;
-    filter: contrast(1.5) saturate(2) hue-rotate(90deg);
+    opacity: 0.7;
+    /* filter removed */
 }
 
 /* Flashy Image 2 (Bottom Left) */
@@ -298,25 +301,31 @@
     left: 0;
     width: 400px;
     /* Bigger */
-    filter: contrast(1.2) saturate(3) hue-rotate(-45deg);
+    /* filter removed */
 }
 
 /* Flashy Image 3 (Random) */
 .img-3 {
-    top: 25%;
+    top: 15%;
     left: 15%;
     width: 250px;
     /* Bigger */
-    opacity: 0.9;
-    filter: invert(1);
+    opacity: 0.7;
+    /* filter removed */
+}
+
+/* Flashy Image 4 (Bottom Right Offset) */
+.img-4 {
+    bottom: 0;
+    right: 20%;
+    /* "just a little bit of it" */
+    width: 300px;
+    height: auto;
 }
 
 /* Mobile: Hide or stack images */
-@media (max-width: 768px) {
-    .decor-image {
-        display: none;
-    }
-}
+/* Mobile: Hide or stack images - REPLACED BY SPECIFIC QUERY BELOW */
+/* @media (max-width: 768px) { .decor-image { display: none; } } */
 
 /* --- 5. Marquee --- */
 .marquee-bottom {
@@ -355,31 +364,106 @@
 }
 
 /* Mobile Adjustments */
+/* Mobile Adjustments */
 @media (max-width: 768px) {
+
+    /* Chaos Content padding */
+    .chaos-content {
+        padding-top: 80px;
+        justify-content: flex-start;
+        overflow-y: auto;
+        /* Allow scrolling content if it gets too tall */
+        padding-bottom: 60px;
+        /* Space for marquee */
+    }
+
+    /* Scale down giant text */
     .giant-text {
-        font-size: 5rem;
+        font-size: 3rem;
+        /* Much smaller than desktop */
+        margin-top: 20px;
     }
 
+    /* Manifesto: Scale down but keep visible */
     .manifesto-block {
-        display: none;
-        /* Hide dense text on mobile to avoid clutter */
-    }
-
-    /* Stack stickers for mobile */
-    .music-badge,
-    .cool-badge {
+        display: block;
+        /* Show it! */
         position: relative;
         top: auto;
         left: auto;
-        right: auto;
         transform: none;
-        writing-mode: horizontal-tb;
-        display: inline-block;
-        margin: 10px;
+        width: 90%;
+        margin: 20px auto;
+
+        .large-multilingual {
+            font-size: 1.5rem;
+        }
     }
 
-    .chaos-content {
-        justify-content: flex-start;
-        padding-top: 100px;
+    /* Secondary text: Stack it */
+    .secondary-text-block {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        text-align: center;
+        margin: 20px 0;
+        font-size: 1.2rem;
+    }
+
+    /* Navigation Stickers: Flex Column/Grid */
+    .music-badge,
+    .cool-badge,
+    .nav-sticker,
+    .project-sticker,
+    .media-sticker {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        display: block;
+        width: 80%;
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    .nav-badge .vertical-text {
+        writing-mode: horizontal-tb;
+        letter-spacing: 2px;
+        font-size: 1.2rem;
+    }
+
+    /* Decor Images: SCALED DOWN, not hidden */
+    .decor-image {
+        display: block;
+        width: 100px;
+        /* Base mobile size */
+        opacity: 0.5;
+        /* Slightly more transparent to not block text */
+    }
+
+    .img-1 {
+        top: 60px;
+        right: -20px;
+        width: 120px;
+    }
+
+    .img-2 {
+        bottom: 50px;
+        left: -20px;
+        width: 140px;
+    }
+
+    .img-3 {
+        top: 20%;
+        left: -10px;
+        width: 80px;
+    }
+
+    .img-4 {
+        bottom: 80px;
+        right: -10px;
+        width: 100px;
     }
 }

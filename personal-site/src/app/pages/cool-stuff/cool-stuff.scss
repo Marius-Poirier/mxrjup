@@ -191,15 +191,23 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
-        padding: 1rem;
+        padding: 1.5rem 1rem;
+        /* Better touch target */
 
         .item-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
         .item-info {
             flex-direction: column;
             gap: 5px;
+            width: 100%;
+        }
+
+        /* Show type on top or bottom? Keep as is */
+
+        .item-subtitle {
+            font-size: 1rem;
         }
 
         .item-arrow {
@@ -207,8 +215,19 @@
         }
     }
 
+    /* Hide hover preview on mobile (touch devices don't hover well) */
     .reveal-image-container {
-        width: 80%;
-        /* Smaller for mobile */
+        display: none !important;
+    }
+
+    .directory-header {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+
+        .page-title {
+            font-size: 1.5rem;
+        }
     }
 }

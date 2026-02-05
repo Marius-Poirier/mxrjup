@@ -49,7 +49,7 @@
             <div *ngIf="activeTab === 'history'" class="form-grid">
                 <label>Log Text: <textarea [(ngModel)]="currentItem.text"
                         placeholder="What are you listening to?"></textarea></label>
-                <label>Date/Time: <input type="datetime-local" [(ngModel)]="currentItem.date"></label>
+                <label>Date: <input type="date" [(ngModel)]="currentItem.date"></label>
             </div>
 
             <!-- Reviews Form -->

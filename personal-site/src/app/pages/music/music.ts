@@ -48,7 +48,10 @@ export class MusicComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getData<MusicReview[]>('reviews').subscribe(data => {
-      this.reviews.set(data);
+      const sorted = (data || []).sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      });
+      this.reviews.set(sorted);
     });
   }
 

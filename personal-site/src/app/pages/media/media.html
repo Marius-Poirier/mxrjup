@@ -21,6 +21,8 @@
                 <span class="file-type">[{{ item.type | uppercase }}]</span>
             </div>
         </div>
+        } @empty {
+        <div class="empty-state">NO MEDIA YET.</div>
         }
     </div>
 

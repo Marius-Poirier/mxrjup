@@ -154,7 +154,7 @@
         /* Leave space for caption */
         object-fit: cover;
         display: block;
-        filter: contrast(1.1) grayscale(100%);
+        filter: contrast(1.1);
         border-bottom: 4px solid black;
     }
 

@@ -141,6 +141,8 @@
         </div>
 
         <div class="form-actions">
+            <span *ngIf="uploadStatus" class="upload-status" [class.success]="uploadStatus === 'File Ready'">{{
+                uploadStatus }}</span>
             <button class="save-btn" (click)="saveItem()" [disabled]="isUploading">Save Item</button>
             <button class="cancel-btn" (click)="resetForm()">Cancel</button>
         </div>

@@ -5,9 +5,9 @@
     </header>
 
     <div class="list">
-        <!-- Assuming history is sorted Newest First (standard) -->
-        <!-- We want Oldest = 0. So Top(Newest) = N. Bottom(Oldest) = 0. -->
-        <!-- Formula: count - 1 - i -->
+        @if (history().length === 0) {
+        <div class="empty-state">NO HISTORY YET.</div>
+        } @else {
         <div class="list-item" *ngFor="let item of history(); let i = index">
             <span class="index">{{ history().length - 1 - i }}.</span>
             <div class="info">
@@ -15,5 +15,6 @@
             </div>
             <span class="date">{{ item.date | date:'short' }}</span>
         </div>
+        }
     </div>
 </div>

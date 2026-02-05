@@ -166,3 +166,13 @@ legend {
     padding: 0.25rem 0;
     font-size: 0.9rem;
 }
+
+.upload-status {
+    margin-right: 1rem;
+    font-weight: bold;
+    color: #666;
+}
+
+.upload-status.success {
+    color: #4caf50;
+}

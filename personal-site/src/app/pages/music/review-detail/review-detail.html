@@ -23,16 +23,21 @@
         <div class="main-content">
             <div class="article-text" [innerHTML]="r.content"></div>
 
-            @if (r.extracts) {
+            @if (r.extracts && r.extracts.length > 0) {
             <div class="extracts-section">
-                <h3>SOUNDS EXTRAITS</h3>
+                <!-- No container styling, just a grid -->
                 <div class="extracts-grid">
                     @for (extract of r.extracts; track extract.title) {
-                    <div class="extract-item" (click)="openLightbox(extract)">
-                        <div class="extract-box">
-                            <span class="format-text">MP3</span>
+                    <div class="media-item" (click)="openLightbox(extract)">
+                        <div class="image-wrapper">
+                            <div class="audio-placeholder">
+                                <span class="format-text">MP3</span>
+                            </div>
                         </div>
-                        <span class="extract-title">{{ extract.title }}</span>
+                        <div class="meta">
+                            <span class="file-name">{{ extract.title }}</span>
+                            <span class="file-type">[AUDIO]</span>
+                        </div>
                     </div>
                     }
                 </div>

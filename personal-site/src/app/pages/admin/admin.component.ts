@@ -3,6 +3,7 @@ import { Observable, forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -66,10 +67,14 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  uploadStatus = '';
+
   uploadFile(event: any, field: string, targetObj?: any) {
     const file = event.target.files[0];
     if (file) {
       this.isUploading = true;
+      this.uploadStatus = 'Uploading...';
+
       this.dataService.uploadFile(file).subscribe({
         next: (res) => {
           if (targetObj) {
@@ -78,8 +83,15 @@ export class AdminComponent implements OnInit {
             this.currentItem[field] = res.url;
           }
           this.isUploading = false;
+          this.uploadStatus = 'File Ready';
+          this.cdr.detectChanges();
         },
-        error: () => this.isUploading = false
+        error: () => {
+          this.isUploading = false;
+          this.uploadStatus = 'Upload Failed';
+          alert('Upload Failed');
+          this.cdr.detectChanges();
+        }
       });
     }
   }
@@ -140,8 +152,9 @@ export class AdminComponent implements OnInit {
 
     this.dataService.saveData(this.activeTab, this.currentData).subscribe({
       next: () => {
-        alert('Saved successfully. Reloading...');
-        window.location.reload();
+        alert('Saved successfully.');
+        this.resetForm();
+        this.cdr.detectChanges();
       },
       error: (err) => alert('Failed to save')
     });
@@ -166,15 +179,16 @@ export class AdminComponent implements OnInit {
           // 2. If save successful, cleanup files and WAIT for them
           this.cleanupFiles(itemToDelete).subscribe({
             next: () => {
-              alert('Item and files deleted. Reloading...');
-              window.location.reload();
+              alert('Item and files deleted.');
+              this.resetForm();
+              this.cdr.detectChanges();
             },
             error: (err) => {
               console.error('File cleanup error', err);
-              // Even if file deletion fails, the item is gone from DB, so we reload.
-              // Maybe warn user but still reload.
+              // Even if file deletion fails, the item is gone from DB
               alert('Item deleted, but some files could not be removed.');
-              window.location.reload();
+              this.resetForm();
+              this.cdr.detectChanges();
             }
           });
         },
@@ -190,6 +204,7 @@ export class AdminComponent implements OnInit {
 
   cleanupFiles(item: any): Observable<any> {
     const filesToDelete: string[] = [];
+    console.log('CleanupFiles: inspecting item', item);
 
     // Gather file URLs based on known fields
     if (item.cover) filesToDelete.push(item.cover);
@@ -231,6 +246,7 @@ export class AdminComponent implements OnInit {
     this.editingIndex = -1;
     this.currentItem = {};
     this.newExtract = { title: '', url: '' };
+    this.uploadStatus = '';
   }
 
   resetForm() {

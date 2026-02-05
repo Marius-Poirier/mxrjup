@@ -1,1 +1,22 @@
-[]
+[
+    {
+        "id": "1",
+        "text": "Listening to the hum of the servers.",
+        "date": "2026-02-05T08:00:00"
+    },
+    {
+        "id": "2",
+        "text": "Revisiting classic Aphex Twin tracks while coding.",
+        "date": "2026-02-04T22:30:00"
+    },
+    {
+        "id": "3",
+        "text": "Frank Ocean - Blonde (Again).",
+        "date": "2026-02-01T14:15:00"
+    },
+    {
+        "id": "4",
+        "text": "Testing audio levels on the new setup.",
+        "date": "2026-01-20T10:00:00"
+    }
+]

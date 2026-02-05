@@ -108,50 +108,113 @@
     text-decoration: underline;
 }
 
+/* Extracts - Matching Media Grid Style */
 .extracts-section {
-    background: #f9f9f9;
-    padding: 1.5rem;
-    border: 1px solid #eee;
-    border-radius: 4px;
+    background: transparent;
+    padding: 2rem 0;
+    border: none;
+    border-radius: 0;
+    margin-top: 3rem;
+    border-top: 1px solid #ddd;
+    /* Subtle separator from article */
 }
 
 .extracts-section h3 {
-    margin: 0 0 1rem 0;
+    margin: 0 0 2rem 0;
     font-size: 1rem;
     text-transform: uppercase;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 0.5rem;
+    border: none;
+    padding: 0;
+    text-align: center;
+    letter-spacing: 2px;
 }
 
 .extracts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-.extract-item {
-    display: flex;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 2rem;
     align-items: center;
-    gap: 1rem;
+}
+
+.media-item {
     cursor: pointer;
-    padding: 0.5rem;
-    transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 }
 
-.extract-item:hover {
-    background: #eee;
+.image-wrapper {
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
-.extract-box {
-    width: 40px;
-    height: 40px;
-    background: #000;
-    color: #fff;
+.audio-placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
-    font-weight: bold;
+    width: 100%;
+    aspect-ratio: 1;
+    background: transparent;
+    border: 1px solid #333;
+    transition: filter 0.3s;
+
+    .format-text {
+        font-family: inherit;
+        font-weight: 900;
+        font-size: 3rem;
+        color: #333;
+    }
+}
+
+/* Color Cycle specific to Review Detail if desired, or keep monochrome/minimal */
+.media-item:nth-child(3n+1) .audio-placeholder {
+    background: #0004ff;
+    border-color: #0004ff;
+
+    .format-text {
+        color: white;
+    }
+}
+
+.media-item:nth-child(3n+2) .audio-placeholder {
+    background: #FF0000;
+    border-color: #FF0000;
+
+    .format-text {
+        color: white;
+    }
+}
+
+.media-item:nth-child(3n+3) .audio-placeholder {
+    background: #FFF400;
+    border-color: #000;
+
+    /* Yellow bg needs black border/text typically */
+    .format-text {
+        color: black;
+    }
+}
+
+.meta {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    .file-name {
+        font-weight: bold;
+    }
+
+    .file-type {
+        opacity: 0.6;
+    }
 }
 
 .footer {

@@ -15,6 +15,8 @@
             <div class="col-object">{{ exp.object }}</div>
             <div class="col-subject">{{ exp.subject }}</div>
         </a>
+        } @empty {
+        <div class="empty-state">NO EXPERIMENTS YET.</div>
         }
         <!-- Repeat data to ensure scrolling for the effect -->
         @for (exp of experiments(); track exp.id + '_dup') {

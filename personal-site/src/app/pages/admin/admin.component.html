@@ -10,6 +10,7 @@
         <button [class.active]="activeTab === 'reviews'" (click)="setTab('reviews')">Reviews</button>
         <button [class.active]="activeTab === 'media'" (click)="setTab('media')">Media</button>
         <button [class.active]="activeTab === 'cool_stuff'" (click)="setTab('cool_stuff')">Cool Stuff</button>
+        <button [class.active]="activeTab === 'credits'" (click)="setTab('credits')">Credits</button>
     </nav>
 
     <div class="content">
@@ -131,10 +132,17 @@
 
             </div>
 
-            <div class="form-actions">
-                <button class="save-btn" (click)="saveItem()" [disabled]="isUploading">Save Item</button>
-                <button class="cancel-btn" (click)="resetForm()">Cancel</button>
-            </div>
+        </div>
+
+        <!-- Credits Form -->
+        <div *ngIf="activeTab === 'credits'" class="form-grid">
+            <label>Art Name: <input [(ngModel)]="currentItem.artName" placeholder="Ex: Decor 1"></label>
+            <label>Artist Name: <input [(ngModel)]="currentItem.artistName" placeholder="Ex: John Doe"></label>
+        </div>
+
+        <div class="form-actions">
+            <button class="save-btn" (click)="saveItem()" [disabled]="isUploading">Save Item</button>
+            <button class="cancel-btn" (click)="resetForm()">Cancel</button>
         </div>
     </div>
 </div>

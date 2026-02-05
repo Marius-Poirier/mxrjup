@@ -466,4 +466,37 @@
         right: -10px;
         width: 100px;
     }
+}/* Credits Button */
+.credits-btn {
+    position: fixed;
+    bottom: 45px;
+    /* Above marquee */
+    right: 20px;
+    z-index: 50;
+    color: black;
+    background: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 2px 5px;
+    border: 1px solid black;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 1;
+        background: black;
+        color: white;
+    }
+}
+
+@media (max-width: 768px) {
+    .credits-btn {
+        bottom: 50px;
+        /* Adjust for mobile marquee/spacing */
+        right: 10px;
+        font-size: 0.7rem;
+    }
 }

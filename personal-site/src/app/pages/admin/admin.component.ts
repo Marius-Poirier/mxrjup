@@ -61,6 +61,7 @@ export class AdminComponent implements OnInit {
       case 'reviews': return data.album ? `${data.artist} - ${data.album}` : (data.title || data.id);
       case 'media': return data.title || 'Untitled Media';
       case 'cool_stuff': return data.title || 'Untitled';
+      case 'credits': return `${data.artName} : ${data.artistName}`;
       default: return JSON.stringify(data);
     }
   }
@@ -125,6 +126,9 @@ export class AdminComponent implements OnInit {
       this.currentItem.id = Date.now().toString();
     }
     if (this.activeTab === 'media' && this.editingIndex === -1) {
+      this.currentItem.id = Date.now().toString();
+    }
+    if (this.activeTab === 'credits' && this.editingIndex === -1) {
       this.currentItem.id = Date.now().toString();
     }
 

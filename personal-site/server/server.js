@@ -72,7 +72,7 @@ app.post('/api/login', (req, res) => {
 });
 
 // Generic Data Endpoints
-const allowedFiles = ['timeline', 'history', 'reviews', 'media', 'cool_stuff'];
+const allowedFiles = ['timeline', 'history', 'reviews', 'media', 'cool_stuff', 'credits'];
 
 // Get all data for a type
 app.get('/api/data/:type', async (req, res) => {

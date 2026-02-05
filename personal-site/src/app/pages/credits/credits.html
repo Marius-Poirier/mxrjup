@@ -1,0 +1,18 @@
+<div class="container">
+    <header class="header">
+        <a routerLink="/" class="back-link">← BACK</a>
+        <h1 class="title">CREDITS</h1>
+    </header>
+
+    <div class="credits-list">
+        @for (credit of credits(); track $index) {
+        <div class="credit-item">
+            <span class="art-name">{{ credit.artName }}</span>
+            <span class="separator">:</span>
+            <span class="artist-name">{{ credit.artistName }}</span>
+        </div>
+        } @empty {
+        <div class="empty-state">NO CREDITS YET.</div>
+        }
+    </div>
+</div>

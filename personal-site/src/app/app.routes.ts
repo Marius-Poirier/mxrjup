@@ -12,6 +12,7 @@ import { HistoryComponent } from './pages/music/history/history';
 import { ReviewDetailComponent } from './pages/music/review-detail/review-detail';
 import { CoolStuffComponent } from './pages/cool-stuff/cool-stuff';
 import { WipComponent } from './pages/wip/wip';
+import { CreditsComponent } from './pages/credits/credits';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -23,6 +24,7 @@ export const routes: Routes = [
     { path: 'music/review/:id', component: ReviewDetailComponent },
     { path: 'cool-stuff', component: CoolStuffComponent },
     { path: 'wip', component: WipComponent },
+    { path: 'credits', component: CreditsComponent },
     { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
     {
         path: 'add',

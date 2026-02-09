@@ -1,15 +1,39 @@
 [
   {
+    "id": "spotify_4Mqt4zRLIwFtZyzh7tAUQE",
+    "text": "56 Nights - Future",
+    "date": "2026-01-26",
+    "cover": "/uploads/album_4Mqt4zRLIwFtZyzh7tAUQE.jpg"
+  },
+  {
+    "id": "spotify_3znl1qe13kyjQv7KcR685N",
+    "text": "Alfredo - Freddie Gibbs",
+    "date": "2026-01-25",
+    "cover": "/uploads/album_3znl1qe13kyjQv7KcR685N.jpg"
+  },
+  {
     "id": "spotify_0atfWEzoZMgo9zCwFd5nEN",
     "text": "Don't Be Dumb - A$AP Rocky",
     "date": "2026-01-16",
     "cover": "/uploads/album_0atfWEzoZMgo9zCwFd5nEN.jpg"
   },
   {
+    "id": "spotify_7rSZXXHHvIhF4yUFdaOCy9",
+    "text": "Are You Experienced - Jimi Hendrix",
+    "date": "2025-12-10",
+    "cover": "/uploads/album_7rSZXXHHvIhF4yUFdaOCy9.jpg"
+  },
+  {
     "id": "spotify_4iTLFFT8jaDsQcLnS08vvL",
     "text": "Trap House 3 - Gucci Mane",
     "date": "2025-12-01",
     "cover": "/uploads/album_4iTLFFT8jaDsQcLnS08vvL.jpg"
+  },
+  {
+    "id": "spotify_4MUbScyD1gUglNpmTntc4x",
+    "text": "DMVP - Sherifflazone",
+    "date": "2025-11-30",
+    "cover": "/uploads/album_4MUbScyD1gUglNpmTntc4x.jpg"
   },
   {
     "id": "spotify_1IaBCF26OjgYwUCEPaIyC0",
@@ -30,10 +54,52 @@
     "cover": "/uploads/album_3l5AwLKqQ42VJbc5lTuP8G.jpg"
   },
   {
-    "id": "spotify_3RaACfwYTY9uiDy3VSWLLc",
-    "text": "Cozy Tapes: Vol. 1 Friends - - A$AP Mob",
-    "date": "2025-10-25",
-    "cover": "/uploads/album_3RaACfwYTY9uiDy3VSWLLc.jpg"
+    "id": "spotify_0MV1yCXcNNQBfwApqAVkH0",
+    "text": "Without Warning - 21 Savage",
+    "date": "2025-11-06",
+    "cover": "/uploads/album_0MV1yCXcNNQBfwApqAVkH0.jpg"
+  },
+  {
+    "id": "spotify_53yxgW3qrScnZJPfGqK0S5",
+    "text": "Annie's Mix '85 (Special English Version) - Ann Lewis",
+    "date": "2025-10-11",
+    "cover": "/uploads/album_53yxgW3qrScnZJPfGqK0S5.jpg"
+  },
+  {
+    "id": "spotify_28yHV3Gdg30AiB8h8em1eW",
+    "text": "Appetite For Destruction - Guns N' Roses",
+    "date": "2025-10-05",
+    "cover": "/uploads/album_28yHV3Gdg30AiB8h8em1eW.jpg"
+  },
+  {
+    "id": "spotify_4PrPbmm0gKvaD3rerOXFg8",
+    "text": "The Documentary - The Game",
+    "date": "2025-09-25",
+    "cover": "/uploads/album_4PrPbmm0gKvaD3rerOXFg8.jpg"
+  },
+  {
+    "id": "spotify_3Us57CjssWnHjTUIXBuIeH",
+    "text": "Bad (Remastered) - Michael Jackson",
+    "date": "2025-09-15",
+    "cover": "/uploads/album_3Us57CjssWnHjTUIXBuIeH.jpg"
+  },
+  {
+    "id": "spotify_4K8bxkPDa5HENw0TK7WxJh",
+    "text": "Superunknown (20th Anniversary) - Soundgarden",
+    "date": "2025-09-01",
+    "cover": "/uploads/album_4K8bxkPDa5HENw0TK7WxJh.jpg"
+  },
+  {
+    "id": "spotify_0OcMap99vLEeGkBCfCwRwS",
+    "text": "Watch The Throne - JAY-Z",
+    "date": "2025-08-25",
+    "cover": "/uploads/album_0OcMap99vLEeGkBCfCwRwS.jpg"
+  },
+  {
+    "id": "spotify_5BGzOpea6At0Nd7tYtYZOP",
+    "text": "Tha Carter III - Lil Wayne",
+    "date": "2025-08-20",
+    "cover": "/uploads/album_5BGzOpea6At0Nd7tYtYZOP.jpg"
   },
   {
     "id": "spotify_0YksPVYor2eHo7ILCTAxJs",
@@ -42,16 +108,46 @@
     "cover": "/uploads/album_0YksPVYor2eHo7ILCTAxJs.jpg"
   },
   {
-    "id": "spotify_4Mqt4zRLIwFtZyzh7tAUQE",
-    "text": "56 Nights - Future",
-    "date": "2025-07-18",
-    "cover": "/uploads/album_4Mqt4zRLIwFtZyzh7tAUQE.jpg"
+    "id": "spotify_79ONNoS4M9tfIA1mYLBYVX",
+    "text": "Mr. Morale & The Big Steppers - Kendrick Lamar",
+    "date": "2025-08-05",
+    "cover": "/uploads/album_79ONNoS4M9tfIA1mYLBYVX.jpg"
+  },
+  {
+    "id": "spotify_2B4y3j02ho6XNF8BEzx3JF",
+    "text": "Finally Rich - Chief Keef",
+    "date": "2025-07-26",
+    "cover": "/uploads/album_2B4y3j02ho6XNF8BEzx3JF.jpg"
   },
   {
     "id": "spotify_7mgdTKTCdfnLoa1HXHvLYM",
     "text": "Lil Uzi Vert vs. The World - Lil Uzi Vert",
-    "date": "2025-07-13",
+    "date": "2025-07-14",
     "cover": "/uploads/album_7mgdTKTCdfnLoa1HXHvLYM.jpg"
+  },
+  {
+    "id": "spotify_2UJcKiJxNryhL050F5Z1Fk",
+    "text": "Nevermind (Remastered) - Nirvana",
+    "date": "2025-07-03",
+    "cover": "/uploads/album_2UJcKiJxNryhL050F5Z1Fk.jpg"
+  },
+  {
+    "id": "spotify_2ZytN2cY4Zjrr9ukb2rqTP",
+    "text": "Off the Wall - Michael Jackson",
+    "date": "2025-06-30",
+    "cover": "/uploads/album_2ZytN2cY4Zjrr9ukb2rqTP.jpg"
+  },
+  {
+    "id": "spotify_69CmkikTHkGKdkrUZTtyWl",
+    "text": "The Blueprint (Explicit Version) - JAY-Z",
+    "date": "2025-06-27",
+    "cover": "/uploads/album_69CmkikTHkGKdkrUZTtyWl.jpg"
+  },
+  {
+    "id": "spotify_07bIdDDe3I3hhWpxU6tuBp",
+    "text": "DAYTONA - Pusha T",
+    "date": "2025-06-14",
+    "cover": "/uploads/album_07bIdDDe3I3hhWpxU6tuBp.jpg"
   },
   {
     "id": "spotify_5qyUw6x9fjZPoQHUwuDu39",
@@ -60,34 +156,64 @@
     "cover": "/uploads/album_5qyUw6x9fjZPoQHUwuDu39.jpg"
   },
   {
+    "id": "spotify_2z4c8M8aVzl7CTobIp36KF",
+    "text": "Slime Season 3 - Young Thug",
+    "date": "2025-05-24",
+    "cover": "/uploads/album_2z4c8M8aVzl7CTobIp36KF.jpg"
+  },
+  {
     "id": "spotify_3G63CfLqzWvBfZboycpyx5",
     "text": "Tha Carter - Lil Wayne",
     "date": "2025-05-15",
     "cover": "/uploads/album_3G63CfLqzWvBfZboycpyx5.jpg"
   },
   {
-    "id": "spotify_3znl1qe13kyjQv7KcR685N",
-    "text": "Alfredo - Freddie Gibbs",
-    "date": "2025-04-26",
-    "cover": "/uploads/album_3znl1qe13kyjQv7KcR685N.jpg"
+    "id": "spotify_6oPPKtAwNNlkW4wwHfQDfM",
+    "text": "Man On The Moon: The End Of Day (Int'l Version) - Kid Cudi",
+    "date": "2025-05-05",
+    "cover": "/uploads/album_6oPPKtAwNNlkW4wwHfQDfM.jpg"
   },
   {
-    "id": "spotify_2ZytN2cY4Zjrr9ukb2rqTP",
-    "text": "Off the Wall - Michael Jackson",
-    "date": "2025-04-23",
-    "cover": "/uploads/album_2ZytN2cY4Zjrr9ukb2rqTP.jpg"
+    "id": "spotify_4rJgzzfFHAVFhCSt2P4I3j",
+    "text": "Playboi Carti - Playboi Carti",
+    "date": "2025-04-18",
+    "cover": "/uploads/album_4rJgzzfFHAVFhCSt2P4I3j.jpg"
   },
   {
-    "id": "spotify_5BGzOpea6At0Nd7tYtYZOP",
-    "text": "Tha Carter III - Lil Wayne",
-    "date": "2025-02-03",
-    "cover": "/uploads/album_5BGzOpea6At0Nd7tYtYZOP.jpg"
+    "id": "spotify_4JTOxuvM2jcSqAvEZtZsOO",
+    "text": "Culture - Migos",
+    "date": "2025-04-05",
+    "cover": "/uploads/album_4JTOxuvM2jcSqAvEZtZsOO.jpg"
   },
   {
-    "id": "spotify_4MUbScyD1gUglNpmTntc4x",
-    "text": "DMVP - Sherifflazone",
-    "date": "2025-02-03",
-    "cover": "/uploads/album_4MUbScyD1gUglNpmTntc4x.jpg"
+    "id": "spotify_4LH4d3cOWNNsVw41Gqt2kv",
+    "text": "The Dark Side of the Moon - Pink Floyd",
+    "date": "2025-03-08",
+    "cover": "/uploads/album_4LH4d3cOWNNsVw41Gqt2kv.jpg"
+  },
+  {
+    "id": "spotify_0fUy6IdLHDpGNwavIlhEsl",
+    "text": "DS2 (Deluxe) - Future",
+    "date": "2025-02-22",
+    "cover": "/uploads/album_0fUy6IdLHDpGNwavIlhEsl.jpg"
+  },
+  {
+    "id": "spotify_3MATDdrpHmQCmuOcozZjDa",
+    "text": "TESTING - A$AP Rocky",
+    "date": "2025-02-16",
+    "cover": "/uploads/album_3MATDdrpHmQCmuOcozZjDa.jpg"
+  },
+  {
+    "id": "spotify_2Kh43m04B1UkVcpcRa1Zug",
+    "text": "Metallica - Metallica",
+    "date": "2025-02-11",
+    "cover": "/uploads/album_2Kh43m04B1UkVcpcRa1Zug.jpg"
+  },
+  {
+    "id": "spotify_0XmgSYx9bj4sqpcXVgKs2C",
+    "text": "Lean on Me: The Best of Bill Withers - Bill Withers",
+    "date": "2025-01-27",
+    "cover": "/uploads/album_0XmgSYx9bj4sqpcXVgKs2C.jpg"
   },
   {
     "id": "spotify_3kEtdS2pH6hKcMU9Wioob1",
@@ -96,28 +222,64 @@
     "cover": "/uploads/album_3kEtdS2pH6hKcMU9Wioob1.jpg"
   },
   {
+    "id": "spotify_7txGsnDSqVMoRl6RQ9XyZP",
+    "text": "HEROES & VILLAINS - Metro Boomin",
+    "date": "2025-01-10",
+    "cover": "/uploads/album_7txGsnDSqVMoRl6RQ9XyZP.jpg"
+  },
+  {
+    "id": "spotify_6Q3VZtyPCZFMO4cPF4828q",
+    "text": "Monster - Future",
+    "date": "2024-12-28",
+    "cover": "/uploads/album_6Q3VZtyPCZFMO4cPF4828q.jpg"
+  },
+  {
     "id": "spotify_3KSeRpEslZsZGRnJHe5nXt",
     "text": "Slime Season - Young Thug",
-    "date": "2024-12-25",
+    "date": "2024-12-26",
     "cover": "/uploads/album_3KSeRpEslZsZGRnJHe5nXt.jpg"
   },
   {
-    "id": "spotify_4LH4d3cOWNNsVw41Gqt2kv",
-    "text": "The Dark Side of the Moon - Pink Floyd",
-    "date": "2024-11-30",
-    "cover": "/uploads/album_4LH4d3cOWNNsVw41Gqt2kv.jpg"
+    "id": "spotify_3arNdjotCvtiiLFfjKngMc",
+    "text": "AT.LONG.LAST.A$AP - A$AP Rocky",
+    "date": "2024-12-18",
+    "cover": "/uploads/album_3arNdjotCvtiiLFfjKngMc.jpg"
   },
   {
-    "id": "spotify_0hvT3yIEysuuvkK73vgdcW",
-    "text": "GNX - Kendrick Lamar",
-    "date": "2024-11-22",
-    "cover": "/uploads/album_0hvT3yIEysuuvkK73vgdcW.jpg"
+    "id": "spotify_2ANVost0y2y52ema1E9xAZ",
+    "text": "Thriller - Michael Jackson",
+    "date": "2024-12-13",
+    "cover": "/uploads/album_2ANVost0y2y52ema1E9xAZ.jpg"
   },
   {
     "id": "spotify_7EpUpNUkkEGnaCvkcn1j4H",
     "text": "JEFFERY - Young Thug",
-    "date": "2024-11-09",
+    "date": "2024-12-10",
     "cover": "/uploads/album_7EpUpNUkkEGnaCvkcn1j4H.jpg"
+  },
+  {
+    "id": "spotify_0hvT3yIEysuuvkK73vgdcW",
+    "text": "GNX - Kendrick Lamar",
+    "date": "2024-12-04",
+    "cover": "/uploads/album_0hvT3yIEysuuvkK73vgdcW.jpg"
+  },
+  {
+    "id": "spotify_5IFOummNcGXY3qCBWRchqP",
+    "text": "Doggystyle - Snoop Dogg",
+    "date": "2024-11-29",
+    "cover": "/uploads/album_5IFOummNcGXY3qCBWRchqP.jpg"
+  },
+  {
+    "id": "spotify_6rzMufuu8sLkIizM4q9c7J",
+    "text": "LONG.LIVE.A$AP (Deluxe Version) - A$AP Rocky",
+    "date": "2024-11-19",
+    "cover": "/uploads/album_6rzMufuu8sLkIizM4q9c7J.jpg"
+  },
+  {
+    "id": "spotify_5vkqYmiPBYLaalcmjujWxK",
+    "text": "In Rainbows - Radiohead",
+    "date": "2024-11-10",
+    "cover": "/uploads/album_5vkqYmiPBYLaalcmjujWxK.jpg"
   },
   {
     "id": "spotify_4l6EPpP9hjQrLb8qNB9eC5",
@@ -126,10 +288,28 @@
     "cover": "/uploads/album_4l6EPpP9hjQrLb8qNB9eC5.jpg"
   },
   {
-    "id": "spotify_0XmgSYx9bj4sqpcXVgKs2C",
-    "text": "Lean on Me: The Best of Bill Withers - Bill Withers",
-    "date": "2024-10-15",
-    "cover": "/uploads/album_0XmgSYx9bj4sqpcXVgKs2C.jpg"
+    "id": "spotify_7dAm8ShwJLFm9SaJ6Yc58O",
+    "text": "Die Lit - Playboi Carti",
+    "date": "2024-10-19",
+    "cover": "/uploads/album_7dAm8ShwJLFm9SaJ6Yc58O.jpg"
+  },
+  {
+    "id": "spotify_5FB5E1fwFeVqpz2CCzRSve",
+    "text": "ESCAPE PLAN / MAFIA - Travis Scott",
+    "date": "2024-10-12",
+    "cover": "/uploads/album_5FB5E1fwFeVqpz2CCzRSve.jpg"
+  },
+  {
+    "id": "spotify_1BZoqf8Zje5nGdwZhOjAtD",
+    "text": "The Miseducation of Lauryn Hill - Ms. Lauryn Hill",
+    "date": "2024-10-07",
+    "cover": "/uploads/album_1BZoqf8Zje5nGdwZhOjAtD.jpg"
+  },
+  {
+    "id": "spotify_5z090LQztiqh13wYspQvKQ",
+    "text": "Electric Ladyland - Jimi Hendrix",
+    "date": "2024-10-05",
+    "cover": "/uploads/album_5z090LQztiqh13wYspQvKQ.jpg"
   },
   {
     "id": "spotify_4alcGHjstaALJHHiljfy3H",
@@ -138,22 +318,22 @@
     "cover": "/uploads/album_4alcGHjstaALJHHiljfy3H.jpg"
   },
   {
-    "id": "spotify_6rzMufuu8sLkIizM4q9c7J",
-    "text": "LONG.LIVE.A$AP (Deluxe Version) - A$AP Rocky",
-    "date": "2024-09-17",
-    "cover": "/uploads/album_6rzMufuu8sLkIizM4q9c7J.jpg"
-  },
-  {
-    "id": "spotify_3MATDdrpHmQCmuOcozZjDa",
-    "text": "TESTING - A$AP Rocky",
-    "date": "2024-09-10",
-    "cover": "/uploads/album_3MATDdrpHmQCmuOcozZjDa.jpg"
+    "id": "spotify_4eLPsYPBmXABThSJ821sqY",
+    "text": "DAMN. - Kendrick Lamar",
+    "date": "2024-09-26",
+    "cover": "/uploads/album_4eLPsYPBmXABThSJ821sqY.jpg"
   },
   {
     "id": "spotify_2u30gztZTylY4RG7IvfXs8",
     "text": "(What's The Story) Morning Glory? - Oasis",
     "date": "2024-09-09",
     "cover": "/uploads/album_2u30gztZTylY4RG7IvfXs8.jpg"
+  },
+  {
+    "id": "spotify_7q2B4M5EiBkqrlsNW8lB7N",
+    "text": "2001 - Dr. Dre",
+    "date": "2024-08-29",
+    "cover": "/uploads/album_7q2B4M5EiBkqrlsNW8lB7N.jpg"
   },
   {
     "id": "spotify_54Y471E7GNBSOXjZtqONId",
@@ -168,34 +348,22 @@
     "cover": "/uploads/album_5h3WJG0aZjNOrayFu3MhCS.jpg"
   },
   {
-    "id": "spotify_2Kh43m04B1UkVcpcRa1Zug",
-    "text": "Metallica - Metallica",
-    "date": "2024-08-07",
-    "cover": "/uploads/album_2Kh43m04B1UkVcpcRa1Zug.jpg"
-  },
-  {
     "id": "spotify_3PResMqFgQYBfzTnqTKwQw",
     "text": "Talking Book - Stevie Wonder",
     "date": "2024-07-31",
     "cover": "/uploads/album_3PResMqFgQYBfzTnqTKwQw.jpg"
   },
   {
-    "id": "spotify_6Q3VZtyPCZFMO4cPF4828q",
-    "text": "Monster - Future",
-    "date": "2024-07-22",
-    "cover": "/uploads/album_6Q3VZtyPCZFMO4cPF4828q.jpg"
+    "id": "spotify_0zicd2mBV8HTzSubByj4vP",
+    "text": "Luv Is Rage 2 (Deluxe) - Lil Uzi Vert",
+    "date": "2024-07-25",
+    "cover": "/uploads/album_0zicd2mBV8HTzSubByj4vP.jpg"
   },
   {
-    "id": "spotify_7rSZXXHHvIhF4yUFdaOCy9",
-    "text": "Are You Experienced - Jimi Hendrix",
-    "date": "2024-07-14",
-    "cover": "/uploads/album_7rSZXXHHvIhF4yUFdaOCy9.jpg"
-  },
-  {
-    "id": "spotify_5z090LQztiqh13wYspQvKQ",
-    "text": "Electric Ladyland - Jimi Hendrix",
-    "date": "2024-07-14",
-    "cover": "/uploads/album_5z090LQztiqh13wYspQvKQ.jpg"
+    "id": "spotify_7ycBtnsMtyVbbwTfJwRjSP",
+    "text": "To Pimp A Butterfly - Kendrick Lamar",
+    "date": "2024-07-16",
+    "cover": "/uploads/album_7ycBtnsMtyVbbwTfJwRjSP.jpg"
   },
   {
     "id": "spotify_6dVIqQ8qmQ5GBnJ9shOYGE",
@@ -204,22 +372,16 @@
     "cover": "/uploads/album_6dVIqQ8qmQ5GBnJ9shOYGE.jpg"
   },
   {
-    "id": "spotify_2z4c8M8aVzl7CTobIp36KF",
-    "text": "Slime Season 3 - Young Thug",
-    "date": "2024-06-27",
-    "cover": "/uploads/album_2z4c8M8aVzl7CTobIp36KF.jpg"
+    "id": "spotify_24jAbLMFzCTlIv3kQ94HwK",
+    "text": "So Much Fun (Deluxe) - Young Thug",
+    "date": "2024-06-28",
+    "cover": "/uploads/album_24jAbLMFzCTlIv3kQ94HwK.jpg"
   },
   {
-    "id": "spotify_0MV1yCXcNNQBfwApqAVkH0",
-    "text": "Without Warning - 21 Savage",
-    "date": "2024-06-27",
-    "cover": "/uploads/album_0MV1yCXcNNQBfwApqAVkH0.jpg"
-  },
-  {
-    "id": "spotify_5FB5E1fwFeVqpz2CCzRSve",
-    "text": "ESCAPE PLAN / MAFIA - Travis Scott",
-    "date": "2024-06-23",
-    "cover": "/uploads/album_5FB5E1fwFeVqpz2CCzRSve.jpg"
+    "id": "spotify_18XFe4CPBgVezXkxZP6rTb",
+    "text": "The Score (Expanded Edition) - Fugees",
+    "date": "2024-06-26",
+    "cover": "/uploads/album_18XFe4CPBgVezXkxZP6rTb.jpg"
   },
   {
     "id": "spotify_6wTyGUWGCilBFZ837k5aRi",
@@ -234,394 +396,94 @@
     "cover": "/uploads/album_0Kzb3u6kMnOJOZXYFSk33F.jpg"
   },
   {
+    "id": "spotify_748dZDqSZy6aPXKcI9H80u",
+    "text": "good kid, m.A.A.d city (Deluxe) - Kendrick Lamar",
+    "date": "2024-05-25",
+    "cover": "/uploads/album_748dZDqSZy6aPXKcI9H80u.jpg"
+  },
+  {
     "id": "spotify_59hIIDzaPSH5O3QSz4zX0t",
     "text": "Only Built For Infinity Links - Quavo",
     "date": "2024-05-19",
     "cover": "/uploads/album_59hIIDzaPSH5O3QSz4zX0t.jpg"
   },
   {
-    "id": "spotify_07bIdDDe3I3hhWpxU6tuBp",
-    "text": "DAYTONA - Pusha T",
-    "date": "2024-04-27",
-    "cover": "/uploads/album_07bIdDDe3I3hhWpxU6tuBp.jpg"
+    "id": "spotify_4m2880jivSbbyEGAKfITCa",
+    "text": "Random Access Memories - Daft Punk",
+    "date": "2024-05-16",
+    "cover": "/uploads/album_4m2880jivSbbyEGAKfITCa.jpg"
   },
   {
-    "id": "spotify_4JTOxuvM2jcSqAvEZtZsOO",
-    "text": "Culture - Migos",
-    "date": "2024-04-19",
-    "cover": "/uploads/album_4JTOxuvM2jcSqAvEZtZsOO.jpg"
+    "id": "spotify_18NOKLkZETa4sWwLMIm0UZ",
+    "text": "UTOPIA - Travis Scott",
+    "date": "2024-05-02",
+    "cover": "/uploads/album_18NOKLkZETa4sWwLMIm0UZ.jpg"
   },
   {
     "id": "spotify_7z4GhRfLqfSkqrj5F3Yt2B",
     "text": "Heaven Or Hell - Don Toliver",
-    "date": "2024-03-02",
+    "date": "2024-04-25",
     "cover": "/uploads/album_7z4GhRfLqfSkqrj5F3Yt2B.jpg"
-  },
-  {
-    "id": "spotify_1HMLpmZAnNyl9pxvOnTovV",
-    "text": "NewJeans 1st EP 'New Jeans' - NewJeans",
-    "date": "2024-02-26",
-    "cover": "/uploads/album_1HMLpmZAnNyl9pxvOnTovV.jpg"
-  },
-  {
-    "id": "spotify_5QxpPIyTqAiVp1toFvB10v",
-    "text": "Benji - Népal",
-    "date": "2024-02-25",
-    "cover": "/uploads/album_5QxpPIyTqAiVp1toFvB10v.jpg"
-  },
-  {
-    "id": "spotify_2ANVost0y2y52ema1E9xAZ",
-    "text": "Thriller - Michael Jackson",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_2ANVost0y2y52ema1E9xAZ.jpg"
-  },
-  {
-    "id": "spotify_5IFOummNcGXY3qCBWRchqP",
-    "text": "Doggystyle - Snoop Dogg",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_5IFOummNcGXY3qCBWRchqP.jpg"
-  },
-  {
-    "id": "spotify_79ONNoS4M9tfIA1mYLBYVX",
-    "text": "Mr. Morale & The Big Steppers - Kendrick Lamar",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_79ONNoS4M9tfIA1mYLBYVX.jpg"
-  },
-  {
-    "id": "spotify_1BZoqf8Zje5nGdwZhOjAtD",
-    "text": "The Miseducation of Lauryn Hill - Ms. Lauryn Hill",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_1BZoqf8Zje5nGdwZhOjAtD.jpg"
   },
   {
     "id": "spotify_1Sf8GsXG32t0jNrX11xqWx",
     "text": "JACKBOYS - JACKBOYS",
-    "date": "2024-02-24",
+    "date": "2024-04-23",
     "cover": "/uploads/album_1Sf8GsXG32t0jNrX11xqWx.jpg"
   },
   {
     "id": "spotify_7fd7SEK25VS3gJAUgSwL6y",
     "text": "Culture II - Migos",
-    "date": "2024-02-24",
+    "date": "2024-04-20",
     "cover": "/uploads/album_7fd7SEK25VS3gJAUgSwL6y.jpg"
+  },
+  {
+    "id": "spotify_42WVQWuf1teDysXiOupIZt",
+    "text": "Birds In The Trap Sing McKnight - Travis Scott",
+    "date": "2024-04-09",
+    "cover": "/uploads/album_42WVQWuf1teDysXiOupIZt.jpg"
+  },
+  {
+    "id": "spotify_79dL7FLiJFOO0EoehUHQBv",
+    "text": "Currents - Tame Impala",
+    "date": "2024-04-05",
+    "cover": "/uploads/album_79dL7FLiJFOO0EoehUHQBv.jpg"
   },
   {
     "id": "spotify_2V5rhszUpCudPcb01zevOt",
     "text": "The Chronic - Dr. Dre",
-    "date": "2024-02-24",
+    "date": "2024-04-03",
     "cover": "/uploads/album_2V5rhszUpCudPcb01zevOt.jpg"
   },
   {
     "id": "spotify_4LaRYkT4oy47wEuQgkLBul",
     "text": "Rage Against The Machine - Rage Against The Machine",
-    "date": "2024-02-24",
+    "date": "2024-03-27",
     "cover": "/uploads/album_4LaRYkT4oy47wEuQgkLBul.jpg"
-  },
-  {
-    "id": "spotify_30zwjSQEodaUXCn11nmiVF",
-    "text": "VULTURES 1 - ¥$",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_30zwjSQEodaUXCn11nmiVF.jpg"
-  },
-  {
-    "id": "spotify_3o9pq1vFESK6532MR63Xwy",
-    "text": "Ce monde est cruel - Vald",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_3o9pq1vFESK6532MR63Xwy.jpg"
-  },
-  {
-    "id": "spotify_7Dy9mSksnsGrSLqf8gom25",
-    "text": "Bien ou quoi - Spider ZED",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_7Dy9mSksnsGrSLqf8gom25.jpg"
-  },
-  {
-    "id": "spotify_1NZTILBrxcHR5MEW6p7upT",
-    "text": "Jeune intermittent - Spider ZED",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_1NZTILBrxcHR5MEW6p7upT.jpg"
-  },
-  {
-    "id": "spotify_7tpDfkKKQaHNgmnGfAHQrj",
-    "text": "Sunflower in the Sunlight - Nieve",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_7tpDfkKKQaHNgmnGfAHQrj.jpg"
-  },
-  {
-    "id": "spotify_4N1fROq2oeyLGAlQ1C1j18",
-    "text": "NewJeans 2nd EP 'Get Up' - NewJeans",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_4N1fROq2oeyLGAlQ1C1j18.jpg"
-  },
-  {
-    "id": "spotify_1dX8l8IMz9D9OzT3IoqVp8",
-    "text": "Cheddar - Népal",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_1dX8l8IMz9D9OzT3IoqVp8.jpg"
-  },
-  {
-    "id": "spotify_0nwDI9MhydSW6K5wEqmMyh",
-    "text": "Wesh Enfoiré - Lesram",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_0nwDI9MhydSW6K5wEqmMyh.jpg"
-  },
-  {
-    "id": "spotify_1tgY4FCO37wsk9FCrXyENJ",
-    "text": "Zeppelin - L'Or du Commun",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_1tgY4FCO37wsk9FCrXyENJ.jpg"
-  },
-  {
-    "id": "spotify_74QGin4IyWkxkjEFku17cF",
-    "text": "Best Of - Kool & The Gang",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_74QGin4IyWkxkjEFku17cF.jpg"
-  },
-  {
-    "id": "spotify_6JD4Qerb8IcaAzFgpFw0sa",
-    "text": "99.9% - KAYTRANADA",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_6JD4Qerb8IcaAzFgpFw0sa.jpg"
-  },
-  {
-    "id": "spotify_4ocMBARU5In7WQpVoT9OPv",
-    "text": "Memoria - Jazzy Bazz",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_4ocMBARU5In7WQpVoT9OPv.jpg"
-  },
-  {
-    "id": "spotify_1gh1cJXyeUyt0trJbyQObv",
-    "text": "Une vie et quelques - Hugo TSR",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_1gh1cJXyeUyt0trJbyQObv.jpg"
-  },
-  {
-    "id": "spotify_3hmrOoaJBVATgdxKvkDtul",
-    "text": "LA FOLIE DES GRANDEURS - HOUDI",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_3hmrOoaJBVATgdxKvkDtul.jpg"
-  },
-  {
-    "id": "spotify_1jfBSA8KgMLol7Iahnq8wv",
-    "text": "Comment c'est loin - Casseurs Flowters",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_1jfBSA8KgMLol7Iahnq8wv.jpg"
-  },
-  {
-    "id": "spotify_0Wd9loAJUFFGJ6mGyTL00I",
-    "text": "don dada mixtape vol 1 - Alpha Wann",
-    "date": "2024-02-24",
-    "cover": "/uploads/album_0Wd9loAJUFFGJ6mGyTL00I.jpg"
-  },
-  {
-    "id": "spotify_3arNdjotCvtiiLFfjKngMc",
-    "text": "AT.LONG.LAST.A$AP - A$AP Rocky",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_3arNdjotCvtiiLFfjKngMc.jpg"
-  },
-  {
-    "id": "spotify_4eLPsYPBmXABThSJ821sqY",
-    "text": "DAMN. - Kendrick Lamar",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_4eLPsYPBmXABThSJ821sqY.jpg"
-  },
-  {
-    "id": "spotify_7txGsnDSqVMoRl6RQ9XyZP",
-    "text": "HEROES & VILLAINS - Metro Boomin",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_7txGsnDSqVMoRl6RQ9XyZP.jpg"
-  },
-  {
-    "id": "spotify_7q2B4M5EiBkqrlsNW8lB7N",
-    "text": "2001 - Dr. Dre",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_7q2B4M5EiBkqrlsNW8lB7N.jpg"
-  },
-  {
-    "id": "spotify_4PrPbmm0gKvaD3rerOXFg8",
-    "text": "The Documentary - The Game",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_4PrPbmm0gKvaD3rerOXFg8.jpg"
-  },
-  {
-    "id": "spotify_0OcMap99vLEeGkBCfCwRwS",
-    "text": "Watch The Throne - JAY-Z",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_0OcMap99vLEeGkBCfCwRwS.jpg"
-  },
-  {
-    "id": "spotify_3rXDtbpeaGTeq0GXhGLMiE",
-    "text": "OG SAN I - Deen Burbigo",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_3rXDtbpeaGTeq0GXhGLMiE.jpg"
-  },
-  {
-    "id": "spotify_4Oo3WoU54dUpa22fYPsYDi",
-    "text": "Cercle vertueux - Deen Burbigo",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_4Oo3WoU54dUpa22fYPsYDi.jpg"
-  },
-  {
-    "id": "spotify_5vkqYmiPBYLaalcmjujWxK",
-    "text": "In Rainbows - Radiohead",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_5vkqYmiPBYLaalcmjujWxK.jpg"
-  },
-  {
-    "id": "spotify_7ycBtnsMtyVbbwTfJwRjSP",
-    "text": "To Pimp A Butterfly - Kendrick Lamar",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_7ycBtnsMtyVbbwTfJwRjSP.jpg"
-  },
-  {
-    "id": "spotify_44ihbsNXtt1hWP8PJtBgSP",
-    "text": "NQNT33 - Vald",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_44ihbsNXtt1hWP8PJtBgSP.jpg"
-  },
-  {
-    "id": "spotify_6oX7kNKqj9dwNk8i4btVcF",
-    "text": "XEU - Vald",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_6oX7kNKqj9dwNk8i4btVcF.jpg"
-  },
-  {
-    "id": "spotify_2VlYazP0xKrO9BxKe9wTZ4",
-    "text": "A7 - SCH",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_2VlYazP0xKrO9BxKe9wTZ4.jpg"
-  },
-  {
-    "id": "spotify_2o2GBOfy2GG9oKYZgfZkur",
-    "text": "Civilisation - Orelsan",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_2o2GBOfy2GG9oKYZgfZkur.jpg"
-  },
-  {
-    "id": "spotify_3QycsedIXFMAuoE3QEIOlf",
-    "text": "2016 - 2018 - Népal",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_3QycsedIXFMAuoE3QEIOlf.jpg"
-  },
-  {
-    "id": "spotify_3VsBRRKlb3f8oGxkVOkK5e",
-    "text": "Adios Bahamas - Népal",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_3VsBRRKlb3f8oGxkVOkK5e.jpg"
-  },
-  {
-    "id": "spotify_0iyHGIt1eRyFmH9ZLORpdY",
-    "text": "Légende Vivante - Lorenzo",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_0iyHGIt1eRyFmH9ZLORpdY.jpg"
-  },
-  {
-    "id": "spotify_0qwxx9ouUc5kGmMWHglDpq",
-    "text": "Stratos - Kekra",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_0qwxx9ouUc5kGmMWHglDpq.jpg"
-  },
-  {
-    "id": "spotify_6uo0HKTFOzb9ilEB9Be7wr",
-    "text": "La bombe h - Hugo TSR",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_6uo0HKTFOzb9ilEB9Be7wr.jpg"
-  },
-  {
-    "id": "spotify_7u98OANaYS4d4SxZiPNIKW",
-    "text": "Tant qu'on est là - Hugo TSR",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_7u98OANaYS4d4SxZiPNIKW.jpg"
-  },
-  {
-    "id": "spotify_5Gw8aMh4G24wlXhFSQtgfk",
-    "text": "Fenêtre Sur Rue - Hugo TSR",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_5Gw8aMh4G24wlXhFSQtgfk.jpg"
-  },
-  {
-    "id": "spotify_7caok0dVcdy1tLFuvIf92H",
-    "text": "Uncut Dope - Geto Boys",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_7caok0dVcdy1tLFuvIf92H.jpg"
-  },
-  {
-    "id": "spotify_7zrUnXByeOKHbXY3fyn6vz",
-    "text": "LMF - Freeze corleone",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_7zrUnXByeOKHbXY3fyn6vz.jpg"
-  },
-  {
-    "id": "spotify_6hb4edDi9yRlnxRDERGYTl",
-    "text": "Grand cru - Deen Burbigo",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_6hb4edDi9yRlnxRDERGYTl.jpg"
-  },
-  {
-    "id": "spotify_1XbH9NCM4u3alwYtj2tVW7",
-    "text": "OG SAN II - Deen Burbigo",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_1XbH9NCM4u3alwYtj2tVW7.jpg"
-  },
-  {
-    "id": "spotify_2yRG15GdCZMQte1m6ug5t1",
-    "text": "Magazine - Dalí",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_2yRG15GdCZMQte1m6ug5t1.jpg"
-  },
-  {
-    "id": "spotify_17UiqpQyl8T8vVxz2Towjy",
-    "text": "Perdu D'Avance - Orelsan",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_17UiqpQyl8T8vVxz2Towjy.jpg"
-  },
-  {
-    "id": "spotify_2TGMa7UcpLmLkPhn1p3Ff4",
-    "text": "Orelsan et Gringe sont les Casseurs Flowters - Casseurs Flowters",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_2TGMa7UcpLmLkPhn1p3Ff4.jpg"
-  },
-  {
-    "id": "spotify_6nMcxKyjXxxA0WeIpOpnuJ",
-    "text": "Double hélice 3 - Caballero & JeanJass",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_6nMcxKyjXxxA0WeIpOpnuJ.jpg"
-  },
-  {
-    "id": "spotify_7KNQIQwGaW7FnFsa7I3Kl7",
-    "text": "UNE MAIN LAVE L'AUTRE - Alpha Wann",
-    "date": "2024-02-20",
-    "cover": "/uploads/album_7KNQIQwGaW7FnFsa7I3Kl7.jpg"
-  },
-  {
-    "id": "spotify_7dAm8ShwJLFm9SaJ6Yc58O",
-    "text": "Die Lit - Playboi Carti",
-    "date": "2024-02-19",
-    "cover": "/uploads/album_7dAm8ShwJLFm9SaJ6Yc58O.jpg"
-  },
-  {
-    "id": "spotify_28yHV3Gdg30AiB8h8em1eW",
-    "text": "Appetite For Destruction - Guns N' Roses",
-    "date": "2024-02-15",
-    "cover": "/uploads/album_28yHV3Gdg30AiB8h8em1eW.jpg"
-  },
-  {
-    "id": "spotify_79dL7FLiJFOO0EoehUHQBv",
-    "text": "Currents - Tame Impala",
-    "date": "2024-02-15",
-    "cover": "/uploads/album_79dL7FLiJFOO0EoehUHQBv.jpg"
   },
   {
     "id": "spotify_4PWBTB6NYSKQwfo79I3prg",
     "text": "Rodeo - Travis Scott",
-    "date": "2024-02-14",
+    "date": "2024-03-24",
     "cover": "/uploads/album_4PWBTB6NYSKQwfo79I3prg.jpg"
   },
   {
-    "id": "spotify_2B4y3j02ho6XNF8BEzx3JF",
-    "text": "Finally Rich - Chief Keef",
-    "date": "2024-02-09",
-    "cover": "/uploads/album_2B4y3j02ho6XNF8BEzx3JF.jpg"
+    "id": "spotify_6tkjU4Umpo79wwkgPMV3nZ",
+    "text": "Goodbye & Good Riddance - Juice WRLD",
+    "date": "2024-03-18",
+    "cover": "/uploads/album_6tkjU4Umpo79wwkgPMV3nZ.jpg"
+  },
+  {
+    "id": "spotify_30zwjSQEodaUXCn11nmiVF",
+    "text": "VULTURES 1 - ¥$",
+    "date": "2024-03-05",
+    "cover": "/uploads/album_30zwjSQEodaUXCn11nmiVF.jpg"
+  },
+  {
+    "id": "spotify_2QRedhP5RmKJiJ1i8VgDGR",
+    "text": "Whole Lotta Red - Playboi Carti",
+    "date": "2024-02-25",
+    "cover": "/uploads/album_2QRedhP5RmKJiJ1i8VgDGR.jpg"
   },
   {
     "id": "spotify_5CnpZV3q5BcESefcB3WJmz",
@@ -630,147 +492,15 @@
     "cover": "/uploads/album_5CnpZV3q5BcESefcB3WJmz.jpg"
   },
   {
-    "id": "spotify_6tkjU4Umpo79wwkgPMV3nZ",
-    "text": "Goodbye & Good Riddance - Juice WRLD",
-    "date": "2024-02-07",
-    "cover": "/uploads/album_6tkjU4Umpo79wwkgPMV3nZ.jpg"
-  },
-  {
-    "id": "spotify_4rJgzzfFHAVFhCSt2P4I3j",
-    "text": "Playboi Carti - Playboi Carti",
-    "date": "2024-02-02",
-    "cover": "/uploads/album_4rJgzzfFHAVFhCSt2P4I3j.jpg"
-  },
-  {
-    "id": "spotify_7EPmezGIzLHj7LeTtLYhJZ",
-    "text": "Greatest Hits - Ice Cube",
-    "date": "2024-02-02",
-    "cover": "/uploads/album_7EPmezGIzLHj7LeTtLYhJZ.jpg"
-  },
-  {
-    "id": "spotify_5ll74bqtkcXlKE7wwkMq4g",
-    "text": "Late Registration - Kanye West",
-    "date": "2024-01-30",
-    "cover": "/uploads/album_5ll74bqtkcXlKE7wwkMq4g.jpg"
-  },
-  {
-    "id": "spotify_7D2NdGvBHIavgLhmcwhluK",
-    "text": "Yeezus - Kanye West",
-    "date": "2024-01-23",
-    "cover": "/uploads/album_7D2NdGvBHIavgLhmcwhluK.jpg"
-  },
-  {
-    "id": "spotify_2QRedhP5RmKJiJ1i8VgDGR",
-    "text": "Whole Lotta Red - Playboi Carti",
-    "date": "2024-01-21",
-    "cover": "/uploads/album_2QRedhP5RmKJiJ1i8VgDGR.jpg"
-  },
-  {
-    "id": "spotify_4jKeipwuUTjlx9USNYdhZn",
-    "text": "Legend - The Best Of Bob Marley And The Wailers - Bob Marley & The Wailers",
-    "date": "2024-01-10",
-    "cover": "/uploads/album_4jKeipwuUTjlx9USNYdhZn.jpg"
-  },
-  {
-    "id": "spotify_3WFTGIO6E3Xh4paEOBY9OU",
-    "text": "808s & Heartbreak - Kanye West",
-    "date": "2023-12-30",
-    "cover": "/uploads/album_3WFTGIO6E3Xh4paEOBY9OU.jpg"
-  },
-  {
-    "id": "spotify_4SZko61aMnmgvNhfhgTuD3",
-    "text": "Graduation - Kanye West",
-    "date": "2023-12-28",
-    "cover": "/uploads/album_4SZko61aMnmgvNhfhgTuD3.jpg"
-  },
-  {
-    "id": "spotify_18NOKLkZETa4sWwLMIm0UZ",
-    "text": "UTOPIA - Travis Scott",
-    "date": "2023-12-26",
-    "cover": "/uploads/album_18NOKLkZETa4sWwLMIm0UZ.jpg"
-  },
-  {
-    "id": "spotify_6FED8aeieEnUWwQqAO9zT1",
-    "text": "Huncho Jack, Jack Huncho - Huncho Jack",
-    "date": "2023-12-26",
-    "cover": "/uploads/album_6FED8aeieEnUWwQqAO9zT1.jpg"
-  },
-  {
-    "id": "spotify_5G5rgQHzdQnw32SI0WjIo5",
-    "text": "Get Rich Or Die Tryin' - 50 Cent",
-    "date": "2023-12-26",
-    "cover": "/uploads/album_5G5rgQHzdQnw32SI0WjIo5.jpg"
-  },
-  {
-    "id": "spotify_42WVQWuf1teDysXiOupIZt",
-    "text": "Birds In The Trap Sing McKnight - Travis Scott",
-    "date": "2023-12-26",
-    "cover": "/uploads/album_42WVQWuf1teDysXiOupIZt.jpg"
-  },
-  {
     "id": "spotify_0FgZKfoU2Br5sHOfvZKTI9",
     "text": "JESUS IS KING - Kanye West",
-    "date": "2023-12-26",
+    "date": "2024-01-13",
     "cover": "/uploads/album_0FgZKfoU2Br5sHOfvZKTI9.jpg"
   },
   {
-    "id": "spotify_41GuZcammIkupMPKH2OJ6I",
-    "text": "ASTROWORLD - Travis Scott",
-    "date": "2023-12-26",
-    "cover": "/uploads/album_41GuZcammIkupMPKH2OJ6I.jpg"
-  },
-  {
-    "id": "spotify_7gsWAHLeT0w7es6FofOXk1",
-    "text": "The Life Of Pablo - Kanye West",
-    "date": "2023-12-26",
-    "cover": "/uploads/album_7gsWAHLeT0w7es6FofOXk1.jpg"
-  },
-  {
-    "id": "spotify_20r762YmB5HeofjMCiPMLv",
-    "text": "My Beautiful Dark Twisted Fantasy - Kanye West",
-    "date": "2023-12-26",
-    "cover": "/uploads/album_20r762YmB5HeofjMCiPMLv.jpg"
-  },
-  {
-    "id": "spotify_2noRn2Aes5aoNVsU6iWThc",
-    "text": "Discovery - Daft Punk",
-    "date": "2023-12-25",
-    "cover": "/uploads/album_2noRn2Aes5aoNVsU6iWThc.jpg"
-  },
-  {
-    "id": "spotify_4m2880jivSbbyEGAKfITCa",
-    "text": "Random Access Memories - Daft Punk",
-    "date": "2023-12-25",
-    "cover": "/uploads/album_4m2880jivSbbyEGAKfITCa.jpg"
-  },
-  {
-    "id": "spotify_3UACOTg56TwfNelPFsdGAg",
-    "text": "Premiere consultation - Doc Gynéco",
-    "date": "2023-12-25",
-    "cover": "/uploads/album_3UACOTg56TwfNelPFsdGAg.jpg"
-  },
-  {
-    "id": "spotify_4PgleR09JVnm3zY1fW3XBA",
-    "text": "24K Magic - Bruno Mars",
-    "date": "2023-12-25",
-    "cover": "/uploads/album_4PgleR09JVnm3zY1fW3XBA.jpg"
-  },
-  {
-    "id": "spotify_6pwuKxMUkNg673KETsXPUV",
-    "text": "KIDS SEE GHOSTS - KIDS SEE GHOSTS",
-    "date": "2023-12-25",
-    "cover": "/uploads/album_6pwuKxMUkNg673KETsXPUV.jpg"
-  },
-  {
-    "id": "spotify_2Ek1q2haOnxVqhvVKqMvJe",
-    "text": "ye - Kanye West",
-    "date": "2023-12-25",
-    "cover": "/uploads/album_2Ek1q2haOnxVqhvVKqMvJe.jpg"
-  },
-  {
-    "id": "spotify_4Uv86qWpGTxf7fU7lG5X6F",
-    "text": "The College Dropout - Kanye West",
-    "date": "2023-12-25",
-    "cover": "/uploads/album_4Uv86qWpGTxf7fU7lG5X6F.jpg"
+    "id": "spotify_6uvBKDGlJAYLH5Vy6RQVsc",
+    "text": "Wish You Were Here (Remastered Version) - Pink Floyd",
+    "date": "2024-01-06",
+    "cover": "/uploads/album_6uvBKDGlJAYLH5Vy6RQVsc.jpg"
   }
 ]

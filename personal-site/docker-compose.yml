@@ -2,9 +2,7 @@ services:
   web:
     build: .
     ports:
-      - "8080:80"
-    volumes:
-      - ./src:/app/src
+      - "80:80"
     restart: always
 
   backend:

@@ -151,6 +151,181 @@ app.post('/api/delete-file', authenticate, async (req, res) => {
     }
 });
 
+// ============================================
+// WINDOWS 95 COMPUTER API
+// ============================================
+
+const fsSync = require('fs');
+const USER_UPLOADS_DIR = path.join(__dirname, 'uploads', 'users');
+const COMPUTER_FILES_JSON = path.join(__dirname, 'data', 'computer_files.json');
+const MAX_QUOTA_BYTES = (process.env.USER_UPLOADS_QUOTA_MB || 1000) * 1024 * 1024;
+const MAX_FILE_BYTES = (process.env.MAX_FILE_SIZE_MB || 10) * 1024 * 1024;
+
+// Ensure user uploads directory exists
+if (!fsSync.existsSync(USER_UPLOADS_DIR)) {
+    fsSync.mkdirSync(USER_UPLOADS_DIR, { recursive: true });
+}
+
+// Calculate total directory size
+function getDirectorySize(dirPath) {
+    let totalSize = 0;
+    try {
+        const files = fsSync.readdirSync(dirPath);
+        for (const file of files) {
+            const filePath = path.join(dirPath, file);
+            const stats = fsSync.statSync(filePath);
+            if (stats.isFile()) {
+                totalSize += stats.size;
+            }
+        }
+    } catch (err) {
+        console.error('Error calculating directory size:', err);
+    }
+    return totalSize;
+}
+
+// GET /api/computer/quota - Get storage quota info
+app.get('/api/computer/quota', (req, res) => {
+    const currentSize = getDirectorySize(USER_UPLOADS_DIR);
+    res.json({
+        used: currentSize,
+        total: MAX_QUOTA_BYTES,
+        usedMB: (currentSize / 1024 / 1024).toFixed(2),
+        totalMB: (MAX_QUOTA_BYTES / 1024 / 1024).toFixed(2),
+        percentage: ((currentSize / MAX_QUOTA_BYTES) * 100).toFixed(2)
+    });
+});
+
+// GET /api/computer/files - Get all files
+app.get('/api/computer/files', async (req, res) => {
+    try {
+        const data = await fs.readFile(COMPUTER_FILES_JSON, 'utf8');
+        res.json(JSON.parse(data));
+    } catch (err) {
+        res.json({ files: [], folders: ['My Documents', 'My Pictures', 'My Music'] });
+    }
+});
+
+// POST /api/computer/folder - Create virtual folder
+app.post('/api/computer/folder', async (req, res) => {
+    try {
+        const { name } = req.body;
+        if (!name) {
+            return res.status(400).json({ error: 'Folder name required' });
+        }
+
+        const data = JSON.parse(await fs.readFile(COMPUTER_FILES_JSON, 'utf8'));
+
+        if (!data.folders.includes(name)) {
+            data.folders.push(name);
+            await fs.writeFile(COMPUTER_FILES_JSON, JSON.stringify(data, null, 2));
+        }
+
+        res.json({ success: true, folder: name });
+    } catch (err) {
+        console.error('Error creating folder:', err);
+        res.status(500).json({ error: 'Failed to create folder' });
+    }
+});
+
+// Configure multer for user uploads
+const userUpload = multer({
+    storage: multer.diskStorage({
+        destination: USER_UPLOADS_DIR,
+        filename: (req, file, cb) => {
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+            const sanitized = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
+            cb(null, uniqueSuffix + '-' + sanitized);
+        }
+    }),
+    limits: { fileSize: MAX_FILE_BYTES }
+});
+
+// POST /api/computer/upload - Upload file
+app.post('/api/computer/upload', userUpload.single('file'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        // Check quota after upload
+        const currentSize = getDirectorySize(USER_UPLOADS_DIR);
+
+        if (currentSize > MAX_QUOTA_BYTES) {
+            // Delete the just-uploaded file
+            await fs.unlink(req.file.path);
+            return res.status(413).json({
+                error: 'Storage quota exceeded. Please delete some files first.',
+                quota: MAX_QUOTA_BYTES,
+                current: currentSize
+            });
+        }
+
+        // Save metadata
+        const filesData = JSON.parse(await fs.readFile(COMPUTER_FILES_JSON, 'utf8'));
+        const fileEntry = {
+            id: req.file.filename,
+            name: req.file.originalname,
+            path: `/uploads/users/${req.file.filename}`,
+            size: req.file.size,
+            mimeType: req.file.mimetype,
+            folder: req.body.folder || 'My Documents',
+            created: new Date().toISOString()
+        };
+
+        filesData.files.push(fileEntry);
+        await fs.writeFile(COMPUTER_FILES_JSON, JSON.stringify(filesData, null, 2));
+
+        res.json({
+            success: true,
+            file: fileEntry
+        });
+    } catch (error) {
+        console.error('Upload error:', error);
+        if (req.file && req.file.path) {
+            try {
+                await fs.unlink(req.file.path);
+            } catch (e) { }
+        }
+        res.status(500).json({ error: 'Upload failed' });
+    }
+});
+
+// DELETE /api/computer/file/:id - Delete file
+app.delete('/api/computer/file/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Load metadata
+        const filesData = JSON.parse(await fs.readFile(COMPUTER_FILES_JSON, 'utf8'));
+        const file = filesData.files.find(f => f.id === id);
+
+        if (!file) {
+            return res.status(404).json({ error: 'File not found' });
+        }
+
+        // Delete actual file
+        const filePath = path.join(USER_UPLOADS_DIR, id);
+        try {
+            await fs.unlink(filePath);
+        } catch (err) {
+            console.log('File already deleted or not found:', id);
+        }
+
+        // Remove from metadata
+        filesData.files = filesData.files.filter(f => f.id !== id);
+        await fs.writeFile(COMPUTER_FILES_JSON, JSON.stringify(filesData, null, 2));
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Delete error:', error);
+        res.status(500).json({ error: 'Delete failed' });
+    }
+});
+
+// Serve React computer app
+app.use('/computer', express.static(path.join(__dirname, '../dist/computer')));
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

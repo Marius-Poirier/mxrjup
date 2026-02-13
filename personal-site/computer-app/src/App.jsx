@@ -1261,49 +1261,13 @@ function App() {
     </>
   )
 
-  //   function deletepermanently(deleteName) { // move to void folder
-  //   const droppedIcon = desktopIcon.find(icon => icon.name === deleteName);
-  //   if (droppedIcon) { 
-  //     setDesktopIcon(prevIcons => {
 
-  //       const updatedIcons = prevIcons.map(icon => 
-  //         icon.name === droppedIcon.name 
-  //           ? {...icon, folderId: 'Void'} 
-  //           : icon
-  //       );
-
-  //       setKey(prev => prev + 1);
-  //       localStorage.setItem('icons', JSON.stringify([...updatedIcons]));
-  //       return [...updatedIcons];
-  //     });
-  //   }
-  //   setDeleteIcon(prev => prev + 1)
-  //   setBinRestoreArr(prev => {
-  //     const newBinArr = prev.filter(icon => icon.name !== deleteName);
-  //     localStorage.setItem('restoreArray', JSON.stringify(newBinArr));
-  //     return newBinArr;
-  //   });
-  //   const findUserCreatedFolder = UserCreatedFolder.find(
-  //     icon => icon.name === deleteName
-  //   );
-
-  //   if (findUserCreatedFolder) {
-  //     const updatedFolders = UserCreatedFolder.filter(
-  //       folder => folder.name !== findUserCreatedFolder.name
-  //     );
-
-  //     setUserCreatedFolder(updatedFolders);
-  //     localStorage.setItem("userFolders", JSON.stringify(updatedFolders));
-  //   }
-
-  //   refBeingClicked.current = null;
-  // }
 
   function deletepermanently(deleteName) { // delete from desktopIcon
     if (deleteName === 'Store') return;
 
     setItemIsBeingDeleted(deleteName)
-    console.log(deleteName)
+    // console.log(deleteName)
     deleteTap(deleteName)
     const droppedIcon = desktopIcon.find(icon => icon.name === deleteName);
 

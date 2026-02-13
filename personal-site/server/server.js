@@ -131,18 +131,18 @@ app.post('/api/upload', authenticate, upload.single('file'), (req, res) => {
 
 app.post('/api/delete-file', authenticate, async (req, res) => {
     const { url } = req.body;
-    console.log('[API] /api/delete-file requested with URL:', url);
+
 
     if (!url) return res.status(400).json({ error: 'No url provided' });
 
     // Sanitize and resolve path
     const filename = path.basename(url);
     const filePath = path.join(UPLOADS_DIR, filename);
-    console.log('[API] resolving path:', filePath);
+
 
     try {
         await fs.unlink(filePath);
-        console.log('[API] File deleted successfully');
+
         res.json({ success: true });
     } catch (err) {
         console.error('[API] Error deleting file:', err);
@@ -370,7 +370,7 @@ app.delete('/api/computer/file/:id', async (req, res) => {
 app.delete('/api/computer/folder/:name', async (req, res) => {
     try {
         const { name } = req.params;
-        console.log(`[API] Deleting folder recursively: ${name}`);
+        // console.log(`[API] Deleting folder recursively: ${name}`);
 
         // Load metadata
         const filesData = JSON.parse(await fs.readFile(COMPUTER_FILES_JSON, 'utf8'));
@@ -401,7 +401,7 @@ app.delete('/api/computer/folder/:name', async (req, res) => {
         // Start recursion
         findChildren(name);
 
-        console.log(`[API] Found ${filesToDelete.length} files and ${idsToDelete.size} items to delete.`);
+        // console.log(`[API] Found ${filesToDelete.length} files and ${idsToDelete.size} items to delete.`);
 
         // Delete physical files
         for (const fileId of filesToDelete) {
@@ -537,13 +537,13 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', async (ws) => {
-    console.log('Checking client connection...');
+    // console.log('Checking client connection...');
 
     // Send full chat history on connection
     try {
         const data = JSON.parse(await fs.readFile(CHAT_DATA_FILE, 'utf8'));
         ws.send(JSON.stringify({ type: 'history', data: data.messages['general'] || [] }));
-        console.log('Sent history to new client');
+        // console.log('Sent history to new client');
     } catch (e) {
         console.error('Error sending history:', e);
     }
@@ -590,6 +590,6 @@ wss.on('connection', async (ws) => {
     });
 
     ws.on('close', () => {
-        console.log('Client disconnected');
+        // console.log('Client disconnected');
     });
 });

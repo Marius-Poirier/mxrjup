@@ -534,10 +534,16 @@ const server = app.listen(PORT, () => {
 // WEBSOCKET SERVER
 // ============================================
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({ server });
+// Explicitly define path to match Nginx location
+const wss = new WebSocket.Server({ server, path: '/ws' });
 
-wss.on('connection', async (ws) => {
-    // console.log('Checking client connection...');
+// Debug: Log all upgrade requests to see if they reach the server
+server.on('upgrade', (request, socket, head) => {
+    console.log(`[DEBUG] HTTP Upgrade request received for: ${request.url}`);
+});
+
+wss.on('connection', async (ws, req) => {
+    console.log(`[DEBUG] WebSocket Client connected from ${req.socket.remoteAddress}`);
 
     // Send full chat history on connection
     try {
@@ -589,7 +595,11 @@ wss.on('connection', async (ws) => {
         }
     });
 
+    ws.on('error', (error) => {
+        console.error('[DEBUG] WebSocket client error:', error);
+    });
+
     ws.on('close', () => {
-        // console.log('Client disconnected');
+        console.log('[DEBUG] Client disconnected');
     });
 });

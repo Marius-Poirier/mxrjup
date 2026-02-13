@@ -1,4 +1,18 @@
 {
-  "files": [],
-  "folders": ["My Documents", "My Pictures", "My Music"]
+  "files": [
+    {
+      "id": "1770966846616-666056843-dbd.jpg",
+      "name": "dbd.jpg",
+      "path": "/uploads/users/1770966846616-666056843-dbd.jpg",
+      "size": 1386493,
+      "mimeType": "image/jpeg",
+      "folder": "Desktop",
+      "created": "2026-02-13T07:14:06.630Z"
+    }
+  ],
+  "folders": [
+    "My Documents",
+    "My Pictures",
+    "My Music"
+  ]
 }

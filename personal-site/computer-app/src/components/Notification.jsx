@@ -13,8 +13,8 @@ function Notification() {
     clearNotiTimeOut, setClearNotiTimeOut,
     isTouchDevice,
     handleShow, handleShowMobile,
-    newMessage, 
-    setNewMessage, 
+    newMessage,
+    setNewMessage,
     notiOn, setNotiOn,
   } = useContext(UseContext);
 
@@ -22,7 +22,7 @@ function Notification() {
   useEffect(() => {
     const handleResize = () => setScreenWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
-    
+
     // Show initial notification delay
     const initialTimeout = setTimeout(() => setNotiOn(true), 6000);
 
@@ -96,8 +96,8 @@ function Notification() {
       default:
         return {
           img: icon_wins95,
-          text1: 'Welcome to My Windows 95 Portfolio! 🎉',
-          text2: 'Hope you enjoy exploring......',
+          text1: 'Welcome to the family computer!',
+          text2: 'Enjoy your visit......',
           function: '',
         };
     }

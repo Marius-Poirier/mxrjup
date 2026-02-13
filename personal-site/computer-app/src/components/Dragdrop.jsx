@@ -7,6 +7,8 @@ import { IoIosSearch } from "react-icons/io";
 import { motion, AnimatePresence } from 'framer-motion';
 
 
+import { apiService } from '../services/apiService';
+
 function Dragdrop() {
   const [searchPopup, setSearchPopup] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -14,7 +16,7 @@ function Dragdrop() {
     setCurrentRightClickFolder,
     refBeingClicked,
     handleMobileLongPress,
-    timerRef,setIconBeingRightClicked,setRightClickIcon,
+    timerRef, setIconBeingRightClicked, setRightClickIcon,
     refresh,
     setCalenderToggle,
     iconContainerSize, iconImgSize, iconTextSize,
@@ -24,10 +26,10 @@ function Dragdrop() {
     handleDragStop,
     DesktopRef,
     handleOnDrag,
-    isDragging, 
+    isDragging,
     dropTargetFolder, setDropTargetFolder,
     handleDrop,
-    desktopIcon,setDesktopIcon,
+    desktopIcon, setDesktopIcon,
     imageMapping,
     handleShow, handleShowMobile,
     isTouchDevice,
@@ -37,18 +39,18 @@ function Dragdrop() {
 
   // Create an array of refs for each icon
   const iconRefs = useRef([]);
-  
+
   function captureIconPositions() {
     const positions = desktopIcon.reduce((acc, icon) => {
       const iconElement = iconRefs.current[icon.name]; // Get the icon ref using its name
-      
+
       if (iconElement) {
         const { x, y } = iconElement.getBoundingClientRect(); // Get the current position
-        acc[icon.name] = { x:x, y:y }; 
+        acc[icon.name] = { x: x, y: y };
       }
       return acc;
     }, {});
-  
+
     setDesktopIcon((prevIcons) => {
       return prevIcons.map(icon => {
         if (positions[icon.name]) {
@@ -58,11 +60,11 @@ function Dragdrop() {
       });
     });
   }
-  
-  
+
+
   useEffect(() => {
     // Capture positions initially
-      captureIconPositions();
+    captureIconPositions();
 
     const handleResize = () => {
       captureIconPositions();
@@ -78,7 +80,7 @@ function Dragdrop() {
 
   const recycleBin = desktopIcon.filter(icon => icon.folderId === 'RecycleBin');
   const recycleBinLength = recycleBin.length;
-  
+
 
   function googleSearch() {
     setTimeout(() => {
@@ -92,11 +94,63 @@ function Dragdrop() {
     }
   }
 
+  const handleFileDrop = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const files = Array.from(e.dataTransfer.files);
+      let dropX = e.clientX;
+      let dropY = e.clientY;
+
+      for (const file of files) {
+        try {
+          // Upload to Desktop folder
+          const response = await apiService.uploadFile(file, 'Desktop');
+
+          if (response && response.file) {
+            setDesktopIcon(prev => {
+              // Check if file already exists in state
+              if (prev.find(icon => icon.id === response.file.id)) return prev;
+
+              return [...prev, {
+                ...response.file,
+                // Ensure properties match desktop icon structure
+                id: response.file.id,
+                name: response.file.name,
+                type: '.jpeg', // Placeholder for now
+                pic: 'jpeg',
+                folderId: 'Desktop',
+                focus: false,
+                size: Math.round(response.file.size / 1024),
+                x: dropX,
+                y: dropY,
+              }];
+            });
+            // Offset next file slightly
+            dropX += 20;
+            dropY += 20;
+          }
+        } catch (error) {
+          console.error("Upload failed for file:", file.name, error);
+          alert(`Failed to upload ${file.name}`);
+        }
+      }
+    }
+  };
+
+  const onDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
-    <section className='bound' 
+    <section className='bound'
       onContextMenu={() => setCurrentRightClickFolder('Desktop')}
       onTouchStart={() => setCurrentRightClickFolder('Desktop')}
       ref={DesktopRef}
+      onDrop={handleFileDrop}
+      onDragOver={onDragOver}
       onClick={(e) => {
         if (!isDragging) {
           iconFocusIcon('');
@@ -106,7 +160,7 @@ function Dragdrop() {
         }
         e.preventDefault();
         e.stopPropagation();
-    }}
+      }}
     >
       {/* <div className="search_icon"
         style={{
@@ -156,11 +210,11 @@ function Dragdrop() {
           <Draggable
             key={icon.name}
             grid={[10, 10]}
-            axis="both" 
-            handle=".icon" 
+            axis="both"
+            handle=".icon"
             scale={1}
             bounds='.bound'
-            onStart={() => {setDropTargetFolder('')}}
+            onStart={() => { setDropTargetFolder('') }}
             onDrag={handleOnDrag(icon.name, iconRefs.current[icon.name])}
             onStop={(e, data) => {
               handleDragStop(data, icon.name, iconRefs.current[icon.name])
@@ -171,18 +225,18 @@ function Dragdrop() {
             <div
               className='icon'
               style={iconContainerSize(iconScreenSize)}
-              ref={(el) => iconRefs.current[icon.name] = el} 
+              ref={(el) => iconRefs.current[icon.name] = el}
               onContextMenu={() => {
                 setRightClickIcon(true);
                 iconFocusIcon(icon.name);
                 setIconBeingRightClicked(icon);
                 refBeingClicked.current = iconRefs.current[icon.name]
               }}
-              onDoubleClick={() => handleShow(icon.name)}                      
+              onDoubleClick={() => handleShow(icon.name)}
               onClick={!isTouchDevice ? (e) => {
                 iconFocusIcon(icon.name);
                 e.stopPropagation();
-              } : undefined}           
+              } : undefined}
               onTouchStart={(e) => {
                 e.stopPropagation();
                 handleShowMobile(icon.name);
@@ -191,10 +245,10 @@ function Dragdrop() {
                 refBeingClicked.current = iconRefs.current[icon.name]
               }}
             >
-              <img 
-                src={icon.name === 'RecycleBin' && recycleBinLength === 0 ? binEmp 
-                  : icon.name === 'RecycleBin' && recycleBinLength > 0 ? bin 
-                  : imageMapping(icon.pic)} alt={icon.name} className={icon.focus ? 'img_focus' : ''} 
+              <img
+                src={icon.name === 'RecycleBin' && recycleBinLength === 0 ? binEmp
+                  : icon.name === 'RecycleBin' && recycleBinLength > 0 ? bin
+                    : imageMapping(icon.pic)} alt={icon.name} className={icon.focus ? 'img_focus' : ''}
                 style={iconImgSize(iconScreenSize)}
               />
               <p className={icon.focus ? 'p_focus' : ''}
@@ -203,8 +257,8 @@ function Dragdrop() {
                 {icon.name}
               </p>
             </div>
-          </Draggable> 
-        ))} 
+          </Draggable>
+        ))}
       </div>
     </section>
   );

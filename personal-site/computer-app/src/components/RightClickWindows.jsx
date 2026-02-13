@@ -3,6 +3,7 @@ import UseContext from '../Context';
 import '../css/RightClickWindows.css';
 import { BsFillCaretRightFill } from "react-icons/bs";
 import { motion } from 'framer-motion';
+import { apiService } from '../services/apiService';
 
 function RightClickWindows() {
   const timerRef = useRef(false);
@@ -25,8 +26,8 @@ function RightClickWindows() {
     binRestoreArr, setBinRestoreArr,
     rightClickBin, setRightClickBin,
     inFolder, setInFolder,
-    handleShowInfolder, 
-    iconBeingRightClicked, 
+    handleShowInfolder,
+    iconBeingRightClicked,
     rightClickIcon, setRightClickIcon,
     setDesktopIcon, desktopIcon,
     iconFocusIcon,
@@ -60,7 +61,7 @@ function RightClickWindows() {
 
   function handleSwitchOpenFolder() { // decide which folder function to call
 
-    if(iconBeingRightClicked.name === inFolder) { 
+    if (iconBeingRightClicked.name === inFolder) {
       handleShowInfolder(iconBeingRightClicked.name)
       setInFolder('')
       return;
@@ -68,29 +69,29 @@ function RightClickWindows() {
     handleShow(iconBeingRightClicked.name);
   }
 
-  
+
   function handleDeleteIcon() {
 
-    const IconCannotBeDeleted = ['MyComputer', 'RecycleBin', "Hard Disk (C:)", "Hard Disk (D:)", "CD-ROM", 'Store' ]
+    const IconCannotBeDeleted = ['MyComputer', 'RecycleBin', "Hard Disk (C:)", "Hard Disk (D:)", "CD-ROM", 'Store']
 
-    if(IconCannotBeDeleted.includes(iconBeingRightClicked.name)) return;
+    if (IconCannotBeDeleted.includes(iconBeingRightClicked.name)) return;
     // Add icon to binRestoreArr
     // Update state and ensure localStorage is updated properly
     setBinRestoreArr(prevArr => {
-    const updatedArr = [
-    ...prevArr,
-    {
-      name: iconBeingRightClicked.name,
-      OldFolder: iconBeingRightClicked.folderId
-    }
-  ];
-  localStorage.setItem('restoreArray', JSON.stringify(updatedArr));
-  return updatedArr; 
-});
+      const updatedArr = [
+        ...prevArr,
+        {
+          name: iconBeingRightClicked.name,
+          OldFolder: iconBeingRightClicked.folderId
+        }
+      ];
+      localStorage.setItem('restoreArray', JSON.stringify(updatedArr));
+      return updatedArr;
+    });
 
 
     const droppedIcon = desktopIcon.find(icon => icon.name === iconBeingRightClicked.name);
-    if (droppedIcon) { 
+    if (droppedIcon) {
       setDesktopIcon(prevIcons => {
         const updatedIcons = prevIcons.filter(icon => icon.name !== droppedIcon.name);
         const newIcon = { ...droppedIcon, folderId: 'RecycleBin' };
@@ -111,11 +112,11 @@ function RightClickWindows() {
             : icon
         ).slice(); // Creates a new array reference
       });
-  
+
       setKey(prev => prev + 1); // Force re-render by changing an unrelated state
     }
-  }, [deleteIcon]); 
-  
+  }, [deleteIcon]);
+
 
 
   function handleRestore() {
@@ -124,8 +125,8 @@ function RightClickWindows() {
 
     if (!droppedIcon) return; //prevent error if not found
 
-    if (droppedIcon) { 
-        setDesktopIcon(prevIcons => {
+    if (droppedIcon) {
+      setDesktopIcon(prevIcons => {
         const findIconToRestore = prevIcons.find(icon => icon.name === droppedIcon.name)
         const updatedIcons = prevIcons.filter(icon => icon.name !== droppedIcon.name);
         const restoredIcon = { ...findIconToRestore, folderId: droppedIcon.OldFolder };
@@ -135,29 +136,29 @@ function RightClickWindows() {
 
         const newDesktopIcons = [...updatedIcons, restoredIcon];
         localStorage.setItem('icons', JSON.stringify(newDesktopIcons));
-        return newDesktopIcons; 
-    });
-        // if(!binRestoreArr) return;
-        // setBinRestoreArr(prev => {
-        //   const newBinArr = prev.filter(icon => icon.name !== droppedIcon.name);
-        //   localStorage.setItem('restoreArray', JSON.stringify(newBinArr)); // Update localStorage
-        //   return newBinArr;
-        // });
+        return newDesktopIcons;
+      });
+      // if(!binRestoreArr) return;
+      // setBinRestoreArr(prev => {
+      //   const newBinArr = prev.filter(icon => icon.name !== droppedIcon.name);
+      //   localStorage.setItem('restoreArray', JSON.stringify(newBinArr)); // Update localStorage
+      //   return newBinArr;
+      // });
     }
     setRestoreIcon(prev => prev + 1) // important link to useEffect
   }
-  
+
 
   useEffect(() => { // the only way to make it works is to mutate state like this for DELETE ICON
     if (restoreIcon > 0) {
-      if(!binRestoreArr) return;
+      if (!binRestoreArr) return;
       const iconBeingRestored = binRestoreArr.find(icon => icon.name === iconBeingRightClicked.name)
-        setBinRestoreArr(prev => {
-          const newBinArr = prev.filter(icon => icon.name !== iconBeingRightClicked.name);
-          localStorage.setItem('restoreArray', JSON.stringify(newBinArr)); // Update localStorage
-          return newBinArr;
-        });
-        
+      setBinRestoreArr(prev => {
+        const newBinArr = prev.filter(icon => icon.name !== iconBeingRightClicked.name);
+        localStorage.setItem('restoreArray', JSON.stringify(newBinArr)); // Update localStorage
+        return newBinArr;
+      });
+
       setDesktopIcon(prevIcons => {
         return prevIcons.map(icon =>
           icon.name === iconBeingRightClicked.name
@@ -165,65 +166,72 @@ function RightClickWindows() {
             : icon
         ).slice(); // Creates a new array reference
       });
-  
+
       setKey(prev => prev + 1); // Force re-render by changing an unrelated state
     }
-  }, [restoreIcon]); 
+  }, [restoreIcon]);
 
 
 
-function CreateFolder() {
+  async function CreateFolder() {
 
-  if(newFolderNameVal.trim() === '') return;
+    if (newFolderNameVal.trim() === '') return;
 
-  const allState = ObjectState();
+    const allState = ObjectState();
 
-  const checkIfFolderExist = allState.some(item => item.name === newFolderNameVal.trim());
+    const checkIfFolderExist = allState.some(item => item.name === newFolderNameVal.trim());
 
-  if (checkIfFolderExist) return;
+    if (checkIfFolderExist) return;
 
-  const checkedNameNoSpace = newFolderNameVal.trim().replace(/\s+/g, '');
+    const checkedNameNoSpace = newFolderNameVal.trim().replace(/\s+/g, '');
 
-  const id = `folder-${Date.now()}`;
+    const id = `folder-${Date.now()}`;
 
-  const newFolder = {
-    id,
-    pic: "Project",
-    name: checkedNameNoSpace,
-    type: "folder",
-    folderId: "Desktop",
-    size: "2000",
-    x: 1,
-    y: 1,
-  };
+    // Create folder on backend
+    try {
+      await apiService.createFolder(checkedNameNoSpace);
+    } catch (error) {
+      console.error("Failed to create folder on backend", error);
+    }
 
-  setDesktopIcon(prev => {
-    const updatedIcons = [...prev, newFolder];
-    localStorage.setItem("icons", JSON.stringify(updatedIcons));
-    return updatedIcons;
-  });
+    const newFolder = {
+      id,
+      pic: "Project",
+      name: checkedNameNoSpace,
+      type: "folder",
+      folderId: "Desktop",
+      size: "2000",
+      x: 1,
+      y: 1,
+    };
 
-  const newStateFolder = {
-    id,
-    name: checkedNameNoSpace,
-    expand: false,
-    show: false,
-    hide: false,
-    focusItem: false, 
-    x: 0,
-    y: 0,
-    zIndex: 1,
-  };
+    setDesktopIcon(prev => {
+      const updatedIcons = [...prev, newFolder];
+      localStorage.setItem("icons", JSON.stringify(updatedIcons));
+      return updatedIcons;
+    });
 
-  setUserCreatedFolder(prev => {
-    const safePrev = Array.isArray(prev) ? prev : [];
-    const updatedFolders = [...safePrev, newStateFolder];
-    localStorage.setItem("userFolders", JSON.stringify(updatedFolders));
-    return updatedFolders;
-  });
-  setPopUpCreateFolderName(false)
-  setNewFolderNameVal('')
-}
+    const newStateFolder = {
+      id,
+      name: checkedNameNoSpace,
+      expand: false,
+      show: false,
+      hide: false,
+      focusItem: false,
+      x: 0,
+      y: 0,
+      zIndex: 1,
+    };
+
+    setUserCreatedFolder(prev => {
+      const safePrev = Array.isArray(prev) ? prev : [];
+      const updatedFolders = [...safePrev, newStateFolder];
+      localStorage.setItem("userFolders", JSON.stringify(updatedFolders));
+      return updatedFolders;
+    });
+    setPopUpCreateFolderName(false)
+    setNewFolderNameVal('')
+  }
   console.log(iconBeingRightClicked.name, regErrorPopUpVal)
 
   function askBeforeDelete() {
@@ -233,7 +241,7 @@ function CreateFolder() {
 
 
   function arrangeIcons() {
-    if(currentRightClickFolder === 'MyComputer') return;
+    if (currentRightClickFolder === 'MyComputer') return;
 
     const iconsOnFolder = desktopIcon.filter(icon => icon.folderId === currentRightClickFolder);
     const newArrangedIcons = iconsOnFolder.sort((a, b) => a.name.localeCompare(b.name));
@@ -242,14 +250,14 @@ function CreateFolder() {
     setDesktopIcon(updatedIcons);
     localStorage.setItem('icons', JSON.stringify(updatedIcons));
     setRightClickDefault(false);
-    
-    if(currentRightClickFolder === 'Desktop') {
+
+    if (currentRightClickFolder === 'Desktop') {
       refreshed()
     }
   }
-  
+
   function arrangeIconsByType() {
-    if(currentRightClickFolder === 'MyComputer') return;
+    if (currentRightClickFolder === 'MyComputer') return;
 
     const iconsOnFolder = desktopIcon.filter(icon => icon.folderId === currentRightClickFolder);
     const newArrangedIcons = [...iconsOnFolder].sort((a, b) => a.type.localeCompare(b.type));
@@ -258,35 +266,35 @@ function CreateFolder() {
     setDesktopIcon(updatedIcons);
     localStorage.setItem('icons', JSON.stringify(updatedIcons));
     setRightClickDefault(false);
-    
-    if(currentRightClickFolder === 'Desktop') {
+
+    if (currentRightClickFolder === 'Desktop') {
       refreshed()
     }
   }
 
 
-  
+
 
   function handleOpenExpandArrageBy() { // delay the expand window
     timerRef.current = true;
 
     setTimeout(() => {
-      if(timerRef.current) {
-      setSortExpand(true)
+      if (timerRef.current) {
+        setSortExpand(true)
       }
     }, 350);
-}
-  
+  }
+
   return (
     <>
       {popUpCreateFolderName && (
         <div className="pop_up_create">
           <p>Enter folder name: </p>
-          <input type="text" 
-          value={newFolderNameVal} 
-          onChange={(e) => setNewFolderNameVal(e.target.value)} 
-          maxLength={10} 
-          onKeyDown={(e) => e.key === 'Enter' ? CreateFolder() : null}
+          <input type="text"
+            value={newFolderNameVal}
+            onChange={(e) => setNewFolderNameVal(e.target.value)}
+            maxLength={10}
+            onKeyDown={(e) => e.key === 'Enter' ? CreateFolder() : null}
           />
           <div className="ok_cancel_btn">
             <button
@@ -301,13 +309,13 @@ function CreateFolder() {
           </div>
         </div>
       )}
-        {(rightClickDefault && !rightClickIcon && !rightClickBin) && (
+      {(rightClickDefault && !rightClickIcon && !rightClickBin) && (
         <div className='window_rightclick_container'
-          style={{ 
+          style={{
             top: screenHeight - rightClickPosition.y < 217 ? screenHeight - 217 : rightClickPosition.y,
-            left: screenWidth - rightClickPosition.x < 138 ? screenWidth - 138 : rightClickPosition.x 
+            left: screenWidth - rightClickPosition.x < 138 ? screenWidth - 138 : rightClickPosition.x
           }}
-        >  
+        >
           {sortExpand && (
             <div className="sort_expand"
               style={{
@@ -322,64 +330,64 @@ function CreateFolder() {
               >Type</p>
             </div>
           )}
-            <motion.p
-              onClick={() => setSortExpand(prev => !prev)}
-              onHoverStart={() => handleOpenExpandArrageBy()}
-              onHoverEnd={() => timerRef.current = false}
-            >
-                Arrange by
-              <span><BsFillCaretRightFill/></span>
-            </motion.p>
-            
-            <p style={{paddingLeft: '25px'}}
-              onClick={() => {
-                handleShow('TaskManager')
-                setRightClickDefault(false);
-              }}
-            >Task Manager</p>
-            <h5></h5>
-            <p style={{color: '#8a8989'}}>Paste</p>
-            <p style={{color: '#8a8989'}}>Paste Shortcut</p>
-            <p 
-              onClick={() => {
-                refreshed()
-                iconFocusIcon('')
-              }}
-            >
-              Refresh
-            </p>
-            <h5></h5>
-            <p
-              onClick={() => {
-                setPopUpCreateFolderName(true);
-                setRightClickDefault(false);
-              }}
-            >
-                New Folder
-                {/* <span>
+          <motion.p
+            onClick={() => setSortExpand(prev => !prev)}
+            onHoverStart={() => handleOpenExpandArrageBy()}
+            onHoverEnd={() => timerRef.current = false}
+          >
+            Arrange by
+            <span><BsFillCaretRightFill /></span>
+          </motion.p>
+
+          <p style={{ paddingLeft: '25px' }}
+            onClick={() => {
+              handleShow('TaskManager')
+              setRightClickDefault(false);
+            }}
+          >Task Manager</p>
+          <h5></h5>
+          <p style={{ color: '#8a8989' }}>Paste</p>
+          <p style={{ color: '#8a8989' }}>Paste Shortcut</p>
+          <p
+            onClick={() => {
+              refreshed()
+              iconFocusIcon('')
+            }}
+          >
+            Refresh
+          </p>
+          <h5></h5>
+          <p
+            onClick={() => {
+              setPopUpCreateFolderName(true);
+              setRightClickDefault(false);
+            }}
+          >
+            New Folder
+            {/* <span>
                     <BsFillCaretRightFill/>
                 </span> */}
-            </p>
-            <h5></h5>
-            <p 
-              onClick={() => {
-                handleShow('Settings')
-                setRightClickDefault(false);
-              }}
-            >
-              Properties
-            </p>
-        </div>  
+          </p>
+          <h5></h5>
+          <p
+            onClick={() => {
+              handleShow('Settings')
+              setRightClickDefault(false);
+            }}
+          >
+            Properties
+          </p>
+        </div>
       )}
-      {(rightClickDefault && rightClickIcon && !rightClickBin) &&  (
+      {(rightClickDefault && rightClickIcon && !rightClickBin) && (
         <div className='window_rightclick_container'
-        style={{ 
-          top: screenHeight - rightClickPosition.y < 217 ? screenHeight - 217 : rightClickPosition.y,
-          left: screenWidth - rightClickPosition.x < 138 ? screenWidth - 138 : rightClickPosition.x,
-          height: '212px', width: '128px'
-        }}
-      >  
-          <p 
+          style={{
+            top: screenHeight - rightClickPosition.y < 217 ? screenHeight - 217 : rightClickPosition.y,
+            left: screenWidth - rightClickPosition.x < 138 ? screenWidth - 138 : rightClickPosition.x,
+            height: '212px', width: '128px'
+          }}
+        >
+          <p
             onClick={() => {
               handleSwitchOpenFolder();
               iconFocusIcon('')
@@ -389,17 +397,17 @@ function CreateFolder() {
           >
             Open
           </p>
-          <p style={{paddingLeft: '25px'}}>Edit</p>
+          <p style={{ paddingLeft: '25px' }}>Edit</p>
           <h5></h5>
           <p>
             Send To
             <span>
-                <BsFillCaretRightFill/>
+              <BsFillCaretRightFill />
             </span>
           </p>
           <h5></h5>
-          <p style={{color: '#8a8989'}}>Cut</p>
-          <p style={{color: '#8a8989'}}>Copy</p>
+          <p style={{ color: '#8a8989' }}>Cut</p>
+          <p style={{ color: '#8a8989' }}>Copy</p>
           <h5></h5>
           <p
             onClick={() => {
@@ -415,17 +423,17 @@ function CreateFolder() {
           <p>Rename</p>
           <h5></h5>
           <p>Properties</p>
-      </div> 
+        </div>
       )}
       {(rightClickDefault && !rightClickIcon && rightClickBin) && (
         <div className='window_rightclick_container'
-        style={{ 
-          top: screenHeight - rightClickPosition.y < 217 ? screenHeight - 217 : rightClickPosition.y,
-          left: screenWidth - rightClickPosition.x < 138 ? screenWidth - 138 : rightClickPosition.x,
-          height: '120px', width: '120px'
-        }}
-      >  
-          <p 
+          style={{
+            top: screenHeight - rightClickPosition.y < 217 ? screenHeight - 217 : rightClickPosition.y,
+            left: screenWidth - rightClickPosition.x < 138 ? screenWidth - 138 : rightClickPosition.x,
+            height: '120px', width: '120px'
+          }}
+        >
+          <p
             onClick={() => {
               handleRestore();
               iconFocusIcon('')
@@ -450,9 +458,9 @@ function CreateFolder() {
           >Delete</p>
           <h5></h5>
           <p>Properties</p>
-      </div> 
+        </div>
       )}
-       
+
     </>
   );
 }

@@ -3,42 +3,36 @@ import UserContext from './Context'
 import { Filter } from 'bad-words';
 import badword from './badword'
 import Footer from './components/Footer';
-import Store from './components/Store';
 import Dragdrop from './components/Dragdrop';
-import MyBioFolder from './components/MyBioFolder';
 import MyComputer from './components/MyComputer';
-import ResumeFolder from './components/ResumeFolder';
 import ProjectFolder from './components/ProjectFolder';
 import MailFolder from './components/MailFolder';
-import WebampPlayer from './components/WinampPlayer';
-import ResumeFile from './components/ResumeFile';
 import Shutdown from './components/Shutdown';
 import MineSweeper from './components/MineSweeper'
 import MsnFolder from './components/MsnFolder';
 import iconInfo from './icon.json'
+import { apiService } from './services/apiService';
 import Login from './components/Login';
 import OpenProject from './components/OpenProject';
 import WindowsShutdown from './components/WindowsShutdown';
 import BgSetting from './components/BgSetting';
 import Run from './components/Run';
 import Notification from './components/Notification';
-import BTC from './components/BTC';
 import EmptyFolder from './components/EmptyFolder';
 import ErrorBtn from './components/ErrorBtn';
 import RightClickWindows from './components/RightClickWindows';
 import axios from 'axios';
 import loadingSpin from './assets/loading.gif'
-import NewsApp from './components/NewsApp'
-import SpinningCat from './components/SpinningCat';
 import Patch from './components/Patch';
 import WindowsDragLogin from './components/WindowsDragLogin';
 import TaskManager from './components/TaskManager';
-import { StyleHide, imageMapping,
-  handleDoubleClickEnterLink,handleDoubleTapEnterMobile,
+import {
+  StyleHide, imageMapping,
+  handleDoubleClickEnterLink, handleDoubleTapEnterMobile,
   handleDoubleClickiframe, handleDoubleTapiframeMobile,
   iconContainerSize, iconImgSize, iconTextSize,
   handleDoubleClickPhotoOpen,
- } from './components/function/AppFunctions';
+} from './components/function/AppFunctions';
 
 
 function App() {
@@ -53,29 +47,29 @@ function App() {
   const [keyRef, setKeyRef] = useState(0)
   const [localBg, setLocalBg] = useState(() => {
     const prevBg = localStorage.getItem('background')
-    return prevBg? prevBg : null
+    return prevBg ? prevBg : null
   })
   const [localEffect, setLocalEffect] = useState(() => {
     const prevEffect = localStorage.getItem('effect')
-    return prevEffect? prevEffect : null
+    return prevEffect ? prevEffect : null
   })
   const [websocketConnection, setWebsocketConnection] = useState(false)
   const [Cel, setCel] = useState(true); // Celsius or Fahrenheit
   const [weather, setWeather] = useState(() => {
-        const storedTempF = localStorage.getItem('tempF');
-        const storedIconCode = localStorage.getItem('iconCode');
-        if (storedTempF && storedIconCode) {
-            return { temp: JSON.parse(storedTempF), code: parseInt(storedIconCode) };
-        }
-        return null;
-    });
+    const storedTempF = localStorage.getItem('tempF');
+    const storedIconCode = localStorage.getItem('iconCode');
+    if (storedTempF && storedIconCode) {
+      return { temp: JSON.parse(storedTempF), code: parseInt(storedIconCode) };
+    }
+    return null;
+  });
 
   const [city, setCity] = useState(() => {
-        const storedCity = localStorage.getItem('city');
-        return storedCity ? JSON.parse(storedCity) : null;
-    });
+    const storedCity = localStorage.getItem('city');
+    return storedCity ? JSON.parse(storedCity) : null;
+  });
   const [bgRotation, setBgRotation] = useState(() => {
-  const saved = JSON.parse(localStorage.getItem('isWallpaperOn'));
+    const saved = JSON.parse(localStorage.getItem('isWallpaperOn'));
     if (saved?.bgRotation !== undefined) return saved.bgRotation;
     localStorage.setItem('isWallpaperOn', JSON.stringify({ bgRotation: true }));
     return true;
@@ -112,7 +106,7 @@ function App() {
   const [runItemBox, setRunItemBox] = useState(false)
   const [RunInputVal, setRunInputVal] = useState('')
   const [undo, setUndo] = useState(['MyComputer'])
-  const [selectedFolder, setSelectedFolder] = useState({label: 'MyComputer', img: imageMapping('MyComputer')})
+  const [selectedFolder, setSelectedFolder] = useState({ label: 'MyComputer', img: imageMapping('MyComputer') })
   const [currentFolder, setCurrentFolder] = useState('MyComputer')
   const [loading, setLoading] = useState(true)
   const [resumeStartBar, setResumejectStartBar] = useState(false)
@@ -143,7 +137,7 @@ function App() {
   const [reMountRun, setReMountRun] = useState(0)
   const [ErrorPopup, setErrorPopup] = useState(false)
   const [themeDragBar, setThemeDragBar] = useState(() => localStorage.getItem('barcolor') || '#14045c')
-  const [login, setLogin] = useState(true) 
+  const [login, setLogin] = useState(false)
   const [windowsShutDownAnimation, setWindowsShutDownAnimation] = useState(false)
   const [detectMouse, setDetectMouse] = useState(false)
   const endOfMessagesRef = useRef(null);
@@ -178,140 +172,141 @@ function App() {
   const [lastTapTime, setLastTapTime] = useState(0)
   const [projectUrl, setProjectUrl] = useState('')
   const [MybioExpand, setMybioExpand] = useState(
-  {
-    expand: false, // fullscreen
-    show: false, // show folder when double clicked
-    hide: false, // hide folder to the tap
-    focusItem: true, // decide if item is being clicked on or not
-    x: 0, y: 0, // position before fullscreen
-  });
+    {
+      expand: false, // fullscreen
+      show: false, // show folder when double clicked
+      hide: false, // hide folder to the tap
+      focusItem: true, // decide if item is being clicked on or not
+      x: 0, y: 0, // position before fullscreen
+    });
   const [ResumeExpand, setResumeExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [ProjectExpand, setProjectExpand] = useState(
-  {
-    expand: false, show: false, hide: false, focusItem: true,  // focusItem is window, item_1focus - 5 is the icon
-    x: 0, y: 0, zIndex: 1,});
+    {
+      expand: false, show: false, hide: false, focusItem: true,  // focusItem is window, item_1focus - 5 is the icon
+      x: 0, y: 0, zIndex: 1,
+    });
 
   const [MailExpand, setMailExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [NftExpand, setNftExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [NoteExpand, setNoteExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [TypeExpand, setTypeExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [WinampExpand, setWinampExpand] = useState(
-  {focus: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { focus: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [ResumeFileExpand, setResumeFileExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [openProjectExpand, setOpenProjectExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [MyComputerExpand, setMyComputerExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
-  
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
+
   const [pictureExpand, setPictureExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [photoOpenExpand, setPhotoOpenExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [desktopIcon, setDesktopIcon] = useState(() => {
-  const localItems = localStorage.getItem('icons');
+    const localItems = localStorage.getItem('icons');
 
-  const deleteIcon = ['Cat', 'AiAgent','Winamp','Paint','3dObject'];
+    const deleteIcon = ['Cat', 'AiAgent', 'Winamp', '3dObject'];
 
-  const filteredItems = iconInfo.filter(item => !deleteIcon.includes(item.name));
+    const filteredItems = iconInfo.filter(item => !deleteIcon.includes(item.name));
 
-  const parsedItems = localItems ? JSON.parse(localItems) : filteredItems;
+    const parsedItems = localItems ? JSON.parse(localItems) : filteredItems;
 
- 
-  return parsedItems;
-});
+
+    return parsedItems;
+  });
 
   const [MineSweeperExpand, setMineSweeperExpand] = useState(
-  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [MSNExpand, setMSNExpand] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [BgSettingExpand, setBgSettingExpand] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [RunExpand, setRunExpand] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
-  
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
+
   const [BinExpand, setBinExpand] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [PaintExpand, setPaintExpand] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
-  
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
+
   const [UtilityExpand, setUtilityExpand] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
-  
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
+
   const [PatchExpand, setPatchExpand] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
-  
+    { expand: false, show: false, hide: false, focusItem: false, x: 0, y: 0, zIndex: 1, });
+
   const [TaskManagerExpand, setTaskManagerExpand] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [StoreExpand, setStoreExpand] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
-  
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
+
   const [btcShow, setBtcShow] = useState(
-    {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [UserCreatedFolder, setUserCreatedFolder] = useState(() => {
-  const localFolders = localStorage.getItem('userFolders');
-  const parsed = localFolders ? JSON.parse(localFolders) : [];
-  return parsed.map(folder => ({
-    ...folder,
-    id: folder.id || null,
-    expand: false,
-    show: false,
-    hide: false,
-    focusItem: false,
-    x: 0,
-    y: 0,
-    zIndex: 1,
-  }));
-});
+    const localFolders = localStorage.getItem('userFolders');
+    const parsed = localFolders ? JSON.parse(localFolders) : [];
+    return parsed.map(folder => ({
+      ...folder,
+      id: folder.id || null,
+      expand: false,
+      show: false,
+      hide: false,
+      focusItem: false,
+      x: 0,
+      y: 0,
+      zIndex: 1,
+    }));
+  });
 
   const UserCreatedFolderRef = useRef([]);
 
-    useEffect(() => { // REF for user created folder
-      // Ensure refs array matches folders
-      UserCreatedFolderRef.current = UserCreatedFolder.map(
-        (_, i) => UserCreatedFolderRef.current[i] || React.createRef()
-      );
-    }, [UserCreatedFolder]);
-  
+  useEffect(() => { // REF for user created folder
+    // Ensure refs array matches folders
+    UserCreatedFolderRef.current = UserCreatedFolder.map(
+      (_, i) => UserCreatedFolderRef.current[i] || React.createRef()
+    );
+  }, [UserCreatedFolder]);
 
-  
-    const allPicture = desktopIcon.filter(picture => picture.type === '.jpeg'); // photo open
+
+
+  const allPicture = desktopIcon.filter(picture => picture.type === '.jpeg'); // photo open
 
   const textError = ( // error message
-      <>
-          Cannot find the file '{RunInputVal || regErrorPopUpVal}' (or one of its component). 
-          Make sure the path and filename are correct and that all required 
-          libraries are available.
-      </>
-  ) 
-  
+    <>
+      Cannot find the file '{RunInputVal || regErrorPopUpVal}' (or one of its component).
+      Make sure the path and filename are correct and that all required
+      libraries are available.
+    </>
+  )
+
   function projectname() { // project name 
-      if(projectUrl.length < 1) return;
+    if (projectUrl.length < 1) return;
 
-      const projectlinkletter = projectUrl.slice(8).split('.')[0];
+    const projectlinkletter = projectUrl.slice(8).split('.')[0];
 
-      return projectlinkletter[0].toUpperCase() + projectlinkletter.slice(1);
+    return projectlinkletter[0].toUpperCase() + projectlinkletter.slice(1);
   }
 
   // Define all state setter functions and corresponding clear functions in an array
@@ -319,55 +314,58 @@ function App() {
   const allClears = [ClearTOclippyThanksYouFunction, ClearTOclippySendemailfunction, ClearTOSongfunction, ClearTOclippyUsernameFunction];
 
   useEffect(() => { // force user to update version by clearing their local storage!
-    setTimeout(() => {
-      handleShow('Patch');
-    }, 2500);
-    
-    if(!desktopIcon.find(icon => icon.name === 'IE')) {
+    // setTimeout(() => {
+    //   // handleShow('Patch');
+    // }, 2500);
+
+    if (!desktopIcon.find(icon => icon.name === 'Paint')) {
       localStorage.clear();
       location.reload();
     }
-  },[])
+
+    // Explicitly close Patch window on mount
+    setPatchExpand(prev => ({ ...prev, show: false, expand: false, hide: true }));
+  }, [])
 
 
-useEffect(() => {
-  const handleRightClick = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const handleRightClick = (e) => {
+      e.preventDefault();
 
-  if(tileScreen) {
-    return;
-  }
-  
-    const iconRect = refBeingClicked.current?.getBoundingClientRect();
-    setRightClickPosition({ x: e.clientX, y: e.clientY });
+      if (tileScreen) {
+        return;
+      }
 
-    const isIconRef =
-      e.clientX > iconRect?.left &&
-      e.clientX < iconRect?.right &&
-      e.clientY > iconRect?.top &&
-      e.clientY < iconRect?.bottom;
+      const iconRect = refBeingClicked.current?.getBoundingClientRect();
+      setRightClickPosition({ x: e.clientX, y: e.clientY });
 
-    if (!isIconRef) {
-      setRightClickBin(false);
-      setRightClickIcon(false);
-    }
+      const isIconRef =
+        e.clientX > iconRect?.left &&
+        e.clientX < iconRect?.right &&
+        e.clientY > iconRect?.top &&
+        e.clientY < iconRect?.bottom;
 
-    setRightClickDefault(true);
-  };
+      if (!isIconRef) {
+        setRightClickBin(false);
+        setRightClickIcon(false);
+      }
 
-  document.addEventListener("contextmenu", handleRightClick);
+      setRightClickDefault(true);
+    };
 
-  return () => {
-    document.removeEventListener("contextmenu", handleRightClick);
-  };
-}, [tileScreen]);
+    document.addEventListener("contextmenu", handleRightClick);
+
+    return () => {
+      document.removeEventListener("contextmenu", handleRightClick);
+    };
+  }, [tileScreen]);
 
 
   useEffect(() => {
     const handleTouchStart = (e) => {
 
-      if(tileScreen) {
-      return;
+      if (tileScreen) {
+        return;
       }
 
       if (dragging) return; // Prevent duplicate triggers
@@ -398,20 +396,20 @@ useEffect(() => {
 
 
   function handleMobileLongPress(e, icon) { // long press icon on mobile
-    if(dragging) return;
-    timerRef.current = setTimeout(() => {  
+    if (dragging) return;
+    timerRef.current = setTimeout(() => {
       setRightClickPosition({ x: e.touches[0].clientX, y: e.touches[0].clientY });
       setRightClickBin(false)
       setRightClickIcon(true);
       setIconBeingRightClicked(icon);
       setRightClickDefault(true);
-      
+
     }, 800)
   }
 
   function handleMobileLongPressBin(e, icon) { // long press icon on mobile
-    if(dragging) return;
-    timerRef.current = setTimeout(() => {  
+    if (dragging) return;
+    timerRef.current = setTimeout(() => {
       setRightClickPosition({ x: e.touches[0].clientX, y: e.touches[0].clientY });
       setRightClickIcon(false);
       setRightClickBin(true)
@@ -423,17 +421,17 @@ useEffect(() => {
 
 
 
-  
+
   useEffect(() => {
     const handleInteraction = (e) => {
-      if (e.button === 0 && !document.querySelector(".window_rightclick_container")?.contains(e.target)) { 
+      if (e.button === 0 && !document.querySelector(".window_rightclick_container")?.contains(e.target)) {
         setRightClickDefault(false);
         setRightClickIcon(false)
         setRightClickBin(false)
         setIconBeingRightClicked({})
       }
     };
-  
+
     const handleInteractionMobile = (e) => {
       if (rightClickDefault && !document.querySelector(".window_rightclick_container")?.contains(e.target)) {
         setRightClickDefault(false);
@@ -442,458 +440,402 @@ useEffect(() => {
         setIconBeingRightClicked({})
       }
     };
-  
+
     document.addEventListener("mousedown", handleInteraction);
     document.addEventListener("touchstart", handleInteractionMobile);
-  
+
     return () => {
       document.removeEventListener("mousedown", handleInteraction);
       document.removeEventListener("touchstart", handleInteractionMobile);
     };
   }, [rightClickDefault]);
-  
 
 
 
-    const connectWebSocket = async () => {
-      
+  const connectWebSocket = async () => {
+    console.log('WebSocket connection disabled');
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    connectWebSocket();
+  }, []);
+
+
+  // WebSocket and Chat connectivity removed
+
+  // Fetch file list from backend on mount
+  useEffect(() => {
+    const fetchFiles = async () => {
       try {
+        const data = await apiService.getFiles();
+        if (data && data.files) {
+          setDesktopIcon(prev => {
+            // Robust Sync & Icon Update:
+            // 1. Identify valid backend IDs (ensure string comparison)
+            const backendFileMap = new Map(data.files.map(f => [String(f.id), f]));
 
-        // Wake up the Render backend
-        await fetch('https://notebackend-wrqt.onrender.com/ping');
-
-        // Close existing socket if still open or connecting
-        if (socket.current && socket.current.readyState !== WebSocket.CLOSED) {
-          // Remove old listeners
-          socket.current.onopen = null;
-          socket.current.onclose = null;
-          socket.current.onerror = null;
-          socket.current.onmessage = null;
-
-          // Close and wait for complete shutdown
-          socket.current.close();
-
-          await new Promise(resolve => {
-            socket.current.onclose = () => {
-              setWebsocketConnection(false);
-              resolve();
+            // 2. Helper for Icon Mapping
+            const getIconType = (filename) => {
+              if (!filename) return { pic: 'NotePad', type: 'file' };
+              const ext = filename.split('.').pop().toLowerCase();
+              if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) return { pic: 'Jpeg', type: '.jpeg' };
+              if (['txt', 'md', 'json', 'js', 'css'].includes(ext)) return { pic: 'NotePad', type: 'notepad' };
+              if (['mp3', 'wav'].includes(ext)) return { pic: 'Winamp', type: 'mp3' };
+              if (['exe'].includes(ext)) return { pic: 'Project', type: '.exe' };
+              return { pic: 'NotePad', type: 'file' };
             };
+
+            // 3. Process existing state:
+            //    - Keep system icons (no id)
+            //    - Update backend files with fresh metadata (name, size) AND fresh icon mapping
+            //    - Preserve position (x, y) and focus from local state
+            //    - Remove orphans (items with id not in backend)
+
+            const updatedState = prev.map(icon => {
+              // System icon -> keep as is
+              if (!icon.id) return icon;
+
+              // Backend file -> check if it still exists
+              const backendFile = backendFileMap.get(String(icon.id));
+              if (backendFile) {
+                // Update metadata & icon, preserve position
+                const { pic, type } = getIconType(backendFile.name);
+
+                // Remove from map so we know it's handled
+                backendFileMap.delete(String(icon.id));
+
+                return {
+                  ...icon, // keep x, y, focus
+                  ...backendFile, // update name, size, folder, id causes no harm
+                  pic: pic,   // FORCE update icon
+                  type: type, // FORCE update type
+                };
+              }
+
+              // Orphan -> mark for removal
+              return null;
+            }).filter(Boolean); // Remove nulls (orphans)
+
+            // 4. Add NEW files (remaining in map)
+            const newFiles = Array.from(backendFileMap.values()).map(file => {
+              const { pic, type } = getIconType(file.name);
+              return {
+                ...file,
+                id: file.id,
+                name: file.name,
+                type: type,
+                pic: pic,
+                folderId: file.folder || 'My Documents',
+                focus: false,
+                size: Math.round(file.size / 1024), // KB
+              };
+            });
+
+            return [...updatedState, ...newFiles];
           });
         }
-
-        // Create new WebSocket instance
-        socket.current = new WebSocket('wss://notebackend-wrqt.onrender.com');
-
-        socket.current.onopen = () => {
-          console.log('WebSocket connected');
-          getChat()
-          setWebsocketConnection(true);
-          setLoading(false);
-        };
-
-        socket.current.onmessage = (event) => {
-          const data = JSON.parse(event.data);
-
-          if (data.count !== undefined) {
-            setOnlineUser(data.count);
-          }
-
-          if (data.key) {
-            setKeyChatSession(data.key);
-          } 
-          if (data.ring) {
-            setRingMsn(true)
-          }
-          else if (data.name && data.chat) {
-            setChatData(prevData => [...prevData, data]);
-            setLoadedMessages(prev => [...prev, data]);
-            setAllowNoti(true);
-
-            setTimeout(() => {
-              endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
-            }, 100);
-          }
-        };
-
-        socket.current.onerror = (error) => {
-          console.error('WebSocket error:', error);
-          setLoading(false);
-          setWebsocketConnection(false);
-        };
-
-        socket.current.onclose = () => {
-          console.log('🔌 WebSocket closed');
-          setWebsocketConnection(false);
-        };
-
-      } catch (err) {
-        console.error('WebSocket connection error:', err);
-        setLoading(false);
-        setWebsocketConnection(false);
+      } catch (error) {
+        console.error('Failed to fetch files from backend', error);
       }
     };
 
-    useEffect(() => {
-      setLoading(true);
-      connectWebSocket();
-
-      return () => {
-        if (socket.current) {
-          socket.current.onopen = null;
-          socket.current.onclose = null;
-          socket.current.onerror = null;
-          socket.current.onmessage = null;
-          socket.current.close();
-          setWebsocketConnection(false);
-        }
-      };
-    }, []);
-
-
-    useEffect(() => {
-      let invisibilityTimeout = null;
-
-      const handleVisibilityChange = () => {
-        if (document.visibilityState === 'hidden') {
-          // Start a 30s countdown to close socket
-          invisibilityTimeout = setTimeout(() => {
-            if (socket.current && socket.current.readyState === WebSocket.OPEN) {
-              console.log('User was invisible for 10s. Closing WebSocket.');
-              socket.current.close();
-              setWebsocketConnection(false);
-            }
-          }, 10000); 
-        } else {
-          // 
-          if (invisibilityTimeout) {
-            clearTimeout(invisibilityTimeout);
-            invisibilityTimeout = null;
-          }
-        }
-      };
-
-      document.addEventListener('visibilitychange', handleVisibilityChange);
-
-      return () => {
-        document.removeEventListener('visibilitychange', handleVisibilityChange);
-        if (invisibilityTimeout) clearTimeout(invisibilityTimeout);
-      };
-    }, []);
+    fetchFiles();
+  }, []);
 
 
 
 
+  useEffect(() => { // touch support device === true
+    iconFocusIcon('') // make icon focus goes false
 
-  useEffect(() => { // noti
-    if(allowNoti){
+    const htmlElement = document.documentElement; //check if user is in frontend
+    htmlElement.addEventListener('mouseenter', handleMouseSeen);
 
-      if (chatData.length) {
-        endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
-      }
+    const onTouchStartSupported = 'ontouchstart' in document.documentElement;
+    setIsTouchDevice(onTouchStartSupported);
 
-      if(!MSNExpand.show || MSNExpand.hide) {
-        setNotiOn(false);
-        setTimeout(() => {
-            clearTimeout(clearNotiTimeOut)
-            setNotiOn(true);
-            setNewMessage({ type: 'msn'});  // Notification message
-        }, 100);
-      }
-    }
-      
-  },[chatData])
+    document.addEventListener('gesturestart', function (e) { // prevent zooming on mobile
+      e.preventDefault();
+    });
 
-
-useEffect(() => { // touch support device === true
-  iconFocusIcon('') // make icon focus goes false
-
-  const htmlElement = document.documentElement; //check if user is in frontend
-  htmlElement.addEventListener('mouseenter', handleMouseSeen);
-
-  const onTouchStartSupported = 'ontouchstart' in document.documentElement;
-  setIsTouchDevice(onTouchStartSupported);
-
-  document.addEventListener('gesturestart', function (e) { // prevent zooming on mobile
-    e.preventDefault();
-  });
-
-  function handleKeyPress(event){ // hitting windows button activates start menu
-    if (event.keyCode === 91 || event.keyCode === 92 || event.keyCode === 93) {
+    function handleKeyPress(event) { // hitting windows button activates start menu
+      if (event.keyCode === 91 || event.keyCode === 92 || event.keyCode === 93) {
         setStartActive(prev => !prev)
+      }
     }
-  }
-  document.addEventListener('keydown', handleKeyPress);
-  return () => {
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
       document.removeEventListener('keydown', handleKeyPress);
       htmlElement.removeEventListener('mouseenter', handleMouseSeen);
-  };
+    };
 
-}, []);
+  }, []);
 
 
-const handleOnDrag = (name, ref, type) => () => {
-  setDragging(true)
-  const iconRef = ref
-  if (iconRef && ResumeFolderRef.current && ProjectFolderRef.current) {
-    const BinRect = BinRef.current.getBoundingClientRect();
-    const iconRect = iconRef.getBoundingClientRect();
-    const resumeFolderRect = ResumeFolderRef.current.getBoundingClientRect();
-    const projectFolderRect = ProjectFolderRef.current.getBoundingClientRect();
-    const desktopRect = DesktopRef.current.getBoundingClientRect();
-    const diskRect = DiskRef.current.getBoundingClientRect();
-    const PictureRect = PictureRef.current.getBoundingClientRect();
-    const UtilityRect = UtilityRef.current.getBoundingClientRect();
-  
+  const handleOnDrag = (name, ref, type) => () => {
+    setDragging(true)
+    const iconRef = ref
+    if (iconRef && ResumeFolderRef.current && ProjectFolderRef.current) {
+      const BinRect = BinRef.current.getBoundingClientRect();
+      const iconRect = iconRef.getBoundingClientRect();
+      const resumeFolderRect = ResumeFolderRef.current.getBoundingClientRect();
+      const projectFolderRect = ProjectFolderRef.current.getBoundingClientRect();
+      const desktopRect = DesktopRef.current.getBoundingClientRect();
+      const diskRect = DiskRef.current.getBoundingClientRect();
+      const PictureRect = PictureRef.current.getBoundingClientRect();
+      const UtilityRect = UtilityRef.current.getBoundingClientRect();
 
-    const offset = 55;
 
-    if(name === 'MyComputer' || name === 'RecycleBin') return; // prevent MyComputer from being dragged into folder
+      const offset = 55;
 
-    // Check for intersection with UserCreated folders
-    for (let i = 0; i < UserCreatedFolderRef.current.length; i++) {
-      const ref = UserCreatedFolderRef.current[i];
-      if (ref && ref.current) {
-        const folderRect = ref.current.getBoundingClientRect();
+      if (name === 'MyComputer' || name === 'RecycleBin') return; // prevent MyComputer from being dragged into folder
 
-        if (
-          iconRect.left < folderRect.right - offset &&
-          iconRect.right > folderRect.left + offset &&
-          iconRect.top < folderRect.bottom - offset &&
-          iconRect.bottom > folderRect.top + offset
-        ) {
-          if (name === UserCreatedFolder[i].name) continue; // avoid self-drop
-          setDropTargetFolder(UserCreatedFolder[i].name);
-          return; // stop once matched
+      // Check for intersection with UserCreated folders
+      for (let i = 0; i < UserCreatedFolderRef.current.length; i++) {
+        const ref = UserCreatedFolderRef.current[i];
+        if (ref && ref.current) {
+          const folderRect = ref.current.getBoundingClientRect();
+
+          if (
+            iconRect.left < folderRect.right - offset &&
+            iconRect.right > folderRect.left + offset &&
+            iconRect.top < folderRect.bottom - offset &&
+            iconRect.bottom > folderRect.top + offset
+          ) {
+            if (name === UserCreatedFolder[i].name) continue; // avoid self-drop
+            setDropTargetFolder(UserCreatedFolder[i].name);
+            return; // stop once matched
+          }
         }
       }
-}
-    // utility
-    if (
-      iconRect.left < UtilityRect.right - offset &&
-      iconRect.right > UtilityRect.left + offset &&
-      iconRect.top < UtilityRect.bottom - offset &&
-      iconRect.bottom > UtilityRect.top + offset
-    ) {
-      if(name === 'Utility') return;
-      setDropTargetFolder('Utility');
-    }
+      // utility
+      if (
+        iconRect.left < UtilityRect.right - offset &&
+        iconRect.right > UtilityRect.left + offset &&
+        iconRect.top < UtilityRect.bottom - offset &&
+        iconRect.bottom > UtilityRect.top + offset
+      ) {
+        if (name === 'Utility') return;
+        setDropTargetFolder('Utility');
+      }
 
-    else if (
-      iconRect.left < BinRect.right - offset &&
-      iconRect.right > BinRect.left + offset &&
-      iconRect.top < BinRect.bottom - offset &&
-      iconRect.bottom > BinRect.top + offset
-    ) {
-      if(name === 'RecycleBin') return;
-      setDropTargetFolder('RecycleBin');
-    }
-    
-    // Check for intersection with the Picture folder
-    else if (
-      iconRect.left < PictureRect.right - offset &&
-      iconRect.right > PictureRect.left + offset &&
-      iconRect.top < PictureRect.bottom - offset &&
-      iconRect.bottom > PictureRect.top + offset
-    ) {
-      if(name === 'Picture') return;
-      setDropTargetFolder('Picture');
-    }
-    
-    // Check for intersection with the Resume folder
-    else if (
-      iconRect.left < resumeFolderRect.right - offset &&
-      iconRect.right > resumeFolderRect.left + offset &&
-      iconRect.top < resumeFolderRect.bottom - offset &&
-      iconRect.bottom > resumeFolderRect.top + offset
-    ) {
-      if(name === 'Resume') return;
-      setDropTargetFolder('Resume');
-    }
-    // Check for intersection with the Project folder
-    else if (
-      iconRect.left < projectFolderRect.right - offset &&
-      iconRect.right > projectFolderRect.left + offset &&
-      iconRect.top < projectFolderRect.bottom - offset &&
-      iconRect.bottom > projectFolderRect.top + offset
-    ) {
-      if(name === 'Project') return;
-      setDropTargetFolder('Project');
-    }
-    // Check for intersection with the Disk 
-    else if (
-      iconRect.left < diskRect.right - offset &&
-      iconRect.right > diskRect.left + offset &&
-      iconRect.top < diskRect.bottom - offset &&
-      iconRect.bottom > diskRect.top + offset
-    ) { 
-      // check within MyComputer
-      if (name === 'MyComputer') return;
-      // add new folder in this array
-      const validFolders = ['DiskC', 'DiskD', 'Resume', 'Project', 'Picture', 'RecycleBin', 'Utility', ...UserCreatedFolder.map(item => item.name)];
-      if (validFolders.includes(currentFolder)) {
-        setDropTargetFolder(currentFolder);
+      else if (
+        iconRect.left < BinRect.right - offset &&
+        iconRect.right > BinRect.left + offset &&
+        iconRect.top < BinRect.bottom - offset &&
+        iconRect.bottom > BinRect.top + offset
+      ) {
+        if (name === 'RecycleBin') return;
+        setDropTargetFolder('RecycleBin');
+      }
+
+      // Check for intersection with the Picture folder
+      else if (
+        iconRect.left < PictureRect.right - offset &&
+        iconRect.right > PictureRect.left + offset &&
+        iconRect.top < PictureRect.bottom - offset &&
+        iconRect.bottom > PictureRect.top + offset
+      ) {
+        if (name === 'Picture') return;
+        setDropTargetFolder('Picture');
+      }
+
+      // Check for intersection with the Resume folder
+      else if (
+        iconRect.left < resumeFolderRect.right - offset &&
+        iconRect.right > resumeFolderRect.left + offset &&
+        iconRect.top < resumeFolderRect.bottom - offset &&
+        iconRect.bottom > resumeFolderRect.top + offset
+      ) {
+        if (name === 'Resume') return;
+        setDropTargetFolder('Resume');
+      }
+      // Check for intersection with the Project folder
+      else if (
+        iconRect.left < projectFolderRect.right - offset &&
+        iconRect.right > projectFolderRect.left + offset &&
+        iconRect.top < projectFolderRect.bottom - offset &&
+        iconRect.bottom > projectFolderRect.top + offset
+      ) {
+        if (name === 'Project') return;
+        setDropTargetFolder('Project');
+      }
+      // Check for intersection with the Disk 
+      else if (
+        iconRect.left < diskRect.right - offset &&
+        iconRect.right > diskRect.left + offset &&
+        iconRect.top < diskRect.bottom - offset &&
+        iconRect.bottom > diskRect.top + offset
+      ) {
+        // check within MyComputer
+        if (name === 'MyComputer') return;
+        // add new folder in this array
+        const validFolders = ['DiskC', 'DiskD', 'Resume', 'Project', 'Picture', 'RecycleBin', 'Utility', ...UserCreatedFolder.map(item => item.name)];
+        if (validFolders.includes(currentFolder)) {
+          setDropTargetFolder(currentFolder);
+        }
+      }
+      else if (
+        iconRect.left < desktopRect.right &&
+        iconRect.right > desktopRect.left &&
+        iconRect.top < desktopRect.bottom &&
+        iconRect.bottom > desktopRect.top
+      ) {
+        setDropTargetFolder('Desktop');
+      }
+      // Default case if not intersecting with any folder
+      else {
+        setDropTargetFolder('Desktop');
       }
     }
-    else if (
-      iconRect.left < desktopRect.right &&
-      iconRect.right > desktopRect.left &&
-      iconRect.top < desktopRect.bottom &&
-      iconRect.bottom > desktopRect.top
-    ) {
-      setDropTargetFolder('Desktop');
-    }
-    // Default case if not intersecting with any folder
-    else {
-      setDropTargetFolder('Desktop');
-    }
-  }
-};
+  };
 
-function handleShowInfolder(name, type) { //important handleshow for in folder
+  function handleShowInfolder(name, type) { //important handleshow for in folder
 
-  setRightClickDefault(false);
+    setRightClickDefault(false);
 
-  //  const lowerCaseName = name.toLowerCase().split(' ').join('');
+    //  const lowerCaseName = name.toLowerCase().split(' ').join('');
 
     if (name === 'Hard Disk (C:)') {
       setCurrentFolder('DiskC')
-      setSelectedFolder({label: 'Hard Disk (C:)', img: imageMapping(name)})
+      setSelectedFolder({ label: 'Hard Disk (C:)', img: imageMapping(name) })
       setUndo(prev => [...prev, 'DiskC'])
       return;
     }
-  
+
     if (name === 'Hard Disk (D:)') {
       setCurrentFolder('DiskD')
-      setSelectedFolder({label: 'Hard Disk (D:)', img: imageMapping(name)})
+      setSelectedFolder({ label: 'Hard Disk (D:)', img: imageMapping(name) })
       setUndo(prev => [...prev, 'DiskD'])
       return;
     }
 
     if (name === 'Resume') {
       setCurrentFolder('Resume')
-      setSelectedFolder({label: 'Resume', img: imageMapping(name)})
+      setSelectedFolder({ label: 'Resume', img: imageMapping(name) })
       setUndo(prev => [...prev, 'Resume'])
       return;
     }
 
     if (name === 'Project') {
       setCurrentFolder('Project')
-      setSelectedFolder({label: 'Project', img: imageMapping(name)})
+      setSelectedFolder({ label: 'Project', img: imageMapping(name) })
       setUndo(prev => [...prev, 'Project'])
       return;
     }
 
     if (name === 'Picture') {
       setCurrentFolder('Picture')
-      setSelectedFolder({label: 'Picture', img: imageMapping(name)})
+      setSelectedFolder({ label: 'Picture', img: imageMapping(name) })
       setUndo(prev => [...prev, 'Picture'])
       return;
     }
 
     if (name === 'Utility') {
       setCurrentFolder('Utility')
-      setSelectedFolder({label: 'Utility', img: imageMapping(name)})
+      setSelectedFolder({ label: 'Utility', img: imageMapping(name) })
       setUndo(prev => [...prev, 'Utility'])
       return;
-    } 
-    
+    }
 
-    if(type === 'folder') {
+
+    if (type === 'folder') {
       setCurrentFolder(name)
-      setSelectedFolder({label: name, img: imageMapping('Project')})
+      setSelectedFolder({ label: name, img: imageMapping('Project') })
       setUndo(prev => [...prev, name])
       return;
     }
 
     handleShow(name)
-}
-
-function handleShowInfolderMobile(name, type) { //important handleshow for in folder
-
-  setRightClickDefault(false);
-
-  const now = Date.now()
-  
-
-  if (now - lastTapTime < 300) {
-
-    if (name === 'Hard Disk (C:)') {
-      setTimeout(() => { // set time out for dom to be able to remove and prevent ghost touch
-        setCurrentFolder('DiskC')
-      }, 100);
-      setSelectedFolder({label: 'Hard Disk (C:)', img: imageMapping(name)})
-      setUndo(prev => [...prev, 'DiskC'])
-      return;
-    }
-  
-    if (name === 'Hard Disk (D:)') {
-      setTimeout(() => {
-        setCurrentFolder('DiskD') 
-      }, 100);
-      setSelectedFolder({label: 'Hard Disk (D:)', img: imageMapping(name)})
-      setUndo(prev => [...prev, 'DiskD'])
-      return;
-    }
-
-    if (name === 'Resume') {
-      setTimeout(() => {
-        setCurrentFolder('Resume')
-      }, 100);
-      setSelectedFolder({label: 'Hard Disk (D:)', img: imageMapping(name)})
-      setUndo(prev => [...prev, 'Resume'])
-      return;
-    }
-
-    if (name === 'Resume') {
-      setTimeout(() => {
-        setCurrentFolder('Resume')
-      }, 100);
-      setSelectedFolder({label: 'Resume', img: imageMapping(name)})
-      setUndo(prev => [...prev, 'Resume'])
-      return;
-    }
-
-    if (name === 'Project') {
-      setTimeout(() => {
-        setCurrentFolder('Project')
-      }, 100);
-      setSelectedFolder({label: 'Project', img: imageMapping(name)})
-      setUndo(prev => [...prev, 'Project'])
-      return;
-    }
-
-    if (name === 'Picture') {
-      setTimeout(() => {
-        setCurrentFolder('Picture')
-      }, 100);
-      setSelectedFolder({label: 'Picture', img: imageMapping(name)})
-      setUndo(prev => [...prev, 'Picture'])
-      return;
-    }
-
-    if (name === 'Utility') {
-      setTimeout(() => {
-        setCurrentFolder('Utility')
-      }, 100);
-      setSelectedFolder({label: 'Utility', img: imageMapping(name)})
-      setUndo(prev => [...prev, 'Utility'])
-      return;
-    }
-
-    if(type === 'folder') {
-      setTimeout(() => {
-        setCurrentFolder(name)
-      }, 100);
-      setSelectedFolder({label: name, img: imageMapping('Project')})
-      setUndo(prev => [...prev, name])
-      return;
-    }
-
-    handleShowMobile(name)
-
   }
-  setLastTapTime(now)
-}
+
+  function handleShowInfolderMobile(name, type) { //important handleshow for in folder
+
+    setRightClickDefault(false);
+
+    const now = Date.now()
+
+
+    if (now - lastTapTime < 300) {
+
+      if (name === 'Hard Disk (C:)') {
+        setTimeout(() => { // set time out for dom to be able to remove and prevent ghost touch
+          setCurrentFolder('DiskC')
+        }, 100);
+        setSelectedFolder({ label: 'Hard Disk (C:)', img: imageMapping(name) })
+        setUndo(prev => [...prev, 'DiskC'])
+        return;
+      }
+
+      if (name === 'Hard Disk (D:)') {
+        setTimeout(() => {
+          setCurrentFolder('DiskD')
+        }, 100);
+        setSelectedFolder({ label: 'Hard Disk (D:)', img: imageMapping(name) })
+        setUndo(prev => [...prev, 'DiskD'])
+        return;
+      }
+
+      if (name === 'Resume') {
+        setTimeout(() => {
+          setCurrentFolder('Resume')
+        }, 100);
+        setSelectedFolder({ label: 'Hard Disk (D:)', img: imageMapping(name) })
+        setUndo(prev => [...prev, 'Resume'])
+        return;
+      }
+
+      if (name === 'Resume') {
+        setTimeout(() => {
+          setCurrentFolder('Resume')
+        }, 100);
+        setSelectedFolder({ label: 'Resume', img: imageMapping(name) })
+        setUndo(prev => [...prev, 'Resume'])
+        return;
+      }
+
+      if (name === 'Project') {
+        setTimeout(() => {
+          setCurrentFolder('Project')
+        }, 100);
+        setSelectedFolder({ label: 'Project', img: imageMapping(name) })
+        setUndo(prev => [...prev, 'Project'])
+        return;
+      }
+
+      if (name === 'Picture') {
+        setTimeout(() => {
+          setCurrentFolder('Picture')
+        }, 100);
+        setSelectedFolder({ label: 'Picture', img: imageMapping(name) })
+        setUndo(prev => [...prev, 'Picture'])
+        return;
+      }
+
+      if (name === 'Utility') {
+        setTimeout(() => {
+          setCurrentFolder('Utility')
+        }, 100);
+        setSelectedFolder({ label: 'Utility', img: imageMapping(name) })
+        setUndo(prev => [...prev, 'Utility'])
+        return;
+      }
+
+      if (type === 'folder') {
+        setTimeout(() => {
+          setCurrentFolder(name)
+        }, 100);
+        setSelectedFolder({ label: name, img: imageMapping('Project') })
+        setUndo(prev => [...prev, name])
+        return;
+      }
+
+      handleShowMobile(name)
+
+    }
+    setLastTapTime(now)
+  }
 
   const contextValue = {
     forwardTrackIe, setForwardTrackIe,
@@ -904,7 +846,6 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
     StoreExpand, setStoreExpand,
     deletepermanently,
     currentRightClickFolder, setCurrentRightClickFolder,
-    ringMsnOff,
     ringMsn, setRingMsn,
     showChart, setShowChart,
     setRegErrorPopUp, setRegErrorPopUpVal,
@@ -941,7 +882,7 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
     handleShowInfolderMobile, handleShowInfolder,
     handleMobileLongPress,
     iconBeingRightClicked, setIconBeingRightClicked,
-    rightClickIcon, setRightClickIcon, 
+    rightClickIcon, setRightClickIcon,
     BinRef,
     BinExpand, setBinExpand,
     refresh, setRefresh,
@@ -1050,37 +991,37 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
 
 
   // show login page
-  if(login) {
-    if(!login) {
+  if (login) {
+    if (!login) {
       setLoading(true)
     }
-    return(
+    return (
       <UserContext.Provider value={contextValue}>
-        <Login/>
-        <WindowsDragLogin/>
+        <Login />
+        <WindowsDragLogin />
       </UserContext.Provider>
     )
   }
 
-  if(windowsShutDownAnimation) {
-    return(
+  if (windowsShutDownAnimation) {
+    return (
       <UserContext.Provider value={contextValue}>
-        <WindowsShutdown/>
+        <WindowsShutdown />
       </UserContext.Provider>
     )
   }
 
-  if(loading && !login) {
-    const localThemeBg = localStorage.getItem('theme') || '#098684'; 
+  if (loading && !login) {
+    const localThemeBg = localStorage.getItem('theme') || '#098684';
 
-    return(
-      <div 
-      style={{
-        width: '100%',
-        height: '100svh',
-        background: localThemeBg
-      }}>
-        <img src={loadingSpin} alt="loading" 
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '100svh',
+          background: localThemeBg
+        }}>
+        <img src={loadingSpin} alt="loading"
           style={{
             width: '30px',
             position: 'absolute',
@@ -1105,25 +1046,25 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
   return (
     <>
       <UserContext.Provider value={contextValue}>
-      <WindowsDragLogin/>
-      {regErrorPopUp && (
-        <ErrorBtn
+        <WindowsDragLogin />
+        {regErrorPopUp && (
+          <ErrorBtn
             themeDragBar={themeDragBar}
             stateVal={regErrorPopUpVal}
             setStateVal={setRegErrorPopUp}
             text={textError}
             runOpenFuction={() => null}
-        />  
-    )}
+          />
+        )}
 
         {UserCreatedFolder.length > 0 && UserCreatedFolder.map((folder, index) => (
           <EmptyFolder
             key={folder.id}
-            state={folder} 
+            state={folder}
             setState={(newState) => {
               setUserCreatedFolder(prev => {
-                const updated = prev.map(f => 
-                  f.id === folder.id 
+                const updated = prev.map(f =>
+                  f.id === folder.id
                     ? { ...f, ...newState }
                     : f
                 );
@@ -1141,112 +1082,110 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
 
 
         <EmptyFolder
-          state={PaintExpand} 
+          state={PaintExpand}
           setState={setPaintExpand}
           folderName='Paint'
           paintMode={true}
         />
 
         <EmptyFolder
-          state={pictureExpand} 
+          state={pictureExpand}
           setState={setPictureExpand}
           refState={PictureRef}
           folderName='Picture'
         />
 
         <EmptyFolder
-          state={BinExpand} 
+          state={BinExpand}
           setState={setBinExpand}
           refState={BinRef}
           folderName='RecycleBin'
         />
 
         <EmptyFolder
-          state={UtilityExpand} 
+          state={UtilityExpand}
           setState={setUtilityExpand}
           refState={UtilityRef}
           folderName='Utility'
         />
 
         <EmptyFolder
-          state={photoOpenExpand} 
+          state={photoOpenExpand}
           setState={setPhotoOpenExpand}
           folderName='Photo'
           photoMode={true}
         />
-        <Store/>
-        <TaskManager/>
-        <Patch/>
-        <SpinningCat/>
-        <NewsApp/>
-        <RightClickWindows/>
-        <Notification/>
-        <Shutdown/>
-        <MyComputer/>
-        <MyBioFolder/>
-        <ResumeFolder/>
-        <ProjectFolder/>
-        <MailFolder/>
-        <ResumeFile/>
-        <WebampPlayer/>
-        <MineSweeper/>
-        <MsnFolder/>
-        <OpenProject/>
-        <BgSetting/>
-        <Run/>
-        <BTC/>
-        <Dragdrop/>
-        <Footer/>
+        <TaskManager />
+        <Patch />
+        <RightClickWindows />
+        <Notification />
+        <Shutdown />
+        <MyComputer />
+        <ProjectFolder />
+        <MailFolder />
+        <MineSweeper />
+        <MsnFolder />
+        <OpenProject />
+        <BgSetting />
+        <Run />
+        <Dragdrop />
+        <Footer />
       </UserContext.Provider>
     </>
   )
-  
-//   function deletepermanently(deleteName) { // move to void folder
-//   const droppedIcon = desktopIcon.find(icon => icon.name === deleteName);
-//   if (droppedIcon) { 
-//     setDesktopIcon(prevIcons => {
-      
-//       const updatedIcons = prevIcons.map(icon => 
-//         icon.name === droppedIcon.name 
-//           ? {...icon, folderId: 'Void'} 
-//           : icon
-//       );
-      
-//       setKey(prev => prev + 1);
-//       localStorage.setItem('icons', JSON.stringify([...updatedIcons]));
-//       return [...updatedIcons];
-//     });
-//   }
-//   setDeleteIcon(prev => prev + 1)
-//   setBinRestoreArr(prev => {
-//     const newBinArr = prev.filter(icon => icon.name !== deleteName);
-//     localStorage.setItem('restoreArray', JSON.stringify(newBinArr));
-//     return newBinArr;
-//   });
-//   const findUserCreatedFolder = UserCreatedFolder.find(
-//     icon => icon.name === deleteName
-//   );
 
-//   if (findUserCreatedFolder) {
-//     const updatedFolders = UserCreatedFolder.filter(
-//       folder => folder.name !== findUserCreatedFolder.name
-//     );
+  //   function deletepermanently(deleteName) { // move to void folder
+  //   const droppedIcon = desktopIcon.find(icon => icon.name === deleteName);
+  //   if (droppedIcon) { 
+  //     setDesktopIcon(prevIcons => {
 
-//     setUserCreatedFolder(updatedFolders);
-//     localStorage.setItem("userFolders", JSON.stringify(updatedFolders));
-//   }
+  //       const updatedIcons = prevIcons.map(icon => 
+  //         icon.name === droppedIcon.name 
+  //           ? {...icon, folderId: 'Void'} 
+  //           : icon
+  //       );
 
-//   refBeingClicked.current = null;
-// }
+  //       setKey(prev => prev + 1);
+  //       localStorage.setItem('icons', JSON.stringify([...updatedIcons]));
+  //       return [...updatedIcons];
+  //     });
+  //   }
+  //   setDeleteIcon(prev => prev + 1)
+  //   setBinRestoreArr(prev => {
+  //     const newBinArr = prev.filter(icon => icon.name !== deleteName);
+  //     localStorage.setItem('restoreArray', JSON.stringify(newBinArr));
+  //     return newBinArr;
+  //   });
+  //   const findUserCreatedFolder = UserCreatedFolder.find(
+  //     icon => icon.name === deleteName
+  //   );
+
+  //   if (findUserCreatedFolder) {
+  //     const updatedFolders = UserCreatedFolder.filter(
+  //       folder => folder.name !== findUserCreatedFolder.name
+  //     );
+
+  //     setUserCreatedFolder(updatedFolders);
+  //     localStorage.setItem("userFolders", JSON.stringify(updatedFolders));
+  //   }
+
+  //   refBeingClicked.current = null;
+  // }
 
   function deletepermanently(deleteName) { // delete from desktopIcon
-    if(deleteName === 'Store') return;
-    
+    if (deleteName === 'Store') return;
+
     setItemIsBeingDeleted(deleteName)
     console.log(deleteName)
     deleteTap(deleteName)
     const droppedIcon = desktopIcon.find(icon => icon.name === deleteName);
-    if (droppedIcon) { 
+
+    // Delete from backend if it's a stored file
+    if (droppedIcon && droppedIcon.id) {
+      apiService.deleteFile(droppedIcon.id).catch(err => console.error("Failed to delete file from backend", err));
+    }
+
+    if (droppedIcon) {
       setDesktopIcon(prevIcons => {
         const updatedIcons = prevIcons.filter(icon => icon.name !== droppedIcon.name);
         setKey(prev => prev + 1); // make folder icon by re-mount
@@ -1256,30 +1195,30 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
     }
     setDeleteIcon(prev => prev + 1) // important link to useEffect
     setBinRestoreArr(prev => {
-          const newBinArr = prev.filter(icon => icon.name !== deleteName);
-          localStorage.setItem('restoreArray', JSON.stringify(newBinArr)); // Update localStorage
-          return newBinArr;
-        });
+      const newBinArr = prev.filter(icon => icon.name !== deleteName);
+      localStorage.setItem('restoreArray', JSON.stringify(newBinArr)); // Update localStorage
+      return newBinArr;
+    });
     const findUserCreatedFolder = UserCreatedFolder.find(
-        icon => icon.name === deleteName
+      icon => icon.name === deleteName
+    );
+
+    if (findUserCreatedFolder) {
+      const updatedFolders = UserCreatedFolder.filter(
+        folder => folder.name !== findUserCreatedFolder.name
       );
 
-      if (findUserCreatedFolder) {
-        const updatedFolders = UserCreatedFolder.filter(
-          folder => folder.name !== findUserCreatedFolder.name
-        );
 
-        
 
-        setUserCreatedFolder(updatedFolders);
-        localStorage.setItem("userFolders", JSON.stringify(updatedFolders));
+      setUserCreatedFolder(updatedFolders);
+      localStorage.setItem("userFolders", JSON.stringify(updatedFolders));
 
-        
+
     }
 
-    
+
     refBeingClicked.current = null;
-   
+
   }
 
 
@@ -1290,493 +1229,441 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
 
     // Sort icons by y value, and then by x value if y values are equal
     const sortedIcons = [...iconArr].sort((a, b) => {
-        if (a.y === b.y) {
-            // Compare x values to determine sort order
-            if (a.x > b.x) {
-                // Push the item with the greater x value to the lesserXItems array
-                if (!lesserXItems.includes(a)) {
-                    lesserXItems.push(a);
-                }
-            }
+      if (a.y === b.y) {
+        // Compare x values to determine sort order
+        if (a.x > b.x) {
+          // Push the item with the greater x value to the lesserXItems array
+          if (!lesserXItems.includes(a)) {
+            lesserXItems.push(a);
+          }
         }
-        return a.y - b.y; // Sort by y value
+      }
+      return a.y - b.y; // Sort by y value
     });
 
     // Remove any items that were pushed to lesserXItems from the sorted array
     const firstArr = sortedIcons.filter(item => !lesserXItems.includes(item));
 
     return [...firstArr, ...lesserXItems]; // Append lesserXItems at the end
-}
-
-
-
-function handleDragStop(data, iconName, ref) {
-  // Capture the actual viewport position of the dragged icon
-  const iconElement = ref; // Get the icon ref using its name
-
-  if (iconElement) {
-    const { x, y } = iconElement.getBoundingClientRect();
-    setDesktopIcon(prevIcons => {
-      // Create updatedIcons based on the previous state
-      const updatedIcons = prevIcons.map(icon =>
-        icon.name === iconName
-          ? { ...icon, x: x, y: y }
-          : icon
-      );
-        
-      const sorted = sortDesktopIcons(updatedIcons)
-      localStorage.setItem('icons', JSON.stringify(sorted));
-      setSortedIcon(sorted) // saved sort icon to state to use when refresh
-      return updatedIcons; // Return the updated state
-    });
-  }
-}
-
-
-
-function handleDrop(e, name, target, oldFolderID) {
-  setDragging(false)
-  e.preventDefault();
-  e.stopPropagation();
-
-  if (!target || name === target) return; // Exit if folder is empty or same as the icon
-
-  const droppedIcon = desktopIcon.find(icon => icon.name === name);
-  
-
-
-  if(droppedIcon.folderId === target) {
-    setKey(prev => prev + 1)
-
-    return; // make sure its not in the same folder
   }
 
 
-  if (target === 'RecycleBin') {
-    setBinRestoreArr(prevArr => {
-      const updatedArr = [
-        ...prevArr,
-        {
-          name: name,
-          OldFolder: oldFolderID
-        }
-      ];
-      localStorage.setItem('restoreArray', JSON.stringify(updatedArr));
-      return updatedArr; 
-    });
-  } else {
-    setBinRestoreArr(prev => {
-      const updatedArr = prev.filter(item => item.name !== name);
-      localStorage.setItem('restoreArray', JSON.stringify(updatedArr));
-      return updatedArr;
-    });
-  }
-  
 
-  if (droppedIcon) {
+  function handleDragStop(data, iconName, ref) {
+    // Capture the actual viewport position of the dragged icon
+    const iconElement = ref; // Get the icon ref using its name
+
+    if (iconElement) {
+      const { x, y } = iconElement.getBoundingClientRect();
       setDesktopIcon(prevIcons => {
-          const updatedIcons = prevIcons.filter(icon => icon.name !== droppedIcon.name);
-          const newIcon = { ...droppedIcon, folderId: target };
-          setDropTargetFolder('')
-          setDraggedIcon('');
-          setKey(prev => prev + 1) //make folder icon by re-mount
-          localStorage.setItem('icons', JSON.stringify([...updatedIcons, newIcon]));
-          return [...updatedIcons, newIcon];
+        // Create updatedIcons based on the previous state
+        const updatedIcons = prevIcons.map(icon =>
+          icon.name === iconName
+            ? { ...icon, x: x, y: y }
+            : icon
+        );
+
+        const sorted = sortDesktopIcons(updatedIcons)
+        localStorage.setItem('icons', JSON.stringify(sorted));
+        setSortedIcon(sorted) // saved sort icon to state to use when refresh
+        return updatedIcons; // Return the updated state
       });
+    }
   }
-}
 
-    function remountRunPosition() { // make Run go back to the original position by remounting draggable by changing key
-      if(!RunExpand.show && !ErrorPopup) {
-        setReMountRun(prev => prev + 1)
-      }
+
+
+  function handleDrop(e, name, target, oldFolderID) {
+    setDragging(false)
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!target || name === target) return; // Exit if folder is empty or same as the icon
+
+    const droppedIcon = desktopIcon.find(icon => icon.name === name);
+
+
+
+    if (droppedIcon.folderId === target) {
+      setKey(prev => prev + 1)
+
+      return; // make sure its not in the same folder
     }
 
 
-    function handleMouseSeen() { //check if user is on the frontend
-      setDetectMouse(true)
-    }
-
-
-    function ringMsnOff() {
-
-      if(socket.current) {
-        socket.current.send(JSON.stringify({ ring: true }));
-      } else {
-          console.error('WebSocket is not initialized.');
-      }
-    }
-
-  
-    async function createChat() { // create chat
-      const filter = new Filter();
-  
-      setTimeout(() => {
-          setSendDisable(false);
-      }, 20000);
-  
-      setSendDisable(true);
-
-  
-      if (chatValue.trim().length === 0) {
-          setSendDisable(false);
-          return;
-      }
-  
-      const offendedWords = badword(); // imported another file
-      offendedWords.forEach(word => filter.addWords(word));
-  
-      const newChatVal = filter.clean(chatValue);
-      const payload = {
-          chat: newChatVal,
-          key: KeyChatSession,
-          mouse: detectMouse,
-          touch: isTouchDevice,
-          chatBotActive: chatBotActive,
-      };
-
-      if (userNameValue.trim().length < 1) {
-        payload.name = 'Anonymous'
-      }
-  
-      if (userNameValue.trim().length > 0) {
-          const cleanedName = filter.clean(userNameValue);
-          payload.name = cleanedName;
-      }
-  
-      // Send the payload via WebSocket
-      if (socket.current) { // Check if socket is initialized
-          socket.current.send(JSON.stringify(payload));
-          console.log(payload)
-      } else {
-          console.error('WebSocket is not initialized.');
-      }
-  
-      // Clear the chat input field and reset sendDisable
-      setChatValue('');
-      setSendDisable(false);
-      console.log('Chat message sent:', payload);
-  }
-
-
-// Function to fetch chat data
-async function getChat() {
-  setChatData('')
-  try {
-    const response = await axios.get(`https://notebackend4.onrender.com/chat/getchat/`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
-    setChatDown(false)
-    setChatData(response.data.chat);
-    setLoadedMessages(response.data.chat.slice(-40))
-    // if(MSNExpand.show){
-    //   endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
-    // }
-    // setKeyChatSession(response.data.key)
-  } catch (error) {
-    setChatDown(true)
-    console.error('Error fetching Chat:', error);
-  }
-}
-
-
-function ObjectState() {
-  return [
-   
-    { name: 'About',       setter: setMybioExpand,      usestate: MybioExpand,      color: 'rgba(46, 108, 176, 0.85)', size: 'small' },
-    { name: 'Resume',      setter: setResumeExpand,     usestate: ResumeExpand,     color: 'rgba(65, 138, 68, 0.85)', size: 'small' },
-    { name: 'Project',     setter: setProjectExpand,    usestate: ProjectExpand,    color: 'rgba(211, 117, 0, 0.85)', size: 'small' },
-    { name: 'Picture',     setter: setPictureExpand,    usestate: pictureExpand,    color: 'rgba(85, 50, 148, 0.85)', size: 'large' },
-    { name: 'Mail',        setter: setMailExpand,       usestate: MailExpand,       color: 'rgba(178, 26, 77, 0.85)', size: 'small' },
-    { name: 'Nft',         setter: setNftExpand,        usestate: NftExpand,        color: 'rgba(142, 29, 126, 0.85)', size: 'small' },
-    { name: 'Note',        setter: setNoteExpand,       usestate: NoteExpand,       color: 'rgba(114, 81, 54, 0.85)', size: 'small' },
-    { name: 'AiAgent',     setter: setOpenProjectExpand,usestate: openProjectExpand,color: 'rgba(82, 117, 132, 0.85)', size: 'small' },
-    { name: '3dObject',    setter: setOpenProjectExpand,usestate: openProjectExpand,color: 'rgba(0, 159, 186, 0.85)', size: 'small' },
-    { name: 'PixelPic',    setter: setOpenProjectExpand,usestate: openProjectExpand,color: 'rgba(0, 159, 186, 0.85)', size: 'small' },
-    { name: 'IE',          setter: setOpenProjectExpand,usestate: openProjectExpand,color: 'rgba(0, 159, 186, 0.85)', size: 'small' },
-    { name: 'Fortune',     setter: setOpenProjectExpand,usestate: openProjectExpand,color: 'rgba(224, 88, 43, 0.85)', size: 'small' },
-    { name: 'Winamp',      setter: setWinampExpand,     usestate: WinampExpand,     color: 'rgba(105, 136, 145, 0.85)', size: 'small' },
-    { name: 'ResumeFile',  setter: setResumeFileExpand, usestate: ResumeFileExpand, color: 'rgba(133, 165, 67, 0.85)', size: 'small' },
-    { name: 'MineSweeper', setter: setMineSweeperExpand,usestate: MineSweeperExpand,color: 'rgba(187, 51, 48, 0.85)', size: 'small' },
-    { name: 'MSN',         setter: setMSNExpand,        usestate: MSNExpand,        color: 'rgba(52, 70, 143, 0.85)', size: 'small' },
-    { name: 'Internet',    setter: setOpenProjectExpand,usestate: openProjectExpand,color: 'rgba(0, 159, 186, 0.85)', size: 'small' },
-    { name: 'Settings',    setter: setBgSettingExpand,  usestate: BgSettingExpand,  color: 'rgba(140, 140, 140, 0.85)', size: 'small' },
-    { name: 'Run',         setter: setRunExpand,        usestate: RunExpand,        color: 'rgba(86, 114, 122, 0.85)', size: 'small' },
-    { name: 'MyComputer',  setter: setMyComputerExpand, usestate: MyComputerExpand, color: 'rgba(31, 122, 206, 0.85)', size: 'small' },
-    { name: 'Patch',       setter: setPatchExpand,      usestate: PatchExpand,      color: 'rgba(86, 114, 122, 0.85)', size: 'small' },
-    { name: 'Photo',       setter: setPhotoOpenExpand,  usestate: photoOpenExpand,  color: 'rgba(0, 120, 93, 0.85)', size: 'small' },
-    { name: 'RecycleBin',  setter: setBinExpand,        usestate: BinExpand,        color: 'rgba(64, 135, 66, 0.85)', size: 'small' },
-    { name: 'Paint',       setter: setPaintExpand,      usestate: PaintExpand,      color: 'rgba(193, 178, 46, 0.85)', size: 'small' },
-    { name: 'Utility',     setter: setUtilityExpand,    usestate: UtilityExpand,    color: 'rgba(116, 85, 54, 0.85)', size: 'small' },
-    { name: 'TaskManager', setter: setTaskManagerExpand,usestate: TaskManagerExpand,color: 'rgba(218, 160, 109, 0.85)', size: 'small' },
-    { name: 'Store',       setter: setStoreExpand,      usestate: StoreExpand,      color: 'rgba(132, 140, 207, 0.85)', size: 'small' },
-    { name: 'Bitcoin',     setter: setBtcShow,          usestate: btcShow,          color: 'rgba(132, 140, 207, 0.85)', size: 'small' },
-    
-    // Add user folders dynamically with individual state management
-    ...UserCreatedFolder.map(folder => ({
-      name: folder.name,
-      setter: (newState) => {
-        setUserCreatedFolder(prev => {
-          const updated = prev.map(f => 
-            f.id === folder.id 
-              ? { ...f, ...newState }
-              : f
-          );
-          localStorage.setItem("userFolders", JSON.stringify(updated));
-          return updated;
-        });
-      },
-      usestate: folder, // Pass the individual folder object
-      color: folder.color || 'rgba(255, 206, 84, 0.85)',
-      size: 'small',
-      type: 'userCreatedFolder' // Add type identifier
-    }))
-  ];
-}
-
-
-
-
-function iconFocusIcon(name) { // if focus on one, the rest goes unfocus
-
-  const allSetItems = ObjectState();
-
-  const passedName = name.toLowerCase().split(' ').join('');
-
-  const updateddesktopIcon = desktopIcon.map(icon => {
-    const iconName = icon.name.toLowerCase().split(' ').join('');
-    if ('focus' in icon) { // check if focus is in the object
-      return { ...icon, focus: iconName === passedName }; // return new focus if matched
-    }
-    return { ...icon, focus: false }; // return all false if no found
-  });
-  setDesktopIcon(updateddesktopIcon);
-
-  ///need to be fixed, this logic
-  allSetItems.forEach(item => { // set same to folder to distinct from iconName
-    const itemName = item.name.toLowerCase().split(' ').join('') + 'folder'
-      item.setter(prev => ({ ...prev, focus: passedName === itemName }));
-  });
-}
-
-function handleShow(name) {
-  setRightClickDefault(false);
-
-  if(name === '' || !name) return;
-
-  const lowerCaseName = name.toLowerCase().split(' ').join('');
-  const allSetItems = ObjectState();
-
-  const itemExists = allSetItems.some(item => item.name.toLowerCase().split(' ').join('') === lowerCaseName);
-
-  const pictureMatch = allPicture.find(picture => name.includes(picture.name));
-  
-  if (pictureMatch) {
-    handleDoubleClickPhotoOpen(name, setCurrentPhoto);
-    handleShow('Photo');
-    return;
-  }
-
-  if (!itemExists) {
-    setRegErrorPopUp(true);
-    setRegErrorPopUpVal(name);
-    return;
-  }
-
-  allSetItems.forEach((item) => {
-    const itemName = item.name.toLowerCase().trim();
-
-    if(itemName === lowerCaseName) {
-      setTimeout(() => {
-        if(item.type === 'userCreatedFolder') {
-          // Handle user-created folders
-          item.setter({
-            show: true, 
-            focusItem: true, 
-            hide: false, 
-            zIndex: maxZindexRef.current + 1
-          });
-        } else {
-          // Handle static folders
-          item.setter(prev => ({
-            ...prev, 
-            show: true, 
-            focusItem: true, 
-            hide: false, 
-            zIndex: maxZindexRef.current + 1
-          }));
-        }
-        maxZindexRef.current += 1;
-      }, 100);
-      
-      // Your existing special cases...
-      if(lowerCaseName === 'mail') clippySendemailfunction();
-      if(lowerCaseName === 'winamp') clippySongFunction();
-      if(lowerCaseName === 'msn') clippyUsernameFunction();
-      if(lowerCaseName === 'mail') clippySendemailfunction();
-        if(lowerCaseName === 'winamp') clippySongFunction();
-        if(lowerCaseName === 'msn') clippyUsernameFunction();
-        if(lowerCaseName === 'nft') {
-          handleDoubleClickiframe('Nft', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
-          handleShow('Internet');
-        }
-        if(lowerCaseName === 'note') {
-          handleDoubleClickiframe('Note', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
-          handleShow('Internet');
-        }
-        if(lowerCaseName === 'aiagent') {
-          handleDoubleClickiframe('AiAgent', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe   )
-          handleShow('Internet');
-        }
-        if(lowerCaseName === '3dobject') {
-        handleDoubleClickiframe('3dObject', setOpenProjectExpand, setProjectUrl , setBackTrackIe, setForwardTrackIe)
-        handleShow('Internet');
-        }
-        if(lowerCaseName === 'fortune') {
-        handleDoubleClickiframe('Fortune', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
-        handleShow('Internet');
-        }
-        if(lowerCaseName === 'pixelpic') {
-        handleDoubleClickiframe('PixelPic', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
-        handleShow('Internet');
-        }
-        if(lowerCaseName === 'ie') {
-        handleDoubleClickiframe('IE', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
-        handleShow('Internet');
-      }
+    if (target === 'RecycleBin') {
+      setBinRestoreArr(prevArr => {
+        const updatedArr = [
+          ...prevArr,
+          {
+            name: name,
+            OldFolder: oldFolderID
+          }
+        ];
+        localStorage.setItem('restoreArray', JSON.stringify(updatedArr));
+        return updatedArr;
+      });
     } else {
-      // Set other items to not focused
-      if(item.type === 'userCreatedFolder') {
-        item.setter({ focusItem: false });
+      setBinRestoreArr(prev => {
+        const updatedArr = prev.filter(item => item.name !== name);
+        localStorage.setItem('restoreArray', JSON.stringify(updatedArr));
+        return updatedArr;
+      });
+    }
+
+
+    if (droppedIcon) {
+      setDesktopIcon(prevIcons => {
+        const updatedIcons = prevIcons.filter(icon => icon.name !== droppedIcon.name);
+        const newIcon = { ...droppedIcon, folderId: target };
+        setDropTargetFolder('')
+        setDraggedIcon('');
+        setKey(prev => prev + 1) //make folder icon by re-mount
+        localStorage.setItem('icons', JSON.stringify([...updatedIcons, newIcon]));
+        return [...updatedIcons, newIcon];
+      });
+    }
+  }
+
+  function remountRunPosition() { // make Run go back to the original position by remounting draggable by changing key
+    if (!RunExpand.show && !ErrorPopup) {
+      setReMountRun(prev => prev + 1)
+    }
+  }
+
+
+  function handleMouseSeen() { //check if user is on the frontend
+    setDetectMouse(true)
+  }
+
+
+  // ringMsnOff function removed
+
+
+  async function createChat() { // create chat
+    // Feature removed
+    console.log('Chat feature disabled');
+    setChatValue('');
+  }
+
+
+  // Function to fetch chat data
+  // Function to fetch chat data (Removed)
+  async function getChat() {
+    // Feature removed
+  }
+
+
+  function ObjectState() {
+    return [
+
+      { name: 'About', setter: setMybioExpand, usestate: MybioExpand, color: 'rgba(46, 108, 176, 0.85)', size: 'small' },
+      { name: 'Resume', setter: setResumeExpand, usestate: ResumeExpand, color: 'rgba(65, 138, 68, 0.85)', size: 'small' },
+      { name: 'Project', setter: setProjectExpand, usestate: ProjectExpand, color: 'rgba(211, 117, 0, 0.85)', size: 'small' },
+      { name: 'Picture', setter: setPictureExpand, usestate: pictureExpand, color: 'rgba(85, 50, 148, 0.85)', size: 'large' },
+      { name: 'Mail', setter: setMailExpand, usestate: MailExpand, color: 'rgba(178, 26, 77, 0.85)', size: 'small' },
+      { name: 'Nft', setter: setNftExpand, usestate: NftExpand, color: 'rgba(142, 29, 126, 0.85)', size: 'small' },
+      { name: 'Note', setter: setNoteExpand, usestate: NoteExpand, color: 'rgba(114, 81, 54, 0.85)', size: 'small' },
+      { name: 'AiAgent', setter: setOpenProjectExpand, usestate: openProjectExpand, color: 'rgba(82, 117, 132, 0.85)', size: 'small' },
+      { name: '3dObject', setter: setOpenProjectExpand, usestate: openProjectExpand, color: 'rgba(0, 159, 186, 0.85)', size: 'small' },
+      { name: 'PixelPic', setter: setOpenProjectExpand, usestate: openProjectExpand, color: 'rgba(0, 159, 186, 0.85)', size: 'small' },
+      { name: 'IE', setter: setOpenProjectExpand, usestate: openProjectExpand, color: 'rgba(0, 159, 186, 0.85)', size: 'small' },
+      { name: 'Fortune', setter: setOpenProjectExpand, usestate: openProjectExpand, color: 'rgba(224, 88, 43, 0.85)', size: 'small' },
+      { name: 'Winamp', setter: setWinampExpand, usestate: WinampExpand, color: 'rgba(105, 136, 145, 0.85)', size: 'small' },
+      { name: 'ResumeFile', setter: setResumeFileExpand, usestate: ResumeFileExpand, color: 'rgba(133, 165, 67, 0.85)', size: 'small' },
+      { name: 'MineSweeper', setter: setMineSweeperExpand, usestate: MineSweeperExpand, color: 'rgba(187, 51, 48, 0.85)', size: 'small' },
+      { name: 'MSN', setter: setMSNExpand, usestate: MSNExpand, color: 'rgba(52, 70, 143, 0.85)', size: 'small' },
+      { name: 'Internet', setter: setOpenProjectExpand, usestate: openProjectExpand, color: 'rgba(0, 159, 186, 0.85)', size: 'small' },
+      { name: 'Settings', setter: setBgSettingExpand, usestate: BgSettingExpand, color: 'rgba(140, 140, 140, 0.85)', size: 'small' },
+      { name: 'Run', setter: setRunExpand, usestate: RunExpand, color: 'rgba(86, 114, 122, 0.85)', size: 'small' },
+      { name: 'MyComputer', setter: setMyComputerExpand, usestate: MyComputerExpand, color: 'rgba(31, 122, 206, 0.85)', size: 'small' },
+      { name: 'Patch', setter: setPatchExpand, usestate: PatchExpand, color: 'rgba(86, 114, 122, 0.85)', size: 'small' },
+      { name: 'Photo', setter: setPhotoOpenExpand, usestate: photoOpenExpand, color: 'rgba(0, 120, 93, 0.85)', size: 'small' },
+      { name: 'RecycleBin', setter: setBinExpand, usestate: BinExpand, color: 'rgba(64, 135, 66, 0.85)', size: 'small' },
+      { name: 'Paint', setter: setPaintExpand, usestate: PaintExpand, color: 'rgba(193, 178, 46, 0.85)', size: 'small' },
+      { name: 'Utility', setter: setUtilityExpand, usestate: UtilityExpand, color: 'rgba(116, 85, 54, 0.85)', size: 'small' },
+      { name: 'TaskManager', setter: setTaskManagerExpand, usestate: TaskManagerExpand, color: 'rgba(218, 160, 109, 0.85)', size: 'small' },
+      { name: 'Store', setter: setStoreExpand, usestate: StoreExpand, color: 'rgba(132, 140, 207, 0.85)', size: 'small' },
+      { name: 'Bitcoin', setter: setBtcShow, usestate: btcShow, color: 'rgba(132, 140, 207, 0.85)', size: 'small' },
+
+      // Add user folders dynamically with individual state management
+      ...UserCreatedFolder.map(folder => ({
+        name: folder.name,
+        setter: (newState) => {
+          setUserCreatedFolder(prev => {
+            const updated = prev.map(f =>
+              f.id === folder.id
+                ? { ...f, ...newState }
+                : f
+            );
+            localStorage.setItem("userFolders", JSON.stringify(updated));
+            return updated;
+          });
+        },
+        usestate: folder, // Pass the individual folder object
+        color: folder.color || 'rgba(255, 206, 84, 0.85)',
+        size: 'small',
+        type: 'userCreatedFolder' // Add type identifier
+      }))
+    ];
+  }
+
+
+
+
+  function iconFocusIcon(name) { // if focus on one, the rest goes unfocus
+
+    const allSetItems = ObjectState();
+
+    const passedName = name.toLowerCase().split(' ').join('');
+
+    const updateddesktopIcon = desktopIcon.map(icon => {
+      const iconName = icon.name.toLowerCase().split(' ').join('');
+      if ('focus' in icon) { // check if focus is in the object
+        return { ...icon, focus: iconName === passedName }; // return new focus if matched
+      }
+      return { ...icon, focus: false }; // return all false if no found
+    });
+    setDesktopIcon(updateddesktopIcon);
+
+    ///need to be fixed, this logic
+    allSetItems.forEach(item => { // set same to folder to distinct from iconName
+      const itemName = item.name.toLowerCase().split(' ').join('') + 'folder'
+      item.setter(prev => ({ ...prev, focus: passedName === itemName }));
+    });
+  }
+
+  function handleShow(name) {
+    setRightClickDefault(false);
+
+    if (name === '' || !name) return;
+
+    // Check if it's a backend file with a path
+    const backendFile = desktopIcon.find(icon => icon.name === name && icon.path);
+    if (backendFile) {
+      const ext = backendFile.name.split('.').pop().toLowerCase();
+      if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+        setCurrentPhoto({ name: backendFile.name, pic: backendFile.path });
+        handleShow('Photo');
+        return;
       } else {
-        item.setter(prev => ({ ...prev, focusItem: false }));
+        // Open other files in "Internet" (OpenProject) iframe
+        setProjectUrl(backendFile.path);
+        handleShow('Internet');
+        return;
       }
     }
-  });
 
-  PatchExpand ? null : setTileScreen(false);
-  
-  if(tap.includes(name)) return;
-  setStartActive(false);
-
-  const notToOpenList = ['Run', 'Nft', 'Note', 'AiAgent', '3dObject', 'Fortune', 'Bitcoin', 'PixelPic','IE'];
-  if (notToOpenList.includes(name)) return;
-
-  setTap(prevTap => [...prevTap, name]);
-  setDesktopIcon(prevIcons => prevIcons.map(icon => ({...icon, focus: false})));
-}
-
-function handleShowMobile(name) {
-
-  setRightClickDefault(false);
-
-  const now = Date.now()
-
-  if (now - lastTapTime < 300) {
-
-    if(name === '' || !name) return;
-  
     const lowerCaseName = name.toLowerCase().split(' ').join('');
-  
-    const allSetItems = ObjectState() // call all usestate object
-  
+    const allSetItems = ObjectState();
+
     const itemExists = allSetItems.some(item => item.name.toLowerCase().split(' ').join('') === lowerCaseName);
-  
+
     const pictureMatch = allPicture.find(picture => name.includes(picture.name));
-    
+
     if (pictureMatch) {
       handleDoubleClickPhotoOpen(name, setCurrentPhoto);
       handleShow('Photo');
       return;
     }
-  
+
     if (!itemExists) {
       setRegErrorPopUp(true);
       setRegErrorPopUpVal(name);
       return;
-  }
-  
+    }
+
     allSetItems.forEach((item) => {
-  
       const itemName = item.name.toLowerCase().trim();
-  
-      if(itemName === lowerCaseName) {
+
+      if (itemName === lowerCaseName) {
         setTimeout(() => {
-        if(item.type === 'userCreatedFolder') {
-          // Handle user-created folders
-          item.setter({
-            show: true, 
-            focusItem: true, 
-            hide: false, 
-            zIndex: maxZindexRef.current + 1
-          });
-        } else {
-          // Handle static folders
-          item.setter(prev => ({
-            ...prev, 
-            show: true, 
-            focusItem: true, 
-            hide: false, 
-            zIndex: maxZindexRef.current + 1
-          }));
-        }
-        maxZindexRef.current += 1;
-      }, 100);
-        if(lowerCaseName === 'mail') clippySendemailfunction();
-        if(lowerCaseName === 'winamp') clippySongFunction();
-        if(lowerCaseName === 'msn') clippyUsernameFunction();
-        if(lowerCaseName === 'nft') {
+          if (item.type === 'userCreatedFolder') {
+            // Handle user-created folders
+            item.setter({
+              show: true,
+              focusItem: true,
+              hide: false,
+              zIndex: maxZindexRef.current + 1
+            });
+          } else {
+            // Handle static folders
+            item.setter(prev => ({
+              ...prev,
+              show: true,
+              focusItem: true,
+              hide: false,
+              zIndex: maxZindexRef.current + 1
+            }));
+          }
+          maxZindexRef.current += 1;
+        }, 100);
+
+        // Your existing special cases...
+        if (lowerCaseName === 'mail') clippySendemailfunction();
+        if (lowerCaseName === 'winamp') clippySongFunction();
+        if (lowerCaseName === 'msn') clippyUsernameFunction();
+        if (lowerCaseName === 'mail') clippySendemailfunction();
+        if (lowerCaseName === 'winamp') clippySongFunction();
+        if (lowerCaseName === 'msn') clippyUsernameFunction();
+        if (lowerCaseName === 'nft') {
           handleDoubleClickiframe('Nft', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
           handleShow('Internet');
         }
-        if(lowerCaseName === 'note') {
+        if (lowerCaseName === 'note') {
           handleDoubleClickiframe('Note', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
           handleShow('Internet');
         }
-        if(lowerCaseName === 'aiagent') {
+        if (lowerCaseName === 'aiagent') {
           handleDoubleClickiframe('AiAgent', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
           handleShow('Internet');
         }
-        if(lowerCaseName === '3dobject') {
-        handleDoubleClickiframe('3dObject', setOpenProjectExpand, setProjectUrl)
-        handleShow('Internet');
+        if (lowerCaseName === '3dobject') {
+          handleDoubleClickiframe('3dObject', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
+          handleShow('Internet');
         }
-        if(lowerCaseName === 'fortune') {
-        handleDoubleClickiframe('Fortune', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
-        handleShow('Internet');
+        if (lowerCaseName === 'fortune') {
+          handleDoubleClickiframe('Fortune', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
+          handleShow('Internet');
         }
-        if(lowerCaseName === 'pixelpic') {
-        handleDoubleClickiframe('PixelPic', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
-        handleShow('Internet');
+        if (lowerCaseName === 'pixelpic') {
+          handleDoubleClickiframe('PixelPic', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
+          handleShow('Internet');
         }
-        if(lowerCaseName === 'ie') {
+        if (lowerCaseName === 'ie') {
           handleDoubleClickiframe('IE', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
           handleShow('Internet');
         }
-      }
-      if(item.type === 'userCreatedFolder') {
-        item.setter({ focusItem: false });
       } else {
-        item.setter(prev => ({ ...prev, focusItem: false }));
+        // Set other items to not focused
+        if (item.type === 'userCreatedFolder') {
+          item.setter({ focusItem: false });
+        } else {
+          item.setter(prev => ({ ...prev, focusItem: false }));
+        }
       }
     });
-    PatchExpand ? null : setTileScreen(false)
 
-    if(tap.includes(name)) return;
-    setStartActive(false)
-  
-    const notToOpenList = ['Run', 'Nft', 'Note', 'AiAgent', '3dObject', 'Fortune', 'Bitcoin', 'PixelPic','IE'];
+    PatchExpand ? null : setTileScreen(false);
+
+    if (tap.includes(name)) return;
+    setStartActive(false);
+
+    const notToOpenList = ['Run', 'Nft', 'Note', 'AiAgent', '3dObject', 'Fortune', 'Bitcoin', 'PixelPic', 'IE'];
     if (notToOpenList.includes(name)) return;
-  
+
     setTap(prevTap => [...prevTap, name]);
-    setDesktopIcon(prevIcons => prevIcons.map(icon => ({...icon, focus: false})));
-  
+    setDesktopIcon(prevIcons => prevIcons.map(icon => ({ ...icon, focus: false })));
   }
-  setLastTapTime(now)
-}
+
+  function handleShowMobile(name) {
+
+    setRightClickDefault(false);
+
+    const now = Date.now()
+
+    if (now - lastTapTime < 300) {
+
+      if (name === '' || !name) return;
+
+      const lowerCaseName = name.toLowerCase().split(' ').join('');
+
+      const allSetItems = ObjectState() // call all usestate object
+
+      const itemExists = allSetItems.some(item => item.name.toLowerCase().split(' ').join('') === lowerCaseName);
+
+      const pictureMatch = allPicture.find(picture => name.includes(picture.name));
+
+      if (pictureMatch) {
+        handleDoubleClickPhotoOpen(name, setCurrentPhoto);
+        handleShow('Photo');
+        return;
+      }
+
+      if (!itemExists) {
+        setRegErrorPopUp(true);
+        setRegErrorPopUpVal(name);
+        return;
+      }
+
+      allSetItems.forEach((item) => {
+
+        const itemName = item.name.toLowerCase().trim();
+
+        if (itemName === lowerCaseName) {
+          setTimeout(() => {
+            if (item.type === 'userCreatedFolder') {
+              // Handle user-created folders
+              item.setter({
+                show: true,
+                focusItem: true,
+                hide: false,
+                zIndex: maxZindexRef.current + 1
+              });
+            } else {
+              // Handle static folders
+              item.setter(prev => ({
+                ...prev,
+                show: true,
+                focusItem: true,
+                hide: false,
+                zIndex: maxZindexRef.current + 1
+              }));
+            }
+            maxZindexRef.current += 1;
+          }, 100);
+          if (lowerCaseName === 'mail') clippySendemailfunction();
+          if (lowerCaseName === 'winamp') clippySongFunction();
+          if (lowerCaseName === 'msn') clippyUsernameFunction();
+          if (lowerCaseName === 'nft') {
+            handleDoubleClickiframe('Nft', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
+            handleShow('Internet');
+          }
+          if (lowerCaseName === 'note') {
+            handleDoubleClickiframe('Note', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
+            handleShow('Internet');
+          }
+          if (lowerCaseName === 'aiagent') {
+            handleDoubleClickiframe('AiAgent', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
+            handleShow('Internet');
+          }
+          if (lowerCaseName === '3dobject') {
+            handleDoubleClickiframe('3dObject', setOpenProjectExpand, setProjectUrl)
+            handleShow('Internet');
+          }
+          if (lowerCaseName === 'fortune') {
+            handleDoubleClickiframe('Fortune', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
+            handleShow('Internet');
+          }
+          if (lowerCaseName === 'pixelpic') {
+            handleDoubleClickiframe('PixelPic', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
+            handleShow('Internet');
+          }
+          if (lowerCaseName === 'ie') {
+            handleDoubleClickiframe('IE', setOpenProjectExpand, setProjectUrl, setBackTrackIe, setForwardTrackIe)
+            handleShow('Internet');
+          }
+        }
+        if (item.type === 'userCreatedFolder') {
+          item.setter({ focusItem: false });
+        } else {
+          item.setter(prev => ({ ...prev, focusItem: false }));
+        }
+      });
+      PatchExpand ? null : setTileScreen(false)
+
+      if (tap.includes(name)) return;
+      setStartActive(false)
+
+      const notToOpenList = ['Run', 'Nft', 'Note', 'AiAgent', '3dObject', 'Fortune', 'Bitcoin', 'PixelPic', 'IE'];
+      if (notToOpenList.includes(name)) return;
+
+      setTap(prevTap => [...prevTap, name]);
+      setDesktopIcon(prevIcons => prevIcons.map(icon => ({ ...icon, focus: false })));
+
+    }
+    setLastTapTime(now)
+  }
 
 
   function handleClippyFunction(setterFunction, clearFunction, allSetters) {
@@ -1867,7 +1754,7 @@ function handleShowMobile(name) {
 
 
 
-  function inlineStyleExpand (name) {
+  function inlineStyleExpand(name) {
     const passedName = name.split(' ').join('').toLowerCase();
     const setState = ObjectState();
 
@@ -1878,7 +1765,7 @@ function handleShowMobile(name) {
 
     if (item) {
       return {
-        display: item.usestate.show ? 'block' : '',
+        display: item.usestate.show ? 'block' : 'none',
         maxWidth: 'none',
         width: '100%',
         height: 'calc(100% - 37px)',
@@ -1898,21 +1785,21 @@ function handleShowMobile(name) {
     const passedName = name.split(' ').join('').toLowerCase();
 
     const item = setState.find(item => {
-        const itemName = item.name.split(' ').join('').toLowerCase();
-        return itemName === passedName;
+      const itemName = item.name.split(' ').join('').toLowerCase();
+      return itemName === passedName;
     });
 
     if (item) {
-        return {
-            display: item.usestate.show ? 'block' : '',
-            opacity: item.usestate.hide ? '0' : '1',
-            zIndex: item.usestate.hide ? '-1' : (item.usestate.focusItem ? '999' : item.usestate.zIndex),
-            pointerEvents: item.usestate.hide ? 'none' : 'auto',
-        };
+      return {
+        display: item.usestate.show ? 'block' : 'none',
+        opacity: item.usestate.hide ? '0' : '1',
+        zIndex: item.usestate.hide ? '-1' : (item.usestate.focusItem ? '999' : item.usestate.zIndex),
+        pointerEvents: item.usestate.hide ? 'none' : 'auto',
+      };
     }
 
     return {};
-}
+  }
 
   function deleteTap(name) {
 
@@ -1930,11 +1817,11 @@ function handleShowMobile(name) {
           hide: false
         }));
 
-      if(item.type === 'userCreatedFolder') { // delete from user created folder folders
+        if (item.type === 'userCreatedFolder') { // delete from user created folder folders
           item.setter({
-            show: false, 
-            focusItem: false, 
-            hide: true, 
+            show: false,
+            focusItem: false,
+            hide: true,
             zIndex: maxZindexRef.current + 1
           });
         }

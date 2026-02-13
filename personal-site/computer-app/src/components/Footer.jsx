@@ -1,6 +1,6 @@
 import { useEffect, useRef, useContext, useState } from 'react';
 import UseContext from '../Context'
-import { motion, AnimatePresence  } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import startIcon from '../assets/95icon.png';
 import run from '../assets/run.png';
 import github from '../assets/github.png';
@@ -11,14 +11,12 @@ import project from '../assets/regFolder.png';
 import resume from '../assets/folder.png';
 import shutdownicon from '../assets/shutdownicon.png';
 import settings from '../assets/setting.png';
-import btc_icon from '../assets/btc_icon.webp'
 import { clippyPhrase, clippySuggest } from './function/ClippyFunction';
-import { BsCheck  } from "react-icons/bs";
-import Calendar from 'react-calendar';
+import { BsCheck } from "react-icons/bs";
 import { BsFillCaretRightFill } from "react-icons/bs";
+import Calendar from 'react-calendar';
 import binEmp from '../assets/bin2.png'
 import bin from '../assets/bin.png'
-import news from '../assets/news.png'
 
 
 export default function Footer() {
@@ -77,10 +75,10 @@ export default function Footer() {
         setShutdownWindow,
         ClearTOclippyUsernameFunction,
         clippyUsername,
-     } = useContext(UseContext);
+    } = useContext(UseContext);
 
-     
-     const footerItems = [
+
+    const footerItems = [
         {
             className: "project",
             imgSrc: project,
@@ -97,54 +95,9 @@ export default function Footer() {
             },
         },
         {
-            className: "resume",
-            imgSrc: resume,
-            imgAlt: "resume",
-            spanText: "Resume",
-            arrow: true,
-            onClick: () => {
-                setResumejectStartBar(!resumeStartBar)
-                setProjectStartBar(false)
-            },
-            onmouseenter: () => {
-                setResumejectStartBar(true);
-                setProjectStartBar(false);
-            },
-        },
-        {
             className: "sidebar_popup",
             imgSrc: sidebar,
             imgAlt: "sidebar",
-            onmouseenter: () => {
-                setResumejectStartBar(false);
-                setProjectStartBar(false);
-            },
-        },
-        {
-            className: "ghithub",
-            imgSrc: github,
-            imgAlt: "github",
-            style: { borderRadius: '5px' },
-            spanText: "Github",
-            onClick: () => {
-                handleDoubleClickEnterLink('Github', handleShow)
-                setStartActive(false)
-            },
-            onmouseenter: () => {
-                setResumejectStartBar(false);
-                setProjectStartBar(false);
-            },
-        },
-        {
-            className: "linked",
-            imgSrc: tile,
-            imgAlt: "Tile",
-            style: { borderRadius: '5px' },
-            spanText: "Tile Screen",
-            onClick: () => {
-                setTileScreen(true),
-                setStartActive(false)
-            },
             onmouseenter: () => {
                 setResumejectStartBar(false);
                 setProjectStartBar(false);
@@ -194,73 +147,69 @@ export default function Footer() {
         }
     ];
 
-    // need to put these in useeffect Array
-    const isBitcoinInstalled = desktopIcon.find(item => item.name === 'Bitcoin')
-
-
     useEffect(() => { // put add or remove icon in dependency array
         if (timeBarRef.current) {
-        setWidth(timeBarRef.current.offsetWidth);
+            setWidth(timeBarRef.current.offsetWidth);
         }
-    }, [isBitcoinInstalled, timeBarRef, width]);
+    }, [timeBarRef, width]);
 
-     const handleWheelScroll = (e) => { // wheel from x to Y on tap
+    const handleWheelScroll = (e) => { // wheel from x to Y on tap
         const container = wheelTapContainer.current;
         container.scrollLeft += e.deltaY;
-      };
+    };
 
-      useEffect(() => {
+    useEffect(() => {
         const handleMouseMove = (event) => {
-          const startPopupContainer = startPopUpRef.current;
-          const projectContainer = projectRef.current;
-          const resumeContainer = resumeRef.current;
+            const startPopupContainer = startPopUpRef.current;
+            const projectContainer = projectRef.current;
+            const resumeContainer = resumeRef.current;
 
-          if (startPopupContainer) {
-            const startRect = startPopupContainer.getBoundingClientRect();
+            if (startPopupContainer) {
+                const startRect = startPopupContainer.getBoundingClientRect();
 
-            let projectRect = null;
-            let resumeRect = null;
+                let projectRect = null;
+                let resumeRect = null;
 
-            if (projectContainer) {
-              projectRect = projectContainer.getBoundingClientRect();
+                if (projectContainer) {
+                    projectRect = projectContainer.getBoundingClientRect();
+                }
+                if (resumeContainer) {
+                    resumeRect = resumeContainer.getBoundingClientRect();
+                }
+
+                const isMouseOutsideStart =
+                    event.clientX < startRect.left ||
+                    event.clientX > startRect.right ||
+                    event.clientY < startRect.top ||
+                    event.clientY > startRect.bottom;
+
+                const isMouseOutsideProject = projectRect
+                    ? event.clientX < projectRect.left ||
+                    event.clientX > projectRect.right ||
+                    event.clientY < projectRect.top ||
+                    event.clientY > projectRect.bottom
+                    : true;
+
+                const isMouseOutsideResume = resumeRect
+                    ? event.clientX < resumeRect.left ||
+                    event.clientX > resumeRect.right ||
+                    event.clientY < resumeRect.top ||
+                    event.clientY > resumeRect.bottom
+                    : true;
+
+                if (isMouseOutsideStart && isMouseOutsideProject && isMouseOutsideResume) {
+                    setProjectStartBar(false);
+                    setResumejectStartBar(false);
+                }
             }
-            if (resumeContainer) {
-              resumeRect = resumeContainer.getBoundingClientRect();
-            }
-
-            const isMouseOutsideStart =
-              event.clientX < startRect.left ||
-              event.clientX > startRect.right ||
-              event.clientY < startRect.top ||
-              event.clientY > startRect.bottom;
-
-            const isMouseOutsideProject = projectRect
-              ? event.clientX < projectRect.left ||
-                event.clientX > projectRect.right ||
-                event.clientY < projectRect.top ||
-                event.clientY > projectRect.bottom
-              : true;
-
-            const isMouseOutsideResume = resumeRect
-              ? event.clientX < resumeRect.left ||
-                event.clientX > resumeRect.right ||
-                event.clientY < resumeRect.top ||
-                event.clientY > resumeRect.bottom
-              : true;
-
-            if (isMouseOutsideStart && isMouseOutsideProject && isMouseOutsideResume) {
-              setProjectStartBar(false);
-              setResumejectStartBar(false);
-            }
-          }
         };
 
         document.addEventListener('mousemove', handleMouseMove);
 
         return () => {
-          document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mousemove', handleMouseMove);
         };
-      }, []);
+    }, []);
 
 
 
@@ -271,11 +220,11 @@ export default function Footer() {
     }, []);
 
     useEffect(() => {
-        if(!startActive){
+        if (!startActive) {
             setProjectStartBar(false)
             setResumejectStartBar(false)
         }
-    },[startActive])
+    }, [startActive])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -319,39 +268,39 @@ export default function Footer() {
 
         const lowerCaseName = tap[index].toLowerCase().split(' ').join('');
 
-        const allSetItems =  ObjectState() // all the usestate name to toggle
+        const allSetItems = ObjectState() // all the usestate name to toggle
 
 
         allSetItems.forEach((item) => {
 
-          const itemName = item.name.toLowerCase().trim();
-          if(item.type === 'userCreatedFolder') { // for user created folder
-          item.setter({
-            focusItem: tap[index] === item.name,
-            hide: tap[index] === item.name ? false : item.usestate.hide,
-          });
-        }
-          if(itemName === lowerCaseName) {
-            item.setter(prev => ({...prev, focusItem: true}));
-            if(item.usestate.hide) {
-                item.setter(prev => ({...prev, hide: false}));
-                if(lowerCaseName === 'winamp') {
-                    const webampElement = document.querySelector('#webamp');
-                    if (webampElement) {
-                        webampElement.style.opacity = 1;
-                        webampElement.style.pointerEvents = 'auto';
-                        webampElement.style.touchAction = 'auto'
-                        setWinampExpand(prev => ({...prev, hide: false}));
+            const itemName = item.name.toLowerCase().trim();
+            if (item.type === 'userCreatedFolder') { // for user created folder
+                item.setter({
+                    focusItem: tap[index] === item.name,
+                    hide: tap[index] === item.name ? false : item.usestate.hide,
+                });
+            }
+            if (itemName === lowerCaseName) {
+                item.setter(prev => ({ ...prev, focusItem: true }));
+                if (item.usestate.hide) {
+                    item.setter(prev => ({ ...prev, hide: false }));
+                    if (lowerCaseName === 'winamp') {
+                        const webampElement = document.querySelector('#webamp');
+                        if (webampElement) {
+                            webampElement.style.opacity = 1;
+                            webampElement.style.pointerEvents = 'auto';
+                            webampElement.style.touchAction = 'auto'
+                            setWinampExpand(prev => ({ ...prev, hide: false }));
+                        }
                     }
                 }
             }
-          }
 
-          if(itemName !== lowerCaseName) {
-            item.setter(prev => ({...prev, focusItem: false}));
-          }
+            if (itemName !== lowerCaseName) {
+                item.setter(prev => ({ ...prev, focusItem: false }));
+            }
         });
-      }
+    }
 
 
     useEffect(() => { // display clippy when windows start
@@ -369,7 +318,7 @@ export default function Footer() {
         return () => {
             clearTimeout(firstTimoutShowclippy.current);
         };
-    },[])
+    }, [])
 
 
     useEffect(() => { //random clippy time
@@ -381,10 +330,10 @@ export default function Footer() {
         clearTimeout(ClearTOSongfunction.current)
 
         RandomTimeoutShowClippy.current = setTimeout(() => { // random clippy index from length
-        const randomIndex = Math.floor(Math.random() * clippyPhrase.inspiration.length)
-                setClippyIndex(randomIndex);
-                setShowClippy(true);
-        SecondRandomTimeoutShowClippy.current = setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * clippyPhrase.inspiration.length)
+            setClippyIndex(randomIndex);
+            setShowClippy(true);
+            SecondRandomTimeoutShowClippy.current = setTimeout(() => {
                 setShowClippy(false);
                 setRandomClippyPopup(prev => !prev);
             }, 10000);
@@ -410,11 +359,11 @@ export default function Footer() {
     }
 
     function handleClipperTalk() {
-        if(clippyThanks) return clippySuggest[1];
-        if(clippyTouched) return clippyPhrase.interruption[0].phrase;
-        if(clippySendemail) return clippySuggest[0]
-        if(clippySong) return clippySuggest[2]
-        if(clippyUsername) return chatDown? clippySuggest[4] : onlineUser < 2 ? clippySuggest[5] : clippySuggest[3]
+        if (clippyThanks) return clippySuggest[1];
+        if (clippyTouched) return clippyPhrase.interruption[0].phrase;
+        if (clippySendemail) return clippySuggest[0]
+        if (clippySong) return clippySuggest[2]
+        if (clippyUsername) return chatDown ? clippySuggest[4] : onlineUser < 2 ? clippySuggest[5] : clippySuggest[3]
 
         return clippyPhrase.inspiration[clippyIndex].phrase // return default from phrase
     }
@@ -468,7 +417,7 @@ export default function Footer() {
                 <div className="tap_container" ref={wheelTapContainer}
                     style={{
                         maxWidth: `calc(100% - ${80 + width}px)`
-                        }}
+                    }}
 
                     onWheel={handleWheelScroll}
                 >
@@ -480,12 +429,12 @@ export default function Footer() {
                                 e.stopPropagation()
                             }}
                             style={StyleHide(index, tap, ObjectState)}
-                            >
+                        >
                             {
-                            <img src={
-                                item === 'RecycleBin' && recycleBinLength === 0 ? binEmp
-                                : item === 'RecycleBin' && recycleBinLength > 0 ? bin
-                                : imageMapping(item)} alt={''} />
+                                <img src={
+                                    item === 'RecycleBin' && recycleBinLength === 0 ? binEmp
+                                        : item === 'RecycleBin' && recycleBinLength > 0 ? bin
+                                            : imageMapping(item)} alt={''} />
                             }
                             <p>{item}</p>
                         </div>
@@ -496,20 +445,8 @@ export default function Footer() {
                     ref={timeBarRef}
                 >
                     <div className="icon_time_container">
-                        <img src={news} alt="news"
-                                onClick={(e) => {
-                                    e.stopPropagation()
-                                    setNewsPopup(!newsPopup)
-                                }}
-                        />
-                        {isBitcoinInstalled && (
-                            <img src={btc_icon} alt="btc_icon"
-    
-                                onClick={() => btcShow.show ? deleteTap('Bitcoin') : handleShow('Bitcoin')}
-                            />
-                        )}
                         <img src={display} alt="display"
-                            style={{width: '20px'}}
+                            style={{ width: '20px' }}
                             onClick={(e) => {
                                 e.stopPropagation()
                                 setIconSize(!iconSize)
@@ -519,7 +456,7 @@ export default function Footer() {
                         />
                     </div>
                     <div className='p_time_div'
-                        style={{background: calenderToggle? '#8c8888c2':''}}>
+                        style={{ background: calenderToggle ? '#8c8888c2' : '' }}>
                         <p
                             onClick={(e) => {
                                 e.stopPropagation()
@@ -535,117 +472,99 @@ export default function Footer() {
                 {startActive && (
                     <div className="start_popup"
                         ref={startPopUpRef}
-                        style={{display: startActive? '' : 'none'}}
+                        style={{ display: startActive ? '' : 'none' }}
                     >
                         {footerItems.map((item, index) => (
                             <motion.div
-                            key={index}
-                            className={item.className}
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                item.onClick()
-                            }}
-                            onHoverStart={!isTouchDevice && item.onmouseenter}
-                        >
-                            {item.imgSrc && (
-                                <img
-                                    src={item.imgSrc}
-                                    alt={item.imgAlt}
-                                    style={item.style || {}}
-                                />
-                            )}
-                            {item.spanText && <span>{item.spanText}</span>}
-                            {item.arrow && (<p><BsFillCaretRightFill/></p>)}
-                        </motion.div>
+                                key={index}
+                                className={item.className}
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    item.onClick()
+                                }}
+                                onHoverStart={!isTouchDevice && item.onmouseenter}
+                            >
+                                {item.imgSrc && (
+                                    <img
+                                        src={item.imgSrc}
+                                        alt={item.imgAlt}
+                                        style={item.style || {}}
+                                    />
+                                )}
+                                {item.spanText && <span>{item.spanText}</span>}
+                                {item.arrow && (<p><BsFillCaretRightFill /></p>)}
+                            </motion.div>
                         ))}
                         {projectStartBar && (
                             <motion.div className="sub_start_container"
                                 ref={projectRef}
-                                style={{display: projectFolderItem === 0 ? 'none' : ''}}
+                                style={{ display: projectFolderItem === 0 ? 'none' : '' }}
                             >
-                            {desktopIcon.filter(icon => icon.folderId === 'Project').map(icon => (
-                                <div className="icon_sub_start" key={icon.name}
-                                    onClick={() => handleShow(icon.name)}
-                                >
-                                    <img src={imageMapping(icon.pic)} alt={''}/>
-                                    <p>{icon.name}</p>
-                                </div>
-                            ))}
-                        </motion.div>
-                        )}
-                        {resumeStartBar && (
-                            <motion.div className="sub_start_container"
-                                ref={resumeRef}
-                                style={{
-                                    display: resumeFolderItem === 0 ? 'none' : '',
-                                    top: '2.55rem'
-                                }}
-                            >
-                            {desktopIcon.filter(icon => icon.folderId === 'Resume').map(icon => (
-                                <div className="icon_sub_start" key={icon.name}
-                                    onClick={() => handleShow(icon.name)}
-                                >
-                                    <img src={imageMapping(icon.pic)} alt={icon.name}/>
-                                    <p>{icon.name}</p>
-                                </div>
-                            ))}
-                        </motion.div>
+                                {desktopIcon.filter(icon => icon.folderId === 'Project').map(icon => (
+                                    <div className="icon_sub_start" key={icon.name}
+                                        onClick={() => handleShow(icon.name)}
+                                    >
+                                        <img src={imageMapping(icon.pic)} alt={''} />
+                                        <p>{icon.name}</p>
+                                    </div>
+                                ))}
+                            </motion.div>
                         )}
 
                     </div>
-                    )}
+                )}
 
                 <AnimatePresence>
-                {showClippy && (
-                    <motion.div
-                        className="clippy_container"
-                        onClick={dontTouch}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ rotate: '360deg', opacity: 1, scale: 1 }}
-                        transition={{ ease: 'easeInOut', duration: 0.8, delay: 0.5 }}
-                        exit={{ rotate: '-360deg', scale: 0, opacity: 0, transition: { ease: 'easeInOut', duration: 0.8 } }}
-                    >
-                    <img src={ clippyTouched? clippyPhrase.interruption[0].animation : clippyPhrase.inspiration[clippyIndex].animation} alt="clippy" />
-                        <motion.div className="bubble_chat"
-                            initial={{opacity: 0}}
-                            animate={{opacity: 1}}
-                            transition={{ ease: "easeIn", duration: .8, delay: 1.5 }}
-                            exit={{ opacity: 0, transition: { ease: 'easeOut', duration: 0.1 } }}
+                    {showClippy && (
+                        <motion.div
+                            className="clippy_container"
+                            onClick={dontTouch}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ rotate: '360deg', opacity: 1, scale: 1 }}
+                            transition={{ ease: 'easeInOut', duration: 0.8, delay: 0.5 }}
+                            exit={{ rotate: '-360deg', scale: 0, opacity: 0, transition: { ease: 'easeInOut', duration: 0.8 } }}
                         >
-                    <p>{handleClipperTalk()}</p>
-                    </motion.div>
-                </motion.div>
-                )}
+                            <img src={clippyTouched ? clippyPhrase.interruption[0].animation : clippyPhrase.inspiration[clippyIndex].animation} alt="clippy" />
+                            <motion.div className="bubble_chat"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ ease: "easeIn", duration: .8, delay: 1.5 }}
+                                exit={{ opacity: 0, transition: { ease: 'easeOut', duration: 0.1 } }}
+                            >
+                                <p>{handleClipperTalk()}</p>
+                            </motion.div>
+                        </motion.div>
+                    )}
                 </AnimatePresence>
             </div>
             {iconSize && (
-              <div className="icon_size_container"
-                ref={iconSizeRef}
-            >
-            {iconSizeSelection.map(item => (
-                <div key={item.value}
-                    onClick={() => {
-                        const newVal = item.value
-                        setIconScreenSize(newVal)
-                        setIconSize(false)
-                        localStorage.setItem('iconSize', newVal)
-                    }}
+                <div className="icon_size_container"
+                    ref={iconSizeRef}
                 >
-                {item.value === iconTextSize(iconScreenSize).number && (
-                 <BsCheck
-                    style={{
-                        position: 'absolute',
-                        fontSize: '15px',
-                    }}
-                 />
-                ) }
+                    {iconSizeSelection.map(item => (
+                        <div key={item.value}
+                            onClick={() => {
+                                const newVal = item.value
+                                setIconScreenSize(newVal)
+                                setIconSize(false)
+                                localStorage.setItem('iconSize', newVal)
+                            }}
+                        >
+                            {item.value === iconTextSize(iconScreenSize).number && (
+                                <BsCheck
+                                    style={{
+                                        position: 'absolute',
+                                        fontSize: '15px',
+                                    }}
+                                />
+                            )}
 
-                    <p>
-                        {item.label}
-                    </p>
+                            <p>
+                                {item.label}
+                            </p>
+                        </div>
+                    ))}
                 </div>
-            ))}
-            </div>
             )}
             {calenderToggle && (
                 <div className="calender_container"

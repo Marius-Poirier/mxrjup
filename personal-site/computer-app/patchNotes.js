@@ -1,11 +1,11 @@
 const patchNotes = [
     {
-        head: "Welcome to Win95 Computer",
+        head: "Welcome to the family computer",
         date: "2026-02-11",
         notes: [
             "Upload and manage your files",
             "Drag and drop files",
-            "Windows 95 nostalgic experience"
+            "Don't delete system32"
         ]
     }
 ];

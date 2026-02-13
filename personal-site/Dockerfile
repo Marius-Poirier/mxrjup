@@ -8,7 +8,7 @@ RUN npm ci --ignore-scripts
 
 COPY . .
 
-RUN npm run build
+RUN npm run build:angular
 
 # Build React app (computer-app)
 WORKDIR /app/computer-app

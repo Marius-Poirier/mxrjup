@@ -330,7 +330,7 @@ function EmptyFolder({ state, setState, refState, folderName, photoMode, paintMo
                             const iconRect = iconRefs.current[icon.name].getBoundingClientRect();
 
                             // Find other folders in THIS current folder
-                            const currentFolderIcons = desktopIcon.filter(i => i.folderId === folderName && i.type === 'folder' && i.name !== icon.name);
+                            const currentFolderIcons = desktopIcon.filter(i => i.folderId === folderName && (i.type === 'folder' || i.type === 'ReCycleBin') && i.name !== icon.name);
 
                             let foundCollision = false;
                             for (const folder of currentFolderIcons) {

@@ -306,6 +306,35 @@ app.post('/api/computer/upload', userUpload.single('file'), async (req, res) => 
     }
 });
 
+// PUT /api/computer/file/:id - Update file metadata (move to folder)
+app.put('/api/computer/file/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { folder } = req.body;
+
+        if (!folder) {
+            return res.status(400).json({ error: 'Folder is required' });
+        }
+
+        const filesData = JSON.parse(await fs.readFile(COMPUTER_FILES_JSON, 'utf8'));
+        const fileIndex = filesData.files.findIndex(f => f.id === id);
+
+        if (fileIndex === -1) {
+            return res.status(404).json({ error: 'File not found' });
+        }
+
+        // Update folder
+        filesData.files[fileIndex].folder = folder;
+
+        await fs.writeFile(COMPUTER_FILES_JSON, JSON.stringify(filesData, null, 2));
+
+        res.json({ success: true, file: filesData.files[fileIndex] });
+    } catch (error) {
+        console.error('Update error:', error);
+        res.status(500).json({ error: 'Update failed' });
+    }
+});
+
 // DELETE /api/computer/file/:id - Delete file
 app.delete('/api/computer/file/:id', async (req, res) => {
     try {

@@ -236,7 +236,7 @@ function Dragdrop() {
               const iconRect = iconRefs.current[icon.name].getBoundingClientRect();
 
               // Find other folders on desktop
-              const desktopFolders = desktopIcon.filter(i => i.folderId === 'Desktop' && i.type === 'folder' && i.name !== icon.name);
+              const desktopFolders = desktopIcon.filter(i => i.folderId === 'Desktop' && (i.type === 'folder' || i.type === 'ReCycleBin') && i.name !== icon.name);
 
               let foundCollision = false;
               for (const folder of desktopFolders) {

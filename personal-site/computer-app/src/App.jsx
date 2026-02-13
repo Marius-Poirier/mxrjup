@@ -1357,6 +1357,11 @@ function App() {
     }
 
 
+    // Persist move to backend if it's a stored file
+    if (droppedIcon.id) {
+      apiService.updateFile(droppedIcon.id, target).catch(err => console.error("Failed to move file on backend", err));
+    }
+
     if (target === 'RecycleBin') {
       setBinRestoreArr(prevArr => {
         const updatedArr = [

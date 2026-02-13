@@ -41,6 +41,17 @@ export const apiService = {
         }
     },
 
+    // Update file metadata (move to folder)
+    updateFile: async (fileId, folder) => {
+        try {
+            const response = await apiClient.put(`/file/${fileId}`, { folder });
+            return response.data;
+        } catch (error) {
+            console.error('Error updating file:', error);
+            throw error;
+        }
+    },
+
     // Delete a file
     deleteFile: async (fileId) => {
         try {

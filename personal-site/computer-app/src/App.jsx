@@ -180,8 +180,8 @@ function App() {
 
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const host = window.location.hostname;
-    const port = '3000'; // Make sure this port is exposed in Docker/Firewall
-    const wsUrl = `${protocol}//${host}:${port}`;
+    // Connect to the same host but with /ws path (proxied by Nginx)
+    const wsUrl = `${protocol}//${host}/ws`;
 
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;

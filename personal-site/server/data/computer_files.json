@@ -17,6 +17,15 @@
       "mimeType": "text/plain",
       "folder": "test",
       "created": "2026-02-13T15:41:43.146Z"
+    },
+    {
+      "id": "1771008860926-429729180-dbd.jpg",
+      "name": "dbd.jpg",
+      "path": "/uploads/users/1771008860926-429729180-dbd.jpg",
+      "size": 1386493,
+      "mimeType": "image/jpeg",
+      "folder": "Desktop",
+      "created": "2026-02-13T18:54:20.957Z"
     }
   ],
   "folders": []

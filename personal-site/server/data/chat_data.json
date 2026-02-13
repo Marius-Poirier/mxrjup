@@ -22,7 +22,14 @@
     }
   ],
   "messages": {
-    "general": [],
+    "general": [
+      {
+        "id": "1771008881611",
+        "user": "Anonymous",
+        "text": "test",
+        "timestamp": "2026-02-13T18:54:41.611Z"
+      }
+    ],
     "tech": [],
     "music": [],
     "gaming": []

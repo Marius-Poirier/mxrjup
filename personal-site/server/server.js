@@ -207,21 +207,36 @@ app.get('/api/computer/files', async (req, res) => {
 });
 
 // POST /api/computer/folder - Create virtual folder
+// POST /api/computer/folder - Create virtual folder
 app.post('/api/computer/folder', async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name, parentId } = req.body;
         if (!name) {
             return res.status(400).json({ error: 'Folder name required' });
         }
 
         const data = JSON.parse(await fs.readFile(COMPUTER_FILES_JSON, 'utf8'));
 
-        if (!data.folders.includes(name)) {
-            data.folders.push(name);
-            await fs.writeFile(COMPUTER_FILES_JSON, JSON.stringify(data, null, 2));
+        // Check if folder already exists in the same parent
+        const exists = data.files.some(f => f.name === name && f.folder === (parentId || 'Desktop') && f.type === 'folder');
+        if (exists) {
+            return res.status(400).json({ error: 'Folder already exists' });
         }
 
-        res.json({ success: true, folder: name });
+        const newFolder = {
+            id: `folder-${Date.now()}-${Math.round(Math.random() * 1000)}`,
+            name: name,
+            type: 'folder',
+            folder: parentId || 'Desktop', // This is the parent folder ID
+            pic: 'Project',
+            size: 0,
+            date: new Date().toISOString()
+        };
+
+        data.files.push(newFolder);
+        await fs.writeFile(COMPUTER_FILES_JSON, JSON.stringify(data, null, 2));
+
+        res.json({ success: true, folder: newFolder });
     } catch (err) {
         console.error('Error creating folder:', err);
         res.status(500).json({ error: 'Failed to create folder' });

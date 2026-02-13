@@ -96,8 +96,8 @@ function Notification() {
       default:
         return {
           img: icon_wins95,
-          text1: 'Welcome to the family computer!',
-          text2: 'Enjoy your visit......',
+          text1: 'Welcome to the family computer, you can add your own content here !',
+          text2: '',
           function: '',
         };
     }

@@ -53,9 +53,9 @@ export const apiService = {
     },
 
     // Create a new virtual folder
-    createFolder: async (folderName) => {
+    createFolder: async (folderName, parentId = 'Desktop') => {
         try {
-            const response = await apiClient.post('/folder', { name: folderName });
+            const response = await apiClient.post('/folder', { name: folderName, parentId });
             return response.data;
         } catch (error) {
             console.error('Error creating folder:', error);

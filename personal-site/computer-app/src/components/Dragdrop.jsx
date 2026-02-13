@@ -109,6 +109,19 @@ function Dragdrop() {
           const response = await apiService.uploadFile(file, 'Desktop');
 
           if (response && response.file) {
+            // Helper for Icon Mapping (matched to App.jsx logic)
+            const getIconType = (filename) => {
+              if (!filename) return { pic: 'NotePad', type: 'file' };
+              const ext = filename.split('.').pop().toLowerCase();
+              if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) return { pic: 'Jpeg', type: '.jpeg' };
+              if (['txt', 'md', 'json', 'js', 'css'].includes(ext)) return { pic: 'NotePad', type: 'notepad' };
+              if (['mp3', 'wav'].includes(ext)) return { pic: 'Winamp', type: 'mp3' };
+              if (['exe'].includes(ext)) return { pic: 'Project', type: '.exe' };
+              return { pic: 'NotePad', type: 'file' };
+            };
+
+            const { pic, type } = getIconType(response.file.name);
+
             setDesktopIcon(prev => {
               // Check if file already exists in state
               if (prev.find(icon => icon.id === response.file.id)) return prev;
@@ -118,8 +131,8 @@ function Dragdrop() {
                 // Ensure properties match desktop icon structure
                 id: response.file.id,
                 name: response.file.name,
-                type: '.jpeg', // Placeholder for now
-                pic: 'jpeg',
+                type: type,
+                pic: pic,
                 folderId: 'Desktop',
                 focus: false,
                 size: Math.round(response.file.size / 1024),
@@ -215,7 +228,40 @@ function Dragdrop() {
             scale={1}
             bounds='.bound'
             onStart={() => { setDropTargetFolder('') }}
-            onDrag={handleOnDrag(icon.name, iconRefs.current[icon.name])}
+            onDrag={(e, data) => {
+              // Call original handleOnDrag for other potential logic (though we are overriding the main collision logic here)
+              handleOnDrag(icon.name, iconRefs.current[icon.name])();
+
+              // Custom collision detection for Desktop Folders
+              const iconRect = iconRefs.current[icon.name].getBoundingClientRect();
+
+              // Find other folders on desktop
+              const desktopFolders = desktopIcon.filter(i => i.folderId === 'Desktop' && i.type === 'folder' && i.name !== icon.name);
+
+              let foundCollision = false;
+              for (const folder of desktopFolders) {
+                const folderRef = iconRefs.current[folder.name];
+                if (folderRef) {
+                  const folderRect = folderRef.getBoundingClientRect();
+
+                  // Simple AABB collision detection
+                  if (
+                    iconRect.left < folderRect.right &&
+                    iconRect.right > folderRect.left &&
+                    iconRect.top < folderRect.bottom &&
+                    iconRect.bottom > folderRect.top
+                  ) {
+                    setDropTargetFolder(folder.name);
+                    foundCollision = true;
+                    break;
+                  }
+                }
+              }
+              // If no desktop folder collision, we rely on App.jsx handleOnDrag for other windows (like RecycleBin, MyComputer) 
+              // via the handleOnDrag call above, assuming it sets state. 
+              // However, to prevent flickering if App.jsx clears it, we might need coordination.
+              // For now, let's assume if we found a desktop folder, we force it.
+            }}
             onStop={(e, data) => {
               handleDragStop(data, icon.name, iconRefs.current[icon.name])
               handleDrop(e, icon.name, dropTargetFolder, icon.folderId)

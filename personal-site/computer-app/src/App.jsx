@@ -137,7 +137,7 @@ function App() {
   const [reMountRun, setReMountRun] = useState(0)
   const [ErrorPopup, setErrorPopup] = useState(false)
   const [themeDragBar, setThemeDragBar] = useState(() => localStorage.getItem('barcolor') || '#14045c')
-  const [login, setLogin] = useState(false)
+  const [login, setLogin] = useState(true)
   const [windowsShutDownAnimation, setWindowsShutDownAnimation] = useState(false)
   const [detectMouse, setDetectMouse] = useState(false)
   const endOfMessagesRef = useRef(null);
@@ -500,7 +500,13 @@ function App() {
               const backendFile = backendFileMap.get(String(icon.id));
               if (backendFile) {
                 // Update metadata & icon, preserve position
-                const { pic, type } = getIconType(backendFile.name);
+                // Respect backend type if it is 'folder'
+                let { pic, type } = getIconType(backendFile.name);
+
+                if (backendFile.type === 'folder') {
+                  type = 'folder';
+                  pic = 'Project'; // Standard folder icon
+                }
 
                 // Remove from map so we know it's handled
                 backendFileMap.delete(String(icon.id));
@@ -519,7 +525,13 @@ function App() {
 
             // 4. Add NEW files (remaining in map)
             const newFiles = Array.from(backendFileMap.values()).map(file => {
-              const { pic, type } = getIconType(file.name);
+              let { pic, type } = getIconType(file.name);
+
+              if (file.type === 'folder') {
+                type = 'folder';
+                pic = 'Project';
+              }
+
               return {
                 ...file,
                 id: file.id,
@@ -532,7 +544,40 @@ function App() {
               };
             });
 
-            return [...updatedState, ...newFiles];
+            const finalState = [...updatedState, ...newFiles];
+
+            // Sync UserCreatedFolder with backend folders
+            setUserCreatedFolder(prevFolders => {
+              // Only sync folders that have an ID (system folders like 'Project' are handled separately and have no ID)
+              const backendFolders = finalState.filter(item => item.type === 'folder' && item.id);
+
+              // 1. Identify valid IDs from backend
+              const validIds = new Set(backendFolders.map(f => f.id));
+
+              // 2. Filter OUT stale folders (remove anything in local state that isn't in backend)
+              // This fixes the 'duplicate Project folder' issue by removing the accidental 'Project' entry
+              const keptFolders = prevFolders.filter(f => validIds.has(f.id));
+
+              // 3. Add NEW folders
+              const currentFolderIds = new Set(keptFolders.map(f => f.id));
+              const newFolderStates = backendFolders
+                .filter(folder => !currentFolderIds.has(folder.id))
+                .map(folder => ({
+                  id: folder.id,
+                  name: folder.name,
+                  expand: false,
+                  show: false,
+                  hide: false,
+                  focusItem: false,
+                  x: 0,
+                  y: 0,
+                  zIndex: 1,
+                }));
+
+              return [...keptFolders, ...newFolderStates];
+            });
+
+            return finalState;
           });
         }
       } catch (error) {
@@ -590,6 +635,27 @@ function App() {
       const offset = 55;
 
       if (name === 'MyComputer' || name === 'RecycleBin') return; // prevent MyComputer from being dragged into folder
+
+      // Check for intersection with Desktop Icons that are Folders
+      // We loop through the desktopIcon state to find target folders on the desktop
+      const desktopFolders = desktopIcon.filter(icon => icon.folderId === 'Desktop' && icon.type === 'folder' && icon.name !== name);
+
+      for (const folder of desktopFolders) {
+        const folderX = folder.x;
+        const folderY = folder.y;
+        // Approximate size of folder icon (slightly smaller than container for better precision)
+        const folderSize = 60;
+
+        if (
+          iconRect.left < folderX + folderSize &&
+          iconRect.right > folderX &&
+          iconRect.top < folderY + folderSize &&
+          iconRect.bottom > folderY
+        ) {
+          setDropTargetFolder(folder.name); // Using name as ID for now as per existing logic
+          return;
+        }
+      }
 
       // Check for intersection with UserCreated folders
       for (let i = 0; i < UserCreatedFolderRef.current.length; i++) {

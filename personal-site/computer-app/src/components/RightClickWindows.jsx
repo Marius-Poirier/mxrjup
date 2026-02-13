@@ -188,21 +188,47 @@ function RightClickWindows() {
     const id = `folder-${Date.now()}`;
 
     // Create folder on backend
+    let backendFolder;
     try {
-      await apiService.createFolder(checkedNameNoSpace);
+      // Use currentRightClickFolder as the parent (it holds the name/ID of the folder we clicked in)
+      const parentId = currentRightClickFolder || 'Desktop';
+      const response = await apiService.createFolder(checkedNameNoSpace, parentId);
+      if (response && response.folder) {
+        backendFolder = response.folder;
+      }
     } catch (error) {
       console.error("Failed to create folder on backend", error);
+      alert("Failed to create folder: " + (error.response?.data?.error || error.message));
+      return;
     }
 
-    const newFolder = {
+    // Calculate grid position
+    // Default size if not found (based on iconContainerSize default)
+    const gridWidth = 75;
+    const gridHeight = 75;
+
+    // Simple grid calculation (1-based index)
+    // We use Math.max(1, ...) to ensure we don't get 0 or negative
+    const gridX = Math.max(1, Math.ceil(rightClickPosition.x / gridWidth));
+    const gridY = Math.max(1, Math.ceil(rightClickPosition.y / gridHeight));
+
+    // Use backend response if available, otherwise fallback
+    const newFolder = backendFolder ? {
+      ...backendFolder,
+      folderId: backendFolder.folder, // CRITICAL: Map backend 'folder' to frontend 'folderId'
+      // Ensure frontend specific props are set
+      focus: false,
+      x: gridX,
+      y: gridY
+    } : {
       id,
       pic: "Project",
       name: checkedNameNoSpace,
       type: "folder",
-      folderId: "Desktop",
+      folderId: currentRightClickFolder || "Desktop",
       size: "2000",
-      x: 1,
-      y: 1,
+      x: gridX,
+      y: gridY,
     };
 
     setDesktopIcon(prev => {
@@ -212,8 +238,8 @@ function RightClickWindows() {
     });
 
     const newStateFolder = {
-      id,
-      name: checkedNameNoSpace,
+      id: newFolder.id,
+      name: checkedNameNoSpace, // This name is used as the 'folderId' for items inside IT
       expand: false,
       show: false,
       hide: false,

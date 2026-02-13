@@ -58,6 +58,19 @@ function EmptyFolder({ state, setState, refState, folderName, photoMode, paintMo
           // Upload to current folder
           const response = await apiService.uploadFile(file, folderName);
 
+          // Helper for Icon Mapping (matched to App.jsx logic)
+          const getIconType = (filename) => {
+            if (!filename) return { pic: 'NotePad', type: 'file' };
+            const ext = filename.split('.').pop().toLowerCase();
+            if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) return { pic: 'Jpeg', type: '.jpeg' };
+            if (['txt', 'md', 'json', 'js', 'css'].includes(ext)) return { pic: 'NotePad', type: 'notepad' };
+            if (['mp3', 'wav'].includes(ext)) return { pic: 'Winamp', type: 'mp3' };
+            if (['exe'].includes(ext)) return { pic: 'Project', type: '.exe' };
+            return { pic: 'NotePad', type: 'file' };
+          };
+
+          const { pic, type } = getIconType(response.file.name);
+
           if (response && response.file) {
             setDesktopIcon(prev => {
               if (prev.find(icon => icon.id === response.file.id)) return prev;
@@ -66,8 +79,8 @@ function EmptyFolder({ state, setState, refState, folderName, photoMode, paintMo
                 ...response.file,
                 id: response.file.id,
                 name: response.file.name,
-                type: '.jpeg', // Placeholder
-                pic: 'jpeg',
+                type: type,
+                pic: pic,
                 folderId: folderName,
                 focus: false,
                 size: Math.round(response.file.size / 1024),
@@ -309,7 +322,36 @@ function EmptyFolder({ state, setState, refState, folderName, photoMode, paintMo
                             setDropTargetFolder('')
                             handleSetFocusItemTrue(folderName)
                           }}
-                          onDrag={handleOnDrag(icon.name, iconRefs.current[icon.name])}
+                          onDrag={(e, data) => {
+                            // Call original handleOnDrag logic
+                            handleOnDrag(icon.name, iconRefs.current[icon.name])();
+
+                            // Custom collision detection for Folders INSIDE this window
+                            const iconRect = iconRefs.current[icon.name].getBoundingClientRect();
+
+                            // Find other folders in THIS current folder
+                            const currentFolderIcons = desktopIcon.filter(i => i.folderId === folderName && i.type === 'folder' && i.name !== icon.name);
+
+                            let foundCollision = false;
+                            for (const folder of currentFolderIcons) {
+                              const folderRef = iconRefs.current[folder.name];
+                              if (folderRef) {
+                                const folderRect = folderRef.getBoundingClientRect();
+
+                                // Simple AABB collision detection
+                                if (
+                                  iconRect.left < folderRect.right &&
+                                  iconRect.right > folderRect.left &&
+                                  iconRect.top < folderRect.bottom &&
+                                  iconRect.bottom > folderRect.top
+                                ) {
+                                  setDropTargetFolder(folder.name); // Using name as ID
+                                  foundCollision = true;
+                                  break;
+                                }
+                              }
+                            }
+                          }}
                           onStop={(e) => {
                             handleDrop(e, icon.name, dropTargetFolder, icon.folderId);
                             clearTimeout(timerRef.current)

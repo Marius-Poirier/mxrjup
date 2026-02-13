@@ -8,6 +8,87 @@
       "mimeType": "image/jpeg",
       "folder": "Desktop",
       "created": "2026-02-13T07:14:06.630Z"
+    },
+    {
+      "id": "folder-1770968875143-577",
+      "name": "testzeg",
+      "type": "folder",
+      "folder": "Desktop",
+      "pic": "Project",
+      "size": 0,
+      "date": "2026-02-13T07:47:55.143Z"
+    },
+    {
+      "id": "folder-1770968891324-949",
+      "name": "zetzet",
+      "type": "folder",
+      "folder": "Desktop",
+      "pic": "Project",
+      "size": 0,
+      "date": "2026-02-13T07:48:11.324Z"
+    },
+    {
+      "id": "1770969640638-681806524-example.jpg",
+      "name": "example.jpg",
+      "path": "/uploads/users/1770969640638-681806524-example.jpg",
+      "size": 372799,
+      "mimeType": "image/jpeg",
+      "folder": "test0",
+      "created": "2026-02-13T08:00:40.654Z"
+    },
+    {
+      "id": "1770970210940-367397063-example.jpg",
+      "name": "example.jpg",
+      "path": "/uploads/users/1770970210940-367397063-example.jpg",
+      "size": 372799,
+      "mimeType": "image/jpeg",
+      "folder": "test2",
+      "created": "2026-02-13T08:10:10.943Z"
+    },
+    {
+      "id": "folder-1770970224988-559",
+      "name": "testRec",
+      "type": "folder",
+      "folder": "test2",
+      "pic": "Project",
+      "size": 0,
+      "date": "2026-02-13T08:10:24.988Z"
+    },
+    {
+      "id": "1770970635537-470121714-commande.txt",
+      "name": "commande.txt",
+      "path": "/uploads/users/1770970635537-470121714-commande.txt",
+      "size": 32,
+      "mimeType": "text/plain",
+      "folder": "Desktop",
+      "created": "2026-02-13T08:17:15.538Z"
+    },
+    {
+      "id": "1770970643421-392391226-dbd2.jpg",
+      "name": "dbd2.jpg",
+      "path": "/uploads/users/1770970643421-392391226-dbd2.jpg",
+      "size": 203869,
+      "mimeType": "image/jpeg",
+      "folder": "Desktop",
+      "created": "2026-02-13T08:17:23.423Z"
+    },
+    {
+      "id": "folder-1770970649591-155",
+      "name": "ascfezqfea",
+      "type": "folder",
+      "folder": "Desktop",
+      "pic": "Project",
+      "size": 0,
+      "date": "2026-02-13T08:17:29.591Z"
+    },
+    {
+      "id": "folder-1770970929160-505",
+      "name": "azegezf",
+      "type": "folder",
+      "folder": "ascfezqfea",
+      "pic": "Project",
+      "size": 0,
+      "date": "2026-02-13T08:22:09.160Z"
     }
   ],
   "folders": [

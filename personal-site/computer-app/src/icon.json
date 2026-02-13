@@ -233,5 +233,16 @@
         "type": ".exe",
         "x": 4,
         "y": 1
+    },
+    {
+        "name": "MSN",
+        "pic": "MSN",
+        "folderId": "Desktop",
+        "size": 1500,
+        "type": ".exe",
+        "x": 3,
+        "y": 2,
+        "category": "Communication",
+        "description": "Chat with friends in various rooms."
     }
 ]

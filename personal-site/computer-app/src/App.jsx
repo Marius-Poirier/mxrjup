@@ -53,7 +53,7 @@ function App() {
     const prevEffect = localStorage.getItem('effect')
     return prevEffect ? prevEffect : null
   })
-  const [websocketConnection, setWebsocketConnection] = useState(false)
+  const [websocketConnection, setWebsocketConnection] = useState(true)
   const [Cel, setCel] = useState(true); // Celsius or Fahrenheit
   const [weather, setWeather] = useState(() => {
     const storedTempF = localStorage.getItem('tempF');
@@ -169,6 +169,60 @@ function App() {
   const [startActive, setStartActive] = useState(false);
   const [time, setTime] = useState('');
   const [tap, setTap] = useState([])
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 WEBSOCKET                                  */
+  /* -------------------------------------------------------------------------- */
+  const wsRef = useRef(null);
+
+  const connectWebSocket = () => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) return;
+
+    const ws = new WebSocket('ws://localhost:3000');
+    wsRef.current = ws;
+
+    ws.onopen = () => {
+      console.log('Connected to WebSocket');
+      setWebsocketConnection(true);
+      setLoading(false);
+    };
+
+    ws.onmessage = (event) => {
+      try {
+        const message = JSON.parse(event.data);
+
+        if (message.type === 'history') {
+          setChatData(message.data);
+        } else if (message.type === 'message') {
+          setChatData(prev => [...prev, message.data]);
+        }
+      } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
+      }
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket disconnected');
+      setWebsocketConnection(false);
+      wsRef.current = null;
+      // Auto-reconnect after 3 seconds
+      setTimeout(connectWebSocket, 3000);
+    };
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+      setLoading(false);
+      ws.close();
+    };
+  };
+
+  useEffect(() => {
+    connectWebSocket();
+    return () => {
+      wsRef.current?.close();
+    };
+  }, []);
+  /* -------------------------------------------------------------------------- */
   const [lastTapTime, setLastTapTime] = useState(0)
   const [projectUrl, setProjectUrl] = useState('')
   const [MybioExpand, setMybioExpand] = useState(
@@ -452,14 +506,7 @@ function App() {
 
 
 
-  const connectWebSocket = async () => {
-    console.log('WebSocket connection disabled');
-    setLoading(false);
-  };
 
-  useEffect(() => {
-    connectWebSocket();
-  }, []);
 
 
   // WebSocket and Chat connectivity removed
@@ -913,6 +960,7 @@ function App() {
     deletepermanently,
     currentRightClickFolder, setCurrentRightClickFolder,
     ringMsn, setRingMsn,
+    ringMsnOff,
     showChart, setShowChart,
     setRegErrorPopUp, setRegErrorPopUpVal,
     keyRef, setKeyRef,
@@ -1181,6 +1229,7 @@ function App() {
           folderName='Photo'
           photoMode={true}
         />
+
         <TaskManager />
         <Patch />
         <RightClickWindows />
@@ -1408,20 +1457,43 @@ function App() {
   }
 
 
-  // ringMsnOff function removed
-
-
-  async function createChat() { // create chat
-    // Feature removed
-    console.log('Chat feature disabled');
-    setChatValue('');
+  function ringMsnOff() {
+    setRingMsn(true)
+    setTimeout(() => {
+      setRingMsn(false)
+    }, 2000);
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                 WEBSOCKET                                  */
+  /* -------------------------------------------------------------------------- */
 
-  // Function to fetch chat data
-  // Function to fetch chat data (Removed)
+
+
+  // create chat via WebSocket
+  async function createChat() {
+    if (!chatValue.trim()) return;
+
+    const newMessage = {
+      type: 'message',
+      user: userNameValue || 'Anonymous',
+      text: chatValue
+    };
+
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify(newMessage));
+      setChatValue('');
+      // No need to manually update chatData or getChat(), 
+      // the server will broadcast the message back to us.
+    } else {
+      console.error('WebSocket not connected');
+    }
+  }
+
+  // getChat is no longer needed as WS handles history and updates
   async function getChat() {
-    // Feature removed
+    // Keep empty or remove usage. 
+    // We'll leave it empty to avoid breaking references if any remain, but it shouldn't be used.
   }
 
 

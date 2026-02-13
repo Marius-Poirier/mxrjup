@@ -367,9 +367,159 @@ app.delete('/api/computer/file/:id', async (req, res) => {
     }
 });
 
+
+// ============================================
+// MSN CHAT API
+// ============================================
+const CHAT_DATA_FILE = path.join(__dirname, 'data', 'chat_data.json');
+
+// Ensure chat data file exists
+(async () => {
+    try {
+        await fs.access(CHAT_DATA_FILE);
+    } catch {
+        const initialData = {
+            rooms: [
+                { id: "general", name: "General Chat", description: "Talk about anything and everything." },
+                { id: "tech", name: "Tech & Computers", "description": "Discuss hardware, software, and the future." },
+                { id: "music", name: "Music Lounge", "description": "Share your favorite tunes." },
+                { id: "gaming", "name": "Gamers Zone", "description": "Video games, tips, and tricks." }
+            ],
+            messages: {
+                general: [],
+                tech: [],
+                music: [],
+                gaming: []
+            }
+        };
+        await fs.writeFile(CHAT_DATA_FILE, JSON.stringify(initialData, null, 2));
+    }
+})();
+
+// GET /api/chat/rooms
+app.get('/api/chat/rooms', async (req, res) => {
+    try {
+        const data = JSON.parse(await fs.readFile(CHAT_DATA_FILE, 'utf8'));
+        res.json(data.rooms);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch rooms' });
+    }
+});
+
+// GET /api/chat/:room/messages
+app.get('/api/chat/:room/messages', async (req, res) => {
+    try {
+        const { room } = req.params;
+        const data = JSON.parse(await fs.readFile(CHAT_DATA_FILE, 'utf8'));
+        res.json(data.messages[room] || []);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch messages' });
+    }
+});
+
+// POST /api/chat/:room/messages
+app.post('/api/chat/:room/messages', async (req, res) => {
+    try {
+        const { room } = req.params;
+        const { user, text } = req.body;
+
+        if (!user || !text) return res.status(400).json({ error: 'User and text required' });
+
+        const data = JSON.parse(await fs.readFile(CHAT_DATA_FILE, 'utf8'));
+
+        if (!data.messages[room]) data.messages[room] = [];
+
+        const newMessage = {
+            id: Date.now().toString(),
+            user,
+            text,
+            timestamp: new Date().toISOString()
+        };
+
+        data.messages[room].push(newMessage);
+
+        // Keep only last 50 messages per room to prevent infinite growth
+        if (data.messages[room].length > 50) {
+            data.messages[room] = data.messages[room].slice(-50);
+        }
+
+        await fs.writeFile(CHAT_DATA_FILE, JSON.stringify(data, null, 2));
+
+        res.json(newMessage);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to post message' });
+    }
+});
+
+
 // Serve React computer app
 app.use('/computer', express.static(path.join(__dirname, '../dist/computer')));
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+});
+
+// ============================================
+// WEBSOCKET SERVER
+// ============================================
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', async (ws) => {
+    console.log('Checking client connection...');
+
+    // Send full chat history on connection
+    try {
+        const data = JSON.parse(await fs.readFile(CHAT_DATA_FILE, 'utf8'));
+        ws.send(JSON.stringify({ type: 'history', data: data.messages['general'] || [] }));
+        console.log('Sent history to new client');
+    } catch (e) {
+        console.error('Error sending history:', e);
+    }
+
+    ws.on('message', async (message) => {
+        try {
+            const parsed = JSON.parse(message);
+
+            if (parsed.type === 'message') {
+                const { user, text } = parsed;
+                if (!user || !text) return;
+
+                // Save to file (reuse logic)
+                const data = JSON.parse(await fs.readFile(CHAT_DATA_FILE, 'utf8'));
+                if (!data.messages['general']) data.messages['general'] = [];
+
+                const newMessage = {
+                    id: Date.now().toString(),
+                    user,
+                    text,
+                    timestamp: new Date().toISOString()
+                };
+
+                data.messages['general'].push(newMessage);
+
+                // Keep last 50
+                if (data.messages['general'].length > 50) {
+                    data.messages['general'] = data.messages['general'].slice(-50);
+                }
+
+                await fs.writeFile(CHAT_DATA_FILE, JSON.stringify(data, null, 2));
+
+                // Broadcast to ALL clients (including sender)
+                const broadcastMsg = JSON.stringify({ type: 'message', data: newMessage });
+                wss.clients.forEach(client => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(broadcastMsg);
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('WebSocket message error:', e);
+        }
+    });
+
+    ws.on('close', () => {
+        console.log('Client disconnected');
+    });
 });

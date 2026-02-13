@@ -25,6 +25,7 @@ export const routes: Routes = [
     { path: 'cool-stuff', component: CoolStuffComponent },
     { path: 'wip', component: WipComponent },
     { path: 'credits', component: CreditsComponent },
+
     { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
     {
         path: 'add',

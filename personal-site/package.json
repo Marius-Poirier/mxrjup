@@ -6,8 +6,11 @@
     "start": "concurrently \"ng serve\" \"node server/server.js\"",
     "start:backend": "node server/server.js",
     "start:frontend": "ng serve",
-    "postinstall": "cd server && npm install",
-    "build": "ng build",
+    "dev:computer": "cd computer-app && npm run dev",
+    "build:angular": "ng build",
+    "build:computer": "cd computer-app && npm run build",
+    "build": "npm run build:angular && npm run build:computer",
+    "postinstall": "cd server && npm install && cd ../computer-app && npm install",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

@@ -1,0 +1,30 @@
+{
+  "rooms": [
+    {
+      "id": "general",
+      "name": "General Chat",
+      "description": "Talk about anything and everything."
+    },
+    {
+      "id": "tech",
+      "name": "Tech & Computers",
+      "description": "Discuss hardware, software, and the future."
+    },
+    {
+      "id": "music",
+      "name": "Music Lounge",
+      "description": "Share your favorite tunes."
+    },
+    {
+      "id": "gaming",
+      "name": "Gamers Zone",
+      "description": "Video games, tips, and tricks."
+    }
+  ],
+  "messages": {
+    "general": [],
+    "tech": [],
+    "music": [],
+    "gaming": []
+  }
+}

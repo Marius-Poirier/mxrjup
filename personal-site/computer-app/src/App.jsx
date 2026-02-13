@@ -21,7 +21,6 @@ import Notification from './components/Notification';
 import EmptyFolder from './components/EmptyFolder';
 import ErrorBtn from './components/ErrorBtn';
 import RightClickWindows from './components/RightClickWindows';
-import axios from 'axios';
 import loadingSpin from './assets/loading.gif'
 import Patch from './components/Patch';
 import WindowsDragLogin from './components/WindowsDragLogin';
@@ -178,7 +177,12 @@ function App() {
   const connectWebSocket = () => {
     if (wsRef.current?.readyState === WebSocket.OPEN) return;
 
-    const ws = new WebSocket('ws://localhost:3000');
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const host = window.location.hostname;
+    const port = '3000'; // Make sure this port is exposed in Docker/Firewall
+    const wsUrl = `${protocol}//${host}:${port}`;
+
+    const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
 
     ws.onopen = () => {
@@ -1490,11 +1494,7 @@ function App() {
     }
   }
 
-  // getChat is no longer needed as WS handles history and updates
-  async function getChat() {
-    // Keep empty or remove usage. 
-    // We'll leave it empty to avoid breaking references if any remain, but it shouldn't be used.
-  }
+
 
 
   function ObjectState() {

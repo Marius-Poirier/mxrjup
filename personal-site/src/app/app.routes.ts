@@ -25,11 +25,7 @@ export const routes: Routes = [
     { path: 'cool-stuff', component: CoolStuffComponent },
     { path: 'wip', component: WipComponent },
     { path: 'credits', component: CreditsComponent },
-    {
-        path: 'computer',
-        loadComponent: () => import('./pages/computer-wrapper/computer-wrapper.component')
-            .then(m => m.ComputerWrapperComponent)
-    },
+
     { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
     {
         path: 'add',

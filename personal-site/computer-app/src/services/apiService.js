@@ -63,6 +63,17 @@ export const apiService = {
         }
     },
 
+    // Delete a folder (Recursive)
+    deleteFolder: async (folderName) => {
+        try {
+            const response = await apiClient.delete(`/folder/${folderName}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error deleting folder:', error);
+            throw error;
+        }
+    },
+
     // Create a new virtual folder
     createFolder: async (folderName, parentId = 'Desktop') => {
         try {

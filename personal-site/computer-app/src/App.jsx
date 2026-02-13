@@ -1047,6 +1047,7 @@ function App() {
     startActive, setStartActive,
     time, setTime,
     desktopIcon, setDesktopIcon,
+    UserCreatedFolder, setUserCreatedFolder, // Expose UserCreatedFolder and its setter
     MybioExpand, setMybioExpand,
     tap, setTap,
     imageMapping,
@@ -1330,16 +1331,15 @@ function App() {
     );
 
     if (findUserCreatedFolder) {
+      // Call backend to delete folder recursively
+      apiService.deleteFolder(deleteName).catch(err => console.error("Failed to delete folder from backend", err));
+
       const updatedFolders = UserCreatedFolder.filter(
         folder => folder.name !== findUserCreatedFolder.name
       );
 
-
-
       setUserCreatedFolder(updatedFolders);
       localStorage.setItem("userFolders", JSON.stringify(updatedFolders));
-
-
     }
 
 

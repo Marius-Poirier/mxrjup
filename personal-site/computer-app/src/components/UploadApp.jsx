@@ -13,7 +13,8 @@ function UploadApp() {
         handleSetFocusItemTrue,
         maxZindexRef,
         setDesktopIcon,
-        deleteTap
+        deleteTap,
+        UserCreatedFolder // Import UserCreatedFolder
     } = useContext(UseContext);
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -23,7 +24,12 @@ function UploadApp() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for custom dropdown
 
     const fileInputRef = useRef(null);
-    const folders = ['Desktop', 'My Documents', 'Project', 'Picture', 'Utility'];
+
+    // Dynamic Folder List: System Folders + User Created Folders
+    // Removed 'My Documents' to prevent ghost folder issue if it doesn't exist visually
+    const systemFolders = ['Desktop', 'Project', 'Picture', 'Utility'];
+    const userFolders = UserCreatedFolder.map(folder => folder.name);
+    const folders = [...systemFolders, ...userFolders];
 
     const handleClose = (e) => {
         if (e) e.stopPropagation();
@@ -232,8 +238,8 @@ function UploadApp() {
                                                             setIsDropdownOpen(false);
                                                         }}>
                                                             <img
-                                                                // Simple mapping or fallback
-                                                                src={imageMapping(folder === 'Desktop' ? 'MyComputer' : folder) || imageMapping('folder')}
+                                                                // Pass 'folder' type for correct fallback
+                                                                src={imageMapping(folder === 'Desktop' ? 'MyComputer' : folder, 'folder')}
                                                                 alt=""
                                                             />
                                                             <span>{folder}</span>
@@ -249,7 +255,7 @@ function UploadApp() {
                                         setIsDropdownOpen(!isDropdownOpen);
                                     }} style={{ flex: 1, justifyContent: 'flex-start', cursor: 'pointer' }}>
                                         <img
-                                            src={imageMapping(destination === 'Desktop' ? 'MyComputer' : destination) || imageMapping('folder')}
+                                            src={imageMapping(destination === 'Desktop' ? 'MyComputer' : destination, 'folder')}
                                             alt=""
                                             style={{ marginLeft: '5px' }}
                                         />

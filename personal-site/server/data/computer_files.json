@@ -1,27 +1,23 @@
 {
   "files": [
     {
-      "id": "folder-1770970224988-559",
-      "name": "testRec",
-      "type": "folder",
-      "folder": "test2",
-      "pic": "Project",
-      "size": 0,
-      "date": "2026-02-13T08:10:24.988Z"
+      "id": "1770996835275-778870371-LadyGuettav1.mp3",
+      "name": "LadyGuettav1.mp3",
+      "path": "/uploads/users/1770996835275-778870371-LadyGuettav1.mp3",
+      "size": 6031207,
+      "mimeType": "audio/mpeg",
+      "folder": "toDelete",
+      "created": "2026-02-13T15:33:55.300Z"
     },
     {
-      "id": "folder-1770970929160-505",
-      "name": "azegezf",
-      "type": "folder",
-      "folder": "ascfezqfea",
-      "pic": "Project",
-      "size": 0,
-      "date": "2026-02-13T08:22:09.160Z"
+      "id": "1770997303145-940562903-commande.txt",
+      "name": "commande.txt",
+      "path": "/uploads/users/1770997303145-940562903-commande.txt",
+      "size": 32,
+      "mimeType": "text/plain",
+      "folder": "test",
+      "created": "2026-02-13T15:41:43.146Z"
     }
   ],
-  "folders": [
-    "My Documents",
-    "My Pictures",
-    "My Music"
-  ]
+  "folders": []
 }

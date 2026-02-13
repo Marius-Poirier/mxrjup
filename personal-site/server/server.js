@@ -366,7 +366,77 @@ app.delete('/api/computer/file/:id', async (req, res) => {
         res.status(500).json({ error: 'Delete failed' });
     }
 });
+// DELETE /api/computer/folder/:name - Recursive Delete Folder
+app.delete('/api/computer/folder/:name', async (req, res) => {
+    try {
+        const { name } = req.params;
+        console.log(`[API] Deleting folder recursively: ${name}`);
 
+        // Load metadata
+        const filesData = JSON.parse(await fs.readFile(COMPUTER_FILES_JSON, 'utf8'));
+
+        // Helper to find all children recursively
+        const idsToDelete = new Set();
+        const filesToDelete = [];
+
+        function findChildren(folderName) {
+            // Find files directly in this folder
+            const childrenFiles = filesData.files.filter(f => f.folder === folderName && f.type !== 'folder');
+            childrenFiles.forEach(f => {
+                idsToDelete.add(f.id);
+                if (f.id && !f.id.startsWith('folder-')) {
+                    filesToDelete.push(f.id); // Physical files to delete
+                }
+            });
+
+            // Find subfolders
+            const childrenFolders = filesData.files.filter(f => f.folder === folderName && f.type === 'folder');
+            childrenFolders.forEach(f => {
+                idsToDelete.add(f.id); // Delete the folder metadata too
+                // Recurse
+                findChildren(f.name);
+            });
+        }
+
+        // Start recursion
+        findChildren(name);
+
+        console.log(`[API] Found ${filesToDelete.length} files and ${idsToDelete.size} items to delete.`);
+
+        // Delete physical files
+        for (const fileId of filesToDelete) {
+            const filePath = path.join(USER_UPLOADS_DIR, fileId);
+            try {
+                await fs.unlink(filePath);
+            } catch (err) {
+                console.log(`File already deleted or not found: ${fileId}`);
+            }
+        }
+
+        // Remove from metadata (All collected IDs + the folder itself if it exists in metadata, though folder name is passed)
+        // Note: The logic in App.jsx passes the NAME of the folder to delete.
+        // We also need to remove the folder entry itself if it exists in the root (or wherever it is) using its name/folder match?
+        // Actually, computer_files.json stores folders as items too.
+        // We should find the specific folder entry that matches 'name' and remove it too.
+        // But wait, the previous logic in App.jsx used 'name' to identify.
+        // Let's remove ANY item where name === 'name' and type === 'folder' as well?
+        // Or better yet, filter out anything that IS the target folder or IS IN the target folder (recursively found).
+
+        // Remove specific folder entry (the root of deletion)
+        filesData.files = filesData.files.filter(f => {
+            if (f.name === name && f.type === 'folder') return false; // Delete the folder itself
+            if (idsToDelete.has(f.id)) return false; // Delete children
+            return true;
+        });
+
+        await fs.writeFile(COMPUTER_FILES_JSON, JSON.stringify(filesData, null, 2));
+
+        res.json({ success: true, deletedCount: idsToDelete.size + 1 });
+    } catch (error) {
+        console.error('Delete folder error:', error);
+        res.status(500).json({ error: 'Delete folder failed' });
+    }
+});
 
 // ============================================
 // MSN CHAT API

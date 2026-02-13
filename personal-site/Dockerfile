@@ -7,7 +7,14 @@ COPY package*.json ./
 RUN npm ci --ignore-scripts
 
 COPY . .
+
 RUN npm run build
+
+# Build React app (computer-app)
+WORKDIR /app/computer-app
+RUN npm ci
+RUN npm run build
+
 
 # Stage 2: Serve the application with Nginx
 FROM nginx:alpine

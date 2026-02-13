@@ -24,6 +24,7 @@ import RightClickWindows from './components/RightClickWindows';
 import loadingSpin from './assets/loading.gif'
 import Patch from './components/Patch';
 import WindowsDragLogin from './components/WindowsDragLogin';
+import UploadApp from './components/UploadApp';
 import TaskManager from './components/TaskManager';
 import {
   StyleHide, imageMapping,
@@ -317,6 +318,9 @@ function App() {
     { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [StoreExpand, setStoreExpand] = useState(
+    { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
+
+  const [UploadExpand, setUploadExpand] = useState(
     { expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1, });
 
   const [btcShow, setBtcShow] = useState(
@@ -988,11 +992,13 @@ function App() {
     onlineUser,
     UtilityRef,
     PaintExpand, setPaintExpand,
+    UploadExpand, setUploadExpand,
     sortedIcon, setSortedIcon,
     sortIconTrigger, setSortIconTrigger,
     maxZindexRef,
     deleteIcon, setDeleteIcon,
     handleMobileLongPressBin,
+    deleteTap,
     refBeingClicked,
     binRestoreArr, setBinRestoreArr,
     rightClickBin, setRightClickBin,
@@ -1234,6 +1240,7 @@ function App() {
           photoMode={true}
         />
 
+        <UploadApp />
         <TaskManager />
         <Patch />
         <RightClickWindows />
@@ -1528,6 +1535,7 @@ function App() {
       { name: 'TaskManager', setter: setTaskManagerExpand, usestate: TaskManagerExpand, color: 'rgba(218, 160, 109, 0.85)', size: 'small' },
       { name: 'Store', setter: setStoreExpand, usestate: StoreExpand, color: 'rgba(132, 140, 207, 0.85)', size: 'small' },
       { name: 'Bitcoin', setter: setBtcShow, usestate: btcShow, color: 'rgba(132, 140, 207, 0.85)', size: 'small' },
+      { name: 'Upload', setter: setUploadExpand, usestate: UploadExpand, color: 'rgba(31, 122, 206, 0.85)', size: 'small' },
 
       // Add user folders dynamically with individual state management
       ...UserCreatedFolder.map(folder => ({
@@ -1756,6 +1764,9 @@ function App() {
             maxZindexRef.current += 1;
           }, 100);
           if (lowerCaseName === 'mail') clippySendemailfunction();
+          if (lowerCaseName === 'upload') {
+            // Upload specific logic if any, currently handled by generic setter
+          }
           if (lowerCaseName === 'winamp') clippySongFunction();
           if (lowerCaseName === 'msn') clippyUsernameFunction();
           if (lowerCaseName === 'nft') {

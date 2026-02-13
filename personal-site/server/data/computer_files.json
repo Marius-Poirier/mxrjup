@@ -1,51 +1,6 @@
 {
   "files": [
     {
-      "id": "1770966846616-666056843-dbd.jpg",
-      "name": "dbd.jpg",
-      "path": "/uploads/users/1770966846616-666056843-dbd.jpg",
-      "size": 1386493,
-      "mimeType": "image/jpeg",
-      "folder": "Project",
-      "created": "2026-02-13T07:14:06.630Z"
-    },
-    {
-      "id": "folder-1770968875143-577",
-      "name": "testzeg",
-      "type": "folder",
-      "folder": "RecycleBin",
-      "pic": "Project",
-      "size": 0,
-      "date": "2026-02-13T07:47:55.143Z"
-    },
-    {
-      "id": "folder-1770968891324-949",
-      "name": "zetzet",
-      "type": "folder",
-      "folder": "RecycleBin",
-      "pic": "Project",
-      "size": 0,
-      "date": "2026-02-13T07:48:11.324Z"
-    },
-    {
-      "id": "1770969640638-681806524-example.jpg",
-      "name": "example.jpg",
-      "path": "/uploads/users/1770969640638-681806524-example.jpg",
-      "size": 372799,
-      "mimeType": "image/jpeg",
-      "folder": "test0",
-      "created": "2026-02-13T08:00:40.654Z"
-    },
-    {
-      "id": "1770970210940-367397063-example.jpg",
-      "name": "example.jpg",
-      "path": "/uploads/users/1770970210940-367397063-example.jpg",
-      "size": 372799,
-      "mimeType": "image/jpeg",
-      "folder": "test2",
-      "created": "2026-02-13T08:10:10.943Z"
-    },
-    {
       "id": "folder-1770970224988-559",
       "name": "testRec",
       "type": "folder",
@@ -53,15 +8,6 @@
       "pic": "Project",
       "size": 0,
       "date": "2026-02-13T08:10:24.988Z"
-    },
-    {
-      "id": "1770970643421-392391226-dbd2.jpg",
-      "name": "dbd2.jpg",
-      "path": "/uploads/users/1770970643421-392391226-dbd2.jpg",
-      "size": 203869,
-      "mimeType": "image/jpeg",
-      "folder": "RecycleBin",
-      "created": "2026-02-13T08:17:23.423Z"
     },
     {
       "id": "folder-1770970929160-505",

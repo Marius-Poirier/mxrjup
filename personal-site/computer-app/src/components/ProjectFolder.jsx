@@ -169,7 +169,7 @@ function ProjectFolder() {
               className="item_container-project"
               style={{ position: dragging ? 'absolute' : '' }}
               onClick={(e) => {
-                e.stopPropagation() 
+                e.stopPropagation()
                 iconFocusIcon('');
                 handleSetFocusItemTrue('Project');
               }}
@@ -186,8 +186,21 @@ function ProjectFolder() {
                     handleSetFocusItemTrue('Project');
                   }}
                   onDrag={handleOnDrag(icon.name, iconRefs.current[icon.name])}
-                  onStop={(e) => {
-                    handleDrop(e, icon.name, dropTargetFolder, icon.folderId)
+                  onStop={(e, data) => {
+                    let target = dropTargetFolder;
+                    if (!target) {
+                      const folderRect = ProjectFolderRef.current.getBoundingClientRect();
+                      // Check if drop is outside the folder window
+                      if (
+                        e.clientX < folderRect.left ||
+                        e.clientX > folderRect.right ||
+                        e.clientY < folderRect.top ||
+                        e.clientY > folderRect.bottom
+                      ) {
+                        target = 'Desktop';
+                      }
+                    }
+                    handleDrop(e, icon.name, target, icon.folderId)
                     clearTimeout(timerRef.current)
                   }}
                   key={icon.name}

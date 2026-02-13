@@ -27,6 +27,15 @@
         "y": 3
     },
     {
+        "name": "Upload",
+        "pic": "Upload",
+        "folderId": "Desktop",
+        "size": 500,
+        "type": ".exe",
+        "x": 2,
+        "y": 3
+    },
+    {
         "name": "MineSweeper",
         "pic": "MineSweeper",
         "folderId": "Project",

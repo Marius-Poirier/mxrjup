@@ -23,8 +23,9 @@ jobs:
             mkdir -p persistent/uploads
             chmod -R 777 persistent
             
-            # Get the latest code
-            git pull origin main
+            # Force sync with remote to discard local changes/conflicts
+            git fetch origin
+            git reset --hard origin/main
             
             # Go into the project folder where docker-compose.yml is
             cd personal-site

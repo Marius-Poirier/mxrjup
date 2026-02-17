@@ -31,6 +31,7 @@ jobs:
             cd personal-site
             
             # Restart the app
+            docker compose down || true
             docker compose up -d --build
             
             # Optional: Clean up old unused images to save space

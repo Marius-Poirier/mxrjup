@@ -23,15 +23,14 @@ jobs:
             mkdir -p persistent/uploads
             chmod -R 777 persistent
             
-            # Force sync with remote to discard local changes/conflicts
-            git fetch origin
-            git reset --hard origin/main
+            # Get the latest code
+            git pull origin main
             
             # Go into the project folder where docker-compose.yml is
             cd personal-site
             
             # Restart the app
-            docker compose down || true
+            docker compose down --remove-orphans
             docker compose up -d --build
             
             # Optional: Clean up old unused images to save space

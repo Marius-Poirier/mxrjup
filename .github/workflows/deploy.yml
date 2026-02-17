@@ -18,6 +18,11 @@ jobs:
             # Go to the git root folder (adjust if your folder name is different)
             cd ~/mxrjup
             
+            # Create persistent directories for data storage
+            mkdir -p persistent/data
+            mkdir -p persistent/uploads
+            chmod -R 777 persistent
+            
             # Get the latest code
             git pull origin main
             

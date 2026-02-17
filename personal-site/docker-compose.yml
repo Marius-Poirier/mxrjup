@@ -10,8 +10,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./server/data:/app/data
-      - ./server/uploads:/app/uploads
+      - ../persistent/data:/app/data
+      - ../persistent/uploads:/app/uploads
     env_file:
       - ./server/.env
     restart: always

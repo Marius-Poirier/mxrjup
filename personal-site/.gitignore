@@ -11,6 +11,11 @@
 # Node
 # Node
 node_modules/
+server/data/*
+!server/data/.gitkeep
+server/uploads/*
+!server/uploads/.gitkeep
+
 
 npm-debug.log
 yarn-error.log

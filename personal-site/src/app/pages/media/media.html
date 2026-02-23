@@ -9,7 +9,7 @@
         <div class="media-item" (click)="openLightbox(item)">
             <div class="image-wrapper">
                 @if (item.type === 'image' || item.type === 'video') {
-                <img [src]="item.thumbnail" [alt]="item.title" loading="lazy">
+                <img [src]="item.thumbnail || item.url" [alt]="item.title" loading="lazy">
                 } @else if (item.type === 'audio') {
                 <div class="audio-placeholder">
                     <span class="format-text">MP3</span>

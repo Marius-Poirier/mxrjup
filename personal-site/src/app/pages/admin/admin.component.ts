@@ -140,6 +140,9 @@ export class AdminComponent implements OnInit {
     if (this.activeTab === 'media' && this.editingIndex === -1) {
       this.currentItem.id = Date.now().toString();
     }
+    if (this.activeTab === 'media' && this.currentItem.type === 'image') {
+      this.currentItem.thumbnail = this.currentItem.url;
+    }
     if (this.activeTab === 'credits' && this.editingIndex === -1) {
       this.currentItem.id = Date.now().toString();
     }

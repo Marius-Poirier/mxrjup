@@ -103,7 +103,8 @@
                 </label>
                 <label>Main File:
                     <input type="file" (change)="uploadFile($event, 'url')">
-                    <div *ngIf="currentItem.url">File: {{currentItem.url}}</div>
+                    <div *ngIf="currentItem.url && currentItem.type === 'image'" class="preview"><img [src]="currentItem.url"></div>
+                    <div *ngIf="currentItem.url && currentItem.type !== 'image'">File: {{currentItem.url}}</div>
                 </label>
                 <label *ngIf="currentItem.type !== 'image'">Thumbnail (Optional):
                     <input type="file" (change)="uploadFile($event, 'thumbnail')">

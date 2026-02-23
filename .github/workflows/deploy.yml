@@ -26,6 +26,9 @@ jobs:
             # Get the latest code
             git pull origin main
             
+            # Seed essential uploads (no-clobber to preserve existing files)
+            cp -n personal-site/server/seed-uploads/* persistent/uploads/ 2>/dev/null || true
+            
             # Go into the project folder where docker-compose.yml is
             cd personal-site
             

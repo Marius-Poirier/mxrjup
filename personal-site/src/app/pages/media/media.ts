@@ -25,7 +25,7 @@ export class MediaComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getData<MediaItem[]>('media').subscribe(data => {
-      this.items.set(data);
+      this.items.set((data || []).reverse());
     });
   }
 

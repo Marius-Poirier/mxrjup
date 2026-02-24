@@ -1681,6 +1681,21 @@ function App() {
 
       if (name === '' || !name) return;
 
+      // Check if it's a backend file with a path (uploaded files)
+      const backendFile = desktopIcon.find(icon => icon.name === name && icon.path);
+      if (backendFile) {
+        const ext = backendFile.name.split('.').pop().toLowerCase();
+        if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+          setCurrentPhoto({ name: backendFile.name, pic: backendFile.path });
+          handleShow('Photo');
+          return;
+        } else {
+          setProjectUrl(backendFile.path);
+          handleShow('Internet');
+          return;
+        }
+      }
+
       const lowerCaseName = name.toLowerCase().split(' ').join('');
 
       const allSetItems = ObjectState() // call all usestate object

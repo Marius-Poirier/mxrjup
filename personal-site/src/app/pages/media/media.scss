@@ -29,8 +29,8 @@
     gap: 10vw;
     /* Huge gap for that sparse product look */
     padding: 5vw;
-    align-items: start;
-    /* Align items to top so boxes stay level regardless of text length */
+    align-items: center;
+    /* Center items vertically in their grid cells */
 }
 
 .media-item {

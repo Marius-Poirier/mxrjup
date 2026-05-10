@@ -150,7 +150,7 @@ export class AdminComponent implements OnInit {
     if (this.editingIndex > -1) {
       this.currentData[this.editingIndex] = this.currentItem;
     } else {
-      this.currentData.push(this.currentItem);
+      this.currentData.unshift(this.currentItem);
     }
 
     this.dataService.saveData(this.activeTab, this.currentData).subscribe({
